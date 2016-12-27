@@ -31,6 +31,7 @@ public class MainWindow {
 	private JButton btnRoomfinder;
 	private JButton btnGotoLogin;
 	private JButton btnLogin;
+	private DBController database = new DBController();
 	 
 	
 
@@ -189,23 +190,10 @@ public class MainWindow {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnLoginClick();
-				if (txtUsername.getText().equals("akis")){
+				
+			
 					
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								
-								frmHotelKati.setVisible(false);
-								Manager window1 = new Manager();																				
-								window1.frmManager.setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					});
-					
-					
-				}
+			
 			}
 		});
 		pnLogin.add(btnLogin);
@@ -248,20 +236,24 @@ public class MainWindow {
 	
 	private void btnLoginClick() {
 		
-		
-		
-		 if(txtUsername.getText().equals("fuck")){
-				
+		if(checkLogin(txtUsername.getText(),txtPassword.getText())){
 			
-				JOptionPane.showMessageDialog(null, "fuck");
-				
-			}
 			
-			if (checkLogin(txtUsername.getText(), txtPassword.getText())) {
-				
-				
-				JOptionPane.showMessageDialog(null, "Welcome");
-			}
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						
+						frmHotelKati.setVisible(false);
+						Manager window1 = new Manager();																				
+						window1.frmManager.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		}
+		else
+			JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 			
 	
@@ -279,9 +271,8 @@ public class MainWindow {
 	}
 	
 	private boolean checkLogin(String username, String password) {
-		if (username.equals("Stelios") && password.equals("ntoumpakis"))
-			return true;
-		else
+		if (database.authenticate(username, password) == null)
 			return false;
+		return true;
 	}
 }
