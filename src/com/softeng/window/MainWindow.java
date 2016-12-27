@@ -239,8 +239,8 @@ public class MainWindow {
 		if(checkLogin(txtUsername.getText(),txtPassword.getText())){
 			
 			
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
+			
+				
 					try {
 						
 						frmHotelKati.setVisible(false);
@@ -249,9 +249,8 @@ public class MainWindow {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+				
 				}
-			});
-		}
 		else
 			JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
 	}
