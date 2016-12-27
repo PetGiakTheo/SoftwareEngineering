@@ -40,7 +40,7 @@ public class MainWindow {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.println("o stelios einai m");
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
