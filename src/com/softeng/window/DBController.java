@@ -6,12 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
+
 
 public class DBController {
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
+	java.util.Date d12,d22;
+	java.sql.Date sqldate1,sqldate2;
 
 	public DBController() {
 		
@@ -37,7 +41,8 @@ public class DBController {
 	private void disconnect() {
 		try {
 			conn.close();
-			rs.close();
+			if(rs !=null && !rs.isClosed())
+				rs.close();
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,6 +109,28 @@ public class DBController {
 		}
 		disconnect();
 		return rooms.toArray(new Room[1]); // Convert to an array before returning.
+	}
+	
+	public void Discounts(int hotel,Date d1,Date d2,int dis){
+		
+		connect();
+		
+			
+			sqldate1 = new java.sql.Date(d1.getTime());
+			sqldate2 = new java.sql.Date(d2.getTime());
+			
+			try {
+				stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );
+			} catch (SQLException e) {
+			
+				e.printStackTrace();
+			}
+			
+			
+		
+		
+		disconnect();
+		
 	}
 	
 	public Employee authenticate(String username, String password) {

@@ -20,18 +20,17 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 public class MainWindow {
-	DBController t = new DBController();
 	private JFrame frmHotelKati;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private final ButtonGroup rgHotels = new ButtonGroup();
 	private final JPanel pnLogin = new JPanel();
-	private final JPanel pnManager = new JPanel();
 	private final JPanel pnCustomer = new JPanel();
 	private JButton btnRoomfinder;
 	private JButton btnGotoLogin;
 	private JButton btnLogin;
 	private DBController database = new DBController();
+	private JButton btnCustomerLogin;
 	 
 	
 
@@ -172,30 +171,16 @@ public class MainWindow {
 		
 		
 		
-		JButton btnCustomerLogin = new JButton("I am a customer");
+		btnCustomerLogin = new JButton("I am a customer");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnCustomerLogin, 60, SpringLayout.SOUTH, txtPassword);
 		sl_panel.putConstraint(SpringLayout.EAST, btnCustomerLogin, 0, SpringLayout.EAST, txtPassword);
-		btnCustomerLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pnLogin.setVisible(false);
-				pnCustomer.setVisible(true);
-				
-			}
-		});
+		
 		pnLogin.add(btnCustomerLogin);
 		
 		btnLogin = new JButton("Login");
 		sl_panel.putConstraint(SpringLayout.WEST, btnLogin, 175, SpringLayout.WEST, pnLogin);
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnLogin, -6, SpringLayout.NORTH, btnCustomerLogin);
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnLoginClick();
-				
-			
-					
-			
-			}
-		});
+		
 		pnLogin.add(btnLogin);
 		
 		
@@ -206,6 +191,25 @@ public class MainWindow {
 	
 	}
 	private void Events() {
+		
+		
+		btnCustomerLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pnLogin.setVisible(false);
+				pnCustomer.setVisible(true);
+				
+			}
+		});
+		
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnLoginClick();
+				
+			
+					
+			
+			}
+		});
 	
 		btnRoomfinder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
