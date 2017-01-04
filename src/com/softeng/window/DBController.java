@@ -41,7 +41,7 @@ public class DBController {
 	private void disconnect() {
 		try {
 			conn.close();
-			if(rs !=null && !rs.isClosed())
+			if(rs != null && !rs.isClosed())
 				rs.close();
 			stmt.close();
 		} catch (SQLException e) {
@@ -50,6 +50,9 @@ public class DBController {
 	}
 	
 	public void fillData() {
+		// Fill db with random rooms
+		
+		
 		connect();
 		Random r = new Random();
 		final int amount = 100;
@@ -111,7 +114,7 @@ public class DBController {
 		return rooms.toArray(new Room[1]); // Convert to an array before returning.
 	}
 	
-	public void Discounts(int hotel,Date d1,Date d2,int dis){
+	public void addDiscount(int hotel, Date d1, Date d2, int dis){
 		
 		connect();
 		
