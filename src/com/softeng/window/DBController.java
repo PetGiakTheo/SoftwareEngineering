@@ -136,6 +136,11 @@ public class DBController {
 		
 	}
 	
+	public void showStats(){
+		
+	}
+	
+	
 	public Employee authenticate(String username, String password) {
 		Employee employee = null;
 		connect();
