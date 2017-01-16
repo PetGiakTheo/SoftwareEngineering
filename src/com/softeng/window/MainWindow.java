@@ -19,6 +19,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import com.softeng.misc.DBController;
+import com.softeng.misc.Employee;
+
 public class MainWindow {
 	private JFrame frmMain;
 	private JTextField txtUsername;
@@ -211,8 +214,10 @@ public class MainWindow {
 	}
 
 	private void btnLoginClick() {
-
-		if (checkLogin(txtUsername.getText(), txtPassword.getText())) {
+		Employee emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
+		if (emp == null)
+			JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
+		else if (emp.getType().equals(Employee.TYPE_ADMIN)) {
 			try {
 
 				frmMain.setVisible(false);
@@ -222,8 +227,21 @@ public class MainWindow {
 				e.printStackTrace();
 			}
 
-		} else
-			JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
+		} 
+		else if (emp.getType().equals(Employee.TYPE_STAFF)) {
+			try {
+
+				frmMain.setVisible(false);
+				EmployeeWindow window1 = new EmployeeWindow();
+				window1.frmEmployee.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			emp.printData();
+			JOptionPane.showMessageDialog(null, "Invalid user type.\nThis should never happen.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	private void btnRoomfinderClick() {
@@ -237,11 +255,5 @@ public class MainWindow {
 				}
 			}
 		});
-	}
-
-	private boolean checkLogin(String username, String password) {
-		if (database.authenticate(username, password) == null)
-			return false;
-		return true;
 	}
 }

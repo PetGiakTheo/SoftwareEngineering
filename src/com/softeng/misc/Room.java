@@ -1,4 +1,4 @@
-package com.softeng.window;
+package com.softeng.misc;
 
 public class Room {
 	

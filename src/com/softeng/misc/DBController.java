@@ -1,4 +1,4 @@
-package com.softeng.window;
+package com.softeng.misc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -20,6 +20,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import com.softeng.misc.DBController;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -71,6 +72,7 @@ public class ManagerWindow {
 	 */
 	// /*
 	 // DEN XREIAZETAI DEUTERH MAIN
+	// FTIAKSE KOUMPI NA PAEI PISO RE SKOUPIDI
 	  public static void main(String[] args) { 
 		  EventQueue.invokeLater(new Runnable() { 
 			  public void run() { 
