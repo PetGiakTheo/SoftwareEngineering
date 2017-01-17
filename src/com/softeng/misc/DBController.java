@@ -101,7 +101,7 @@ public class DBController {
 			rs = stmt.executeQuery("select * from " + table + " where singleBeds=" + strSingleBeds + " and doubleBeds=" + strDoubleBeds + " and children=" + strChildren + " and type='" + strVip + "' and sale=" + strSale);
 			
 			while(rs.next()) {
-				Room room = new Room(rs.getInt("id"), rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("children"),  rs.getBoolean("sale"));
+				Room room = new Room(rs.getInt("id"), rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("children"));
 				rooms.add(room);
 			}
 			
@@ -112,6 +112,36 @@ public class DBController {
 		}
 		disconnect();
 		return rooms.toArray(new Room[1]); // Convert to an array before returning.
+	}
+	
+	public Room getRoomWithId(int id) {
+		Room room = null;
+		connect();
+		
+		try {
+			rs = stmt.executeQuery("select * from rooms1 where id=" + Integer.toString(id));
+			if (rs.next()) {
+				room = new Room(id, rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("type"));
+				room.printData();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		disconnect();
+		return room;
+	}
+	
+	public void saveRoomAtId(int id, Room room) {
+		connect();
+		
+		try {
+			stmt.executeUpdate("update rooms1 set singleBeds=" + Integer.toString(room.getSingleBeds()) + ",doubleBeds=" + Integer.toString(room.getDoubleBeds()) + ", type=" + room.getType() + " where id=" + Integer.toString(id));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		disconnect();
 	}
 	
 	public void addDiscount(int hotel, Date d1, Date d2, int dis){

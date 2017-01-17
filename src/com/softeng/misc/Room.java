@@ -6,23 +6,45 @@ public class Room {
 	public static final String TYPE_VIP = "vip";
 	
 	private String type;
-	public int id;
+	private int id;
 	private int singleBeds;
 	private int doubleBeds;
-	private boolean occupied;
-	private boolean sale;
 	
 	private double price;
 	
-	public Room (int id, int singleBeds, int doubleBeds,  String type, boolean sale) {
+	public Room (int id, int singleBeds, int doubleBeds,  String type) {
 		this.id = id;
 		this.singleBeds = singleBeds;
 		this.doubleBeds = doubleBeds;
-		this.sale = sale;
-		
 		this.type = type;
-		occupied = false;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getSingleBeds() {
+		return singleBeds;
+	}
+
+	public int getDoubleBeds() {
+		return doubleBeds;
+	}
+
+	public double getPrice() {
+		return price;
 	}
 	
-
+	public void printData() {
+		// Debug method.
+		
+		System.out.println("Id =\t\t" + Integer.toString(id));
+		System.out.println("Type =\t\t" + type);
+		System.out.println("Single beds =\t" + Integer.toString(singleBeds));
+		System.out.println("Double beds =\t" + Integer.toString(doubleBeds));
+	}
 }
