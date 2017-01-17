@@ -20,7 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import com.softeng.misc.DBController;
-import com.softeng.misc.Employee;
+import com.softeng.misc.User;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainWindow {
 	private JFrame frmMain;
@@ -34,6 +36,8 @@ public class MainWindow {
 	private JButton btnLogin;
 	private DBController database = new DBController();
 	private JButton btnCustomerLogin;
+	
+	public static User currentUser = null;
 
 	/**
 	 * Launch the application.
@@ -77,6 +81,14 @@ public class MainWindow {
 		pnLogin.setLayout(sl_panel);
 
 		txtPassword = new JPasswordField();
+		txtPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnLoginClick();
+				}
+			}
+		});
 		pnLogin.add(txtPassword);
 
 		JLabel lblPassword = new JLabel("Password:");
@@ -85,6 +97,14 @@ public class MainWindow {
 		pnLogin.add(lblPassword);
 
 		txtUsername = new JTextField();
+		txtUsername.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnLoginClick();
+				}
+			}
+		});
 		sl_panel.putConstraint(SpringLayout.EAST, txtPassword, 0, SpringLayout.EAST, txtUsername);
 		pnLogin.add(txtUsername);
 		txtUsername.setColumns(10);
@@ -214,12 +234,12 @@ public class MainWindow {
 	}
 
 	private void btnLoginClick() {
-		Employee emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
+		User emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
 		if (emp == null)
 			JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
-		else if (emp.getType().equals(Employee.TYPE_ADMIN)) {
+		else if (emp.getType().equals(User.TYPE_ADMIN)) {
 			try {
-
+				currentUser = emp;
 				frmMain.setVisible(false);
 				ManagerWindow window1 = new ManagerWindow();
 				window1.frmManager.setVisible(true);
@@ -228,9 +248,9 @@ public class MainWindow {
 			}
 
 		} 
-		else if (emp.getType().equals(Employee.TYPE_STAFF)) {
+		else if (emp.getType().equals(User.TYPE_STAFF)) {
 			try {
-
+				currentUser = emp;
 				frmMain.setVisible(false);
 				EmployeeWindow window1 = new EmployeeWindow();
 				window1.frmEmployee.setVisible(true);

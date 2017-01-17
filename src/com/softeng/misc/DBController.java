@@ -141,15 +141,15 @@ public class DBController {
 	}
 	
 	
-	public Employee authenticate(String username, String password) {
-		Employee employee = null;
+	public User authenticate(String username, String password) {
+		User employee = null;
 		connect();
 		
 		try {
 			rs = stmt.executeQuery("select * from employees1 where username='" + username + "' and password='" + password + "'");
 			
 			if (rs.next()) {
-				employee = new Employee(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("type"));
+				employee = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("type"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -72,7 +72,8 @@ public class ManagerWindow {
 	 */
 	// /*
 	 // DEN XREIAZETAI DEUTERH MAIN
-	// FTIAKSE KOUMPI NA PAEI PISO RE SKOUPIDI
+	// FTIAKSE KOUMPI NA PAEI PISO RE SKOUPIDI!
+	// GIATI AFAIREIS SXOLIA ME SXOLIA RE LEKE?
 	  public static void main(String[] args) { 
 		  EventQueue.invokeLater(new Runnable() { 
 			  public void run() { 

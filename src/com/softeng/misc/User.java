@@ -1,16 +1,16 @@
 package com.softeng.misc;
 
-public class Employee {
+public class User {
 
 	public static final String TYPE_STAFF = "staff";
 	public static final String TYPE_ADMIN = "admin";
 	
 	private int id;
-	public String type;
+	private String type;
 	private String username;
 	private String password;
 	
-	public Employee(int id, String username, String password, String type) {
+	public User(int id, String username, String password, String type) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
