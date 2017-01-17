@@ -1,5 +1,6 @@
 package com.softeng.misc;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,6 +10,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import javax.swing.JPanel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.jdbc.JDBCCategoryDataset;
+
 
 public class DBController {
 	private Connection conn = null;
@@ -16,6 +27,7 @@ public class DBController {
 	private ResultSet rs = null;
 	java.util.Date d12,d22;
 	java.sql.Date sqldate1,sqldate2;
+	public ChartPanel chartPanel;
 
 	public DBController() {
 		
@@ -135,9 +147,46 @@ public class DBController {
 		disconnect();
 		
 	}
+	public void signup(String username,String password,String type){
+		connect();
+		
+		try {
+			stmt.executeUpdate("insert into employees1 (username,password,type) values('" + username + "','" + password + "','" + type + "');");
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		
+		disconnect();
+	}
 	
 	public void showStats(){
+		connect();
+		try {
 		
+			
+			String query ="select type,singleBeds from rooms1;";
+			JDBCCategoryDataset dataset = new JDBCCategoryDataset(conn,query);
+			
+			JFreeChart chart = ChartFactory.createBarChart3D("RoomsPerType", "Rooms", "Type", dataset);
+			
+			CategoryPlot plot = chart.getCategoryPlot();
+			plot.setRangeGridlinePaint(Color.black);
+			chartPanel = new ChartPanel(chart);
+			 
+			 
+			 
+			
+			
+			
+			//	rs = stmt.executeQuery(query);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+	
 	}
 	
 	

@@ -25,7 +25,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class MainWindow {
-	private JFrame frmMain;
+	public JFrame frmMain;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private final ButtonGroup rgHotels = new ButtonGroup();

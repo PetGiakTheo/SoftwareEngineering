@@ -20,7 +20,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import org.jfree.chart.ChartPanel;
+
 import com.softeng.misc.DBController;
+import com.softeng.misc.User;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -35,6 +38,13 @@ import java.awt.Panel;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 import javax.swing.JPasswordField;
+import javax.swing.JList;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextArea;
+import javax.swing.JSeparator;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.BoxLayout;
 
 public class ManagerWindow {
 
@@ -60,12 +70,17 @@ public class ManagerWindow {
 	java.sql.Date sqldt;
 	private int htl;
 	int dis;
-	private JTextField textField;
-	private JTextField textField_3;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
-	private JPasswordField passwordField_2;
+	private JTextField txtUsernameQ;
+	private JTextField txtUsername;
+	private JPasswordField txtPassword;
+	private JPasswordField txtPasswordQ;
+	private JPasswordField txtCfPassword;
 	private JButton btnShow;
+	private JButton btnDelete;
+	private JButton btnSignup;
+	private JButton btnBack;
+	private JComboBox cbType;
+	public JPanel pnBox;
 
 	/**
 	 * Launch the application.
@@ -129,10 +144,10 @@ public class ManagerWindow {
 										lblUsername.setBounds(38, 73, 125, 25);
 										pnAdd.add(lblUsername);
 										
-										textField = new JTextField();
-										textField.setBounds(163, 75, 103, 20);
-										pnAdd.add(textField);
-										textField.setColumns(10);
+										txtUsernameQ = new JTextField();
+										txtUsernameQ.setBounds(163, 75, 103, 20);
+										pnAdd.add(txtUsernameQ);
+										txtUsernameQ.setColumns(10);
 										
 										JLabel lblPassword = new JLabel("             Password :");
 										lblPassword.setBounds(38, 109, 125, 25);
@@ -145,6 +160,9 @@ public class ManagerWindow {
 										JPanel pnDelete = new JPanel();
 										pnDelete.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 										pnDelete.setBackground(new Color(176, 196, 222));
+										
+										btnBack = new JButton("Back");
+									
 										GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
 										gl_pnManageStaff.setHorizontalGroup(
 											gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
@@ -152,6 +170,10 @@ public class ManagerWindow {
 													.addComponent(pnAdd, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
 													.addComponent(pnDelete, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE))
+												.addGroup(Alignment.TRAILING, gl_pnManageStaff.createSequentialGroup()
+													.addContainerGap(474, Short.MAX_VALUE)
+													.addComponent(btnBack)
+													.addContainerGap())
 										);
 										gl_pnManageStaff.setVerticalGroup(
 											gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
@@ -160,7 +182,9 @@ public class ManagerWindow {
 													.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING, false)
 														.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 														.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
-													.addContainerGap(58, Short.MAX_VALUE))
+													.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+													.addComponent(btnBack)
+													.addContainerGap())
 										);
 										pnDelete.setLayout(null);
 										
@@ -172,34 +196,45 @@ public class ManagerWindow {
 										label_3.setBounds(10, 85, 125, 25);
 										pnDelete.add(label_3);
 										
-										textField_3 = new JTextField();
-										textField_3.setColumns(10);
-										textField_3.setBounds(135, 87, 86, 20);
-										pnDelete.add(textField_3);
+										txtUsername = new JTextField();
+										txtUsername.setColumns(10);
+										txtUsername.setBounds(135, 87, 86, 20);
+										pnDelete.add(txtUsername);
 										
 										JLabel label_4 = new JLabel("             Password :");
 										label_4.setBounds(10, 119, 125, 25);
 										pnDelete.add(label_4);
 										
-										passwordField = new JPasswordField();
-										passwordField.setBounds(135, 121, 86, 20);
-										pnDelete.add(passwordField);
+										txtPassword = new JPasswordField();
+										txtPassword.setBounds(135, 121, 86, 20);
+										pnDelete.add(txtPassword);
 										
-										JButton btnDelete = new JButton("Delete");
+										btnDelete = new JButton("Delete");
+										
 										btnDelete.setBounds(150, 200, 71, 23);
 										pnDelete.add(btnDelete);
 										
-										JButton btnNewButton = new JButton("Sign Up");
-										btnNewButton.setBounds(177, 211, 89, 23);
-										pnAdd.add(btnNewButton);
+										btnSignup = new JButton("Sign Up");
 										
-										passwordField_1 = new JPasswordField();
-										passwordField_1.setBounds(163, 111, 103, 20);
-										pnAdd.add(passwordField_1);
+										btnSignup.setBounds(187, 279, 89, 23);
+										pnAdd.add(btnSignup);
 										
-										passwordField_2 = new JPasswordField();
-										passwordField_2.setBounds(163, 145, 103, 20);
-										pnAdd.add(passwordField_2);
+										txtPasswordQ = new JPasswordField();
+										txtPasswordQ.setBounds(163, 111, 103, 20);
+										pnAdd.add(txtPasswordQ);
+										
+										txtCfPassword = new JPasswordField();
+										txtCfPassword.setBounds(163, 145, 103, 20);
+										pnAdd.add(txtCfPassword);
+										
+										JLabel lblType = new JLabel("                          Type :");
+										lblType.setBounds(28, 176, 125, 20);
+										pnAdd.add(lblType);
+										
+										cbType = new JComboBox();
+										cbType.setModel(new DefaultComboBoxModel(new String[] {"admin", "staff"}));
+										cbType.setBounds(163, 176, 72, 25);
+										pnAdd.add(cbType);
 										pnManageStaff.setLayout(gl_pnManageStaff);
 		
 				pnDiscounts = new JPanel();
@@ -208,7 +243,7 @@ public class ManagerWindow {
 				pnDiscounts.setBorder(null);
 				
 						pnlbls = new JPanel();
-						pnlbls.setBackground(Color.LIGHT_GRAY);
+						pnlbls.setBackground(SystemColor.inactiveCaption);
 						pnlbls.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 						pnlbls.setLayout(null);
 						
@@ -267,6 +302,7 @@ rh5 = new JRadioButton("hotel 5");
 rh5.setBackground(SystemColor.activeCaption);
 HotelGroup.add(rh5);
 SpringLayout sl_pnDiscounts = new SpringLayout();
+sl_pnDiscounts.putConstraint(SpringLayout.EAST, txtdis, 357, SpringLayout.WEST, pnDiscounts);
 sl_pnDiscounts.putConstraint(SpringLayout.WEST, endDate, 271, SpringLayout.WEST, pnDiscounts);
 sl_pnDiscounts.putConstraint(SpringLayout.SOUTH, endDate, -78, SpringLayout.NORTH, label_2);
 sl_pnDiscounts.putConstraint(SpringLayout.NORTH, txtdis, 184, SpringLayout.NORTH, pnDiscounts);
@@ -324,15 +360,39 @@ pnDiscounts.add(txtdis);
 JPanel pnStatistics = new JPanel();
 pnStatistics.setBackground(SystemColor.activeCaption);
 tabbedPane.addTab("Statistics", null, pnStatistics, null);
-pnStatistics.setLayout(null);
 btnShow = new JButton("Show");
-
-btnShow.setBounds(154, 217, 89, 23);
-pnStatistics.add(btnShow);
+pnBox = new JPanel();
+pnBox.setBackground(SystemColor.inactiveCaption);
+pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.X_AXIS));
+GroupLayout gl_pnStatistics = new GroupLayout(pnStatistics);
+gl_pnStatistics.setHorizontalGroup(
+	gl_pnStatistics.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_pnStatistics.createSequentialGroup()
+			.addContainerGap(223, Short.MAX_VALUE)
+			.addComponent(btnShow, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+			.addGap(261))
+		.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+);
+gl_pnStatistics.setVerticalGroup(
+	gl_pnStatistics.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_pnStatistics.createSequentialGroup()
+			.addGap(11)
+			.addComponent(btnShow)
+			.addGap(11)
+			.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
+);
+pnStatistics.setLayout(gl_pnStatistics);
 
 	}
 
 	public void event() {
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmManager.setVisible(false);
+				MainWindow window1 = new MainWindow();
+				window1.frmMain.setVisible(true);
+			}
+		});
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnOKClick();
@@ -343,11 +403,45 @@ pnStatistics.add(btnShow);
 				btnShowClick();
 			}
 		});
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				User emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
+				if (emp == null)
+					JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
+				
+			}
+		});
+		btnSignup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			
+		
+				
+			if(txtPasswordQ.getText().equals(txtCfPassword.getText())){
+				
+				int  k = cbType.getSelectedIndex();
+				if(k == 0)
+					database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),"admin");
+				else
+					database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),"staff");
+			}else
+				JOptionPane.showMessageDialog(null, "Passwords must match", "Error", JOptionPane.ERROR_MESSAGE);
+			
+			
+			
+				
+		}
+			
+		});
 
 	}
 
 	private void btnShowClick(){
+		
 		database.showStats();
+		pnBox.removeAll();
+		pnBox.add(database.chartPanel);
+		pnBox.updateUI();
 	}
 	
 	private void btnOKClick() {
