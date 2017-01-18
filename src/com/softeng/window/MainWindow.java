@@ -243,6 +243,7 @@ public class MainWindow {
 				frmMain.setVisible(false);
 				ManagerWindow window1 = new ManagerWindow();
 				window1.frmManager.setVisible(true);
+				JOptionPane.showMessageDialog(null, "Welcome, "+txtUsername.getText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

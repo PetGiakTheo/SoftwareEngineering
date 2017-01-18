@@ -23,6 +23,7 @@ import javax.swing.border.SoftBevelBorder;
 //import org.jfree.chart.ChartPanel;
 
 import com.softeng.misc.DBController;
+import com.softeng.misc.Discount;
 import com.softeng.misc.User;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
@@ -45,6 +46,7 @@ import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.BoxLayout;
+import java.awt.Point;
 
 public class ManagerWindow {
 
@@ -78,18 +80,15 @@ public class ManagerWindow {
 	private JButton btnShow;
 	private JButton btnDelete;
 	private JButton btnSignup;
-	private JButton btnBack;
+	private JButton btnLogout;
 	private JComboBox cbType;
 	public JPanel pnBox;
 
 	/**
 	 * Launch the application.
 	 */
-	// /*
+	// /* TODO Remove main.
 	 // DEN XREIAZETAI DEUTERH MAIN
-	// FTIAKSE KOUMPI NA PAEI PISO RE SKOUPIDI!
-	// GIATI AFAIREIS SXOLIA ME SXOLIA RE LEKE?
-	// TO KOUMPI NA LEGETAI LOGOUT RE AXRHSTE! TI BACK KAI PAPARIES?
 	  public static void main(String[] args) { 
 		  EventQueue.invokeLater(new Runnable() { 
 			  public void run() { 
@@ -123,6 +122,11 @@ public class ManagerWindow {
 		frmManager.setBounds(100, 100, 594, 510);
 		frmManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmManager.getContentPane().setLayout(new CardLayout(0, 0));
+		
+		if (MainWindow.currentUser != null)
+			frmManager.setTitle("Manager - " + MainWindow.currentUser.getUsername());
+		else
+			frmManager.setTitle("Manager - Unknown");
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(new Color(105, 105, 105));
@@ -162,7 +166,7 @@ public class ManagerWindow {
 										pnDelete.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 										pnDelete.setBackground(new Color(176, 196, 222));
 										
-										btnBack = new JButton("Back");
+										btnLogout = new JButton("Logout");
 									
 										GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
 										gl_pnManageStaff.setHorizontalGroup(
@@ -173,7 +177,7 @@ public class ManagerWindow {
 													.addComponent(pnDelete, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE))
 												.addGroup(Alignment.TRAILING, gl_pnManageStaff.createSequentialGroup()
 													.addContainerGap(474, Short.MAX_VALUE)
-													.addComponent(btnBack)
+													.addComponent(btnLogout)
 													.addContainerGap())
 										);
 										gl_pnManageStaff.setVerticalGroup(
@@ -184,7 +188,7 @@ public class ManagerWindow {
 														.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 														.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
 													.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-													.addComponent(btnBack)
+													.addComponent(btnLogout)
 													.addContainerGap())
 										);
 										pnDelete.setLayout(null);
@@ -233,7 +237,7 @@ public class ManagerWindow {
 										pnAdd.add(lblType);
 										
 										cbType = new JComboBox();
-										cbType.setModel(new DefaultComboBoxModel(new String[] {"admin", "staff"}));
+										cbType.setModel(new DefaultComboBoxModel(new String[] {"Admin", "Staff"}));
 										cbType.setBounds(163, 176, 72, 25);
 										pnAdd.add(cbType);
 										pnManageStaff.setLayout(gl_pnManageStaff);
@@ -387,7 +391,7 @@ pnStatistics.setLayout(gl_pnStatistics);
 	}
 
 	public void event() {
-		btnBack.addActionListener(new ActionListener() {
+		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmManager.setVisible(false);
 				MainWindow window1 = new MainWindow();
@@ -406,42 +410,56 @@ pnStatistics.setLayout(gl_pnStatistics);
 		});
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
-				if (emp == null)
-					JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
-				
+				btnDelete();
 			}
 		});
 		btnSignup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
-			
-		
-				
-			if(txtPasswordQ.getText().equals(txtCfPassword.getText())){
-				
-				int  k = cbType.getSelectedIndex();
-				if(k == 0)
-					database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),"admin");
-				else
-					database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),"staff");
-			}else
-				JOptionPane.showMessageDialog(null, "Passwords must match", "Error", JOptionPane.ERROR_MESSAGE);
-			
-			
-			
-				
-		}
-			
+				btnsignup();
+			}
 		});
+		
+	}
+	private void showDisc(){
+		
+		//database.showDiscount();
 
+	}
+	private void btnDelete(){
+		User emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
+		if(emp==null)
+			JOptionPane.showMessageDialog(null, "User Does Not Exist.", "Error", JOptionPane.ERROR_MESSAGE);
+		else{
+			database.delete(txtUsername.getText());
+			txtUsername.setText("");
+			txtPassword.setText("");
+		}
+	}
+	private void btnsignup(){
+		if(txtPasswordQ.getText().equals(txtCfPassword.getText())){
+			
+			int  k = cbType.getSelectedIndex();
+			if(k == 0){
+				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),User.TYPE_ADMIN);
+				txtUsernameQ.setText("");
+				txtPasswordQ.setText("");
+				txtCfPassword.setText("");
+			}else{
+				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),User.TYPE_STAFF);
+				txtUsernameQ.setText("");
+				txtPasswordQ.setText("");
+				txtCfPassword.setText("");
+			}
+		}else
+			JOptionPane.showMessageDialog(null, "Passwords must match", "Error", JOptionPane.ERROR_MESSAGE);	
+	
 	}
 
 	private void btnShowClick(){
 		
 		database.showStats();
 		pnBox.removeAll();
-		//pnBox.add(database.chartPanel);
+		pnBox.add(database.chartPanel);
 		pnBox.updateUI();
 	}
 	

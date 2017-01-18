@@ -10,23 +10,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-<<<<<<< HEAD
+
 import org.jfree.chart.ChartFactory;
-=======
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/*import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
->>>>>>> refs/remotes/origin/master
+
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
-<<<<<<< HEAD
+
 import org.jfree.data.jdbc.JDBCCategoryDataset;
-=======
+
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.jdbc.JDBCCategoryDataset;*/
->>>>>>> refs/remotes/origin/master
+import org.jfree.data.jdbc.JDBCCategoryDataset;
+
 
 
 
@@ -36,7 +37,7 @@ public class DBController {
 	private ResultSet rs = null;
 	java.util.Date d12,d22;
 	java.sql.Date sqldate1,sqldate2;
-	//public ChartPanel chartPanel;
+	public ChartPanel chartPanel;
 
 	public DBController() {
 		
@@ -126,7 +127,7 @@ public class DBController {
 				rooms.add(room);
 			}
 			
-			rs.close();
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -134,6 +135,27 @@ public class DBController {
 		disconnect();
 		return rooms.toArray(new Room[1]); // Convert to an array before returning.
 	}
+/*	public Discount[] showDiscount(){
+		connect();
+		ArrayList<Discount> discs = new ArrayList<Discount>();
+		
+		try {
+			rs = stmt.executeQuery("select * from discounts ;");
+			
+			while(rs.next()) {
+				Discount disc = new Discount(rs.getInt("id"),rs.getInt("hotel"),rs.getString("strDate"),rs.getString("endDate"), rs.getInt("percentage"));
+				discs.add(disc);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		disconnect();
+		return discs.toArray(new Discount[1]);
+	}   */
 	
 	public Room getRoomWithId(int id) {
 		Room room = null;
@@ -173,7 +195,24 @@ public class DBController {
 			sqldate2 = new java.sql.Date(d2.getTime());
 			
 			try {
-				stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );
+				
+				rs = stmt.executeQuery("select * from discounts where hotel='" + hotel + "'");
+				
+				if (rs.next()) {
+				int r =	JOptionPane.showConfirmDialog(null, "The Hotel "+hotel+" has already a discount, do you want to remove this and add this one?");
+				if (r==JOptionPane.YES_OPTION){
+					stmt.executeUpdate("delete from discounts where hotel = '" + hotel + "';");
+					stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );
+					JOptionPane.showMessageDialog(null, "Discount Changed");
+				}else{
+					JOptionPane.showMessageDialog(null, "The discount is the same");
+				}
+				}else{
+					stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );
+					JOptionPane.showMessageDialog(null, "Discount Changed");
+				}
+				
+				
 			} catch (SQLException e) {
 			
 				e.printStackTrace();
@@ -189,7 +228,15 @@ public class DBController {
 		connect();
 		
 		try {
+			
+			rs = stmt.executeQuery("select * from employees1 where username='" + username + "'");
+			
+			if (rs.next()) {
+				JOptionPane.showMessageDialog(null, "User already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+			}else{
 			stmt.executeUpdate("insert into employees1 (username,password,type) values('" + username + "','" + password + "','" + type + "');");
+			JOptionPane.showMessageDialog(null, "Done.");
+			}
 		} catch (SQLException e) {
 		
 			e.printStackTrace();
@@ -197,9 +244,9 @@ public class DBController {
 		
 		disconnect();
 	}
-	
+
 	public void showStats(){
-		/*connect();
+		connect();
 		try {
 		
 			
@@ -211,19 +258,13 @@ public class DBController {
 			CategoryPlot plot = chart.getCategoryPlot();
 			plot.setRangeGridlinePaint(Color.black);
 			chartPanel = new ChartPanel(chart);
-			 
-			 
-			 
-			
-			
-			
-			//	rs = stmt.executeQuery(query);
+	//	rs = stmt.executeQuery(query);
 			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		disconnect();*/
+		disconnect();
 	
 	}
 	
@@ -245,4 +286,17 @@ public class DBController {
 		disconnect();
 		return employee;
 	}
+
+	public void delete(String username) {
+		connect();
+		try {
+			stmt.executeUpdate("delete from employees1 where username = '" + username + "';");
+			JOptionPane.showMessageDialog(null, "Done.");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+	}
 }
+
