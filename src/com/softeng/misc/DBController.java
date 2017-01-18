@@ -10,15 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-import javax.swing.JPanel;
-
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
+
 
 
 public class DBController {
