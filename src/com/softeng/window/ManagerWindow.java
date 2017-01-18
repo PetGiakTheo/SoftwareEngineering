@@ -20,7 +20,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import org.jfree.chart.ChartPanel;
+//import org.jfree.chart.ChartPanel;
 
 import com.softeng.misc.DBController;
 import com.softeng.misc.User;
@@ -89,6 +89,7 @@ public class ManagerWindow {
 	 // DEN XREIAZETAI DEUTERH MAIN
 	// FTIAKSE KOUMPI NA PAEI PISO RE SKOUPIDI!
 	// GIATI AFAIREIS SXOLIA ME SXOLIA RE LEKE?
+	// TO KOUMPI NA LEGETAI LOGOUT RE AXRHSTE! TI BACK KAI PAPARIES?
 	  public static void main(String[] args) { 
 		  EventQueue.invokeLater(new Runnable() { 
 			  public void run() { 
@@ -440,7 +441,7 @@ pnStatistics.setLayout(gl_pnStatistics);
 		
 		database.showStats();
 		pnBox.removeAll();
-		pnBox.add(database.chartPanel);
+		//pnBox.add(database.chartPanel);
 		pnBox.updateUI();
 	}
 	

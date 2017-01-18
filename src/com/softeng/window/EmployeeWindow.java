@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dialog.ModalExclusionType;
 
 public class EmployeeWindow {
 
@@ -46,6 +47,7 @@ public class EmployeeWindow {
 		// TODO Delete following line.
 		MainWindow.currentUser = database.authenticate("stelios", "ntou");
 		frmEmployee = new JFrame();
+		frmEmployee.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		if (MainWindow.currentUser != null)
 			frmEmployee.setTitle("Employee - " + MainWindow.currentUser.getUsername());
 		else
@@ -66,7 +68,7 @@ public class EmployeeWindow {
 		JButton btnMngReservations = new JButton("Manage reservations");
 		btnMngReservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnManageReservationsClicked();
+				btnManageReservationsClick();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnMngReservations, 20, SpringLayout.SOUTH, lblNewLabel);
@@ -77,7 +79,7 @@ public class EmployeeWindow {
 		JButton btnMngRooms = new JButton("Manage rooms");
 		btnMngRooms.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnManageRoomsClicked();
+				btnManageRoomsClick();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnMngRooms, 20, SpringLayout.SOUTH, btnMngReservations);
@@ -88,24 +90,42 @@ public class EmployeeWindow {
 		JButton btnSearchRooms = new JButton("Search for rooms");
 		btnSearchRooms.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnSearchRoomsClicked();
+				btnSearchRoomsClick();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnSearchRooms, 20, SpringLayout.SOUTH, btnMngRooms);
 		springLayout.putConstraint(SpringLayout.WEST, btnSearchRooms, 0, SpringLayout.WEST, btnMngReservations);
 		springLayout.putConstraint(SpringLayout.EAST, btnSearchRooms, 0, SpringLayout.EAST, lblNewLabel);
 		frmEmployee.getContentPane().add(btnSearchRooms);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnLogoutClick();
+			}
+		});
+		springLayout.putConstraint(SpringLayout.SOUTH, btnLogout, -10, SpringLayout.SOUTH, frmEmployee.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnLogout, -10, SpringLayout.EAST, frmEmployee.getContentPane());
+		frmEmployee.getContentPane().add(btnLogout);
 	}
 	
-	private void btnManageRoomsClicked() {
+	private void btnManageRoomsClick() {
+		frmEmployee.setVisible(false);
+		RoomManagerWindow window = new RoomManagerWindow(this);
+		window.frmRoomManager.setVisible(true);
+	}
+	
+	private void btnManageReservationsClick() {
 		
 	}
 	
-	private void btnManageReservationsClicked() {
+	private void btnSearchRoomsClick() {
 		
 	}
 	
-	private void btnSearchRoomsClicked() {
-		
+	private void btnLogoutClick() {
+		frmEmployee.setVisible(false);
+		MainWindow window = new MainWindow();
+		window.frmMain.setVisible(true);
 	}
 }

@@ -10,11 +10,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+<<<<<<< HEAD
 import org.jfree.chart.ChartFactory;
+=======
+import javax.swing.JPanel;
+
+/*import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+>>>>>>> refs/remotes/origin/master
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
+<<<<<<< HEAD
 import org.jfree.data.jdbc.JDBCCategoryDataset;
+=======
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.jdbc.JDBCCategoryDataset;*/
+>>>>>>> refs/remotes/origin/master
 
 
 
@@ -24,7 +36,7 @@ public class DBController {
 	private ResultSet rs = null;
 	java.util.Date d12,d22;
 	java.sql.Date sqldate1,sqldate2;
-	public ChartPanel chartPanel;
+	//public ChartPanel chartPanel;
 
 	public DBController() {
 		
@@ -131,7 +143,6 @@ public class DBController {
 			rs = stmt.executeQuery("select * from rooms1 where id=" + Integer.toString(id));
 			if (rs.next()) {
 				room = new Room(id, rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("type"));
-				room.printData();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,7 +156,7 @@ public class DBController {
 		connect();
 		
 		try {
-			stmt.executeUpdate("update rooms1 set singleBeds=" + Integer.toString(room.getSingleBeds()) + ",doubleBeds=" + Integer.toString(room.getDoubleBeds()) + ", type=" + room.getType() + " where id=" + Integer.toString(id));
+			stmt.executeUpdate("update rooms1 set singleBeds=" + Integer.toString(room.getSingleBeds()) + ",doubleBeds=" + Integer.toString(room.getDoubleBeds()) + ",type='" + room.getType() + "' where id=" + Integer.toString(id));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -188,7 +199,7 @@ public class DBController {
 	}
 	
 	public void showStats(){
-		connect();
+		/*connect();
 		try {
 		
 			
@@ -212,7 +223,7 @@ public class DBController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		disconnect();
+		disconnect();*/
 	
 	}
 	
