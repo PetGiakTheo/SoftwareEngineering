@@ -108,7 +108,7 @@ public class DBController {
 		disconnect();
 	}
 	
-	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, int children, boolean vip, boolean sale) {
+	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, int children, String type, boolean sale) {
 		connect();
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		
@@ -116,11 +116,10 @@ public class DBController {
 		String strSingleBeds = Integer.toString(singleBeds);
 		String strDoubleBeds = Integer.toString(doubleBeds);
 		String strChildren = Integer.toString(children);
-		String strVip = vip ? Room.TYPE_VIP : Room.TYPE_REGULAR;
 		String strSale = sale ? "true" : "false";
 		
 		try {
-			rs = stmt.executeQuery("select * from " + table + " where singleBeds=" + strSingleBeds + " and doubleBeds=" + strDoubleBeds + " and children=" + strChildren + " and type='" + strVip + "' and sale=" + strSale);
+			rs = stmt.executeQuery("select * from " + table + " where singleBeds=" + strSingleBeds + " and doubleBeds=" + strDoubleBeds + " and children=" + strChildren + " and type='" + type + "' and sale=" + strSale);
 			
 			while(rs.next()) {
 				Room room = new Room(rs.getInt("id"), rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("children"));

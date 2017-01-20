@@ -44,8 +44,6 @@ public class EmployeeWindow {
 	 */
 	private void initialize() {
 		database = new DBController();
-		// TODO Delete following line.
-		MainWindow.currentUser = database.authenticate("stelios", "ntou");
 		frmEmployee = new JFrame();
 		frmEmployee.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		if (MainWindow.currentUser != null)
@@ -124,6 +122,7 @@ public class EmployeeWindow {
 	}
 	
 	private void btnLogoutClick() {
+		MainWindow.currentUser = null;
 		frmEmployee.setVisible(false);
 		MainWindow window = new MainWindow();
 		window.frmMain.setVisible(true);

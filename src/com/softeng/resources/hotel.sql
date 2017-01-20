@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Win32 (AMD64)
 --
 -- Host: localhost    Database: hotel
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.16-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -84,7 +84,7 @@ CREATE TABLE `employees1` (
   `password` varchar(30) NOT NULL,
   `type` char(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `employees1` (
 
 LOCK TABLES `employees1` WRITE;
 /*!40000 ALTER TABLE `employees1` DISABLE KEYS */;
-INSERT INTO `employees1` VALUES (1,'stelios','ntou','staff'),(2,'marios','klania','admin'),(3,'theofilos','peos','admin'),(4,'kappas','kippos','staff'),(13,'Akis','Gamatos','admin');
+INSERT INTO `employees1` VALUES (1,'stelios','ntou','staff'),(2,'marios','klania','admin'),(3,'theofilos','peos','admin'),(4,'kappas','kippos','staff'),(13,'Akis','Gamatos','admin'),(23,'GiatiToIdMou','Einai23Papari','admin');
 /*!40000 ALTER TABLE `employees1` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,6 +110,7 @@ CREATE TABLE `reservations` (
   `end` date NOT NULL,
   `cust_id` int(10) unsigned NOT NULL,
   `room_id` int(10) unsigned NOT NULL,
+  `status` varchar(9) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cust` (`cust_id`),
   KEY `fk_room` (`room_id`),
@@ -124,7 +125,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (1,'2016-12-19','2016-12-23',1,5);
+INSERT INTO `reservations` VALUES (1,'2016-12-19','2016-12-23',1,5,'active');
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-17 21:13:05
+-- Dump completed on 2017-01-20 11:27:49
