@@ -140,22 +140,27 @@ public class DBController {
 	}
 	
 	public void fillReservationData() {
-		if (true) return;
 		connect();
 		Random r = new Random();
-		final int amount = 100;
 		
 		try {
-			for (int i = 0; i < amount;i++) {
-				if ((i+1) % amount/5 == 0)
-					System.out.println(i+1);
+			for (int i = 0 ;; i++) {
 				
-				int month = r.nextInt(12)+1;
-				int day = r.nextInt(24)+1;
+				int month = (i%12)+1;
+				int day = (i/12) * 10 + r.nextInt(3) + 1;
 				String dateStart = "2017-" + Integer.toString(month) + "-" + Integer.toString(day);
 				String dateEnd = "2017-" + Integer.toString(month) + "-" + Integer.toString(day + r.nextInt(4)+1);
+				String customer = Integer.toString(r.nextInt(100)+1);
+				String room = Integer.toString(r.nextInt(50)+1);
+				String status = r.nextInt(4) == 0 ? Reservation.STATUS_CANCELLED : Reservation.STATUS_ACTIVE;
 				
-				stmt.executeUpdate("insert into customers values(");
+				String query = "insert into reservations values(" + Integer.toString(i+1) + ",'" + dateStart + "', '" + dateEnd + "'," + customer + "," + room + ",1,'" + status + "')";
+				stmt.executeUpdate(query);
+				
+				if (month == 12 && day >= 20) {
+					System.out.println("Finishing at i = " + Integer.toString(i));
+					break;
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -192,7 +197,17 @@ public class DBController {
 	}
 	
 	public Room[] findRooms2(int hotel, int singleBeds, int doubleBeds, String vip, Date availableFrom, Date availableTo) {
+		connect();
+		ArrayList<Room> rooms = new ArrayList<Room>();
 		
+		/*try {
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}*/
+		
+		disconnect();
 		return null;
 	}
 	
