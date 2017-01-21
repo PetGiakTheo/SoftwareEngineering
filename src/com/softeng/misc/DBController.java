@@ -204,7 +204,7 @@ public class DBController {
 					stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );
 					JOptionPane.showMessageDialog(null, "Discount Changed");
 				}else{
-					JOptionPane.showMessageDialog(null, "The discount is the same");
+					JOptionPane.showMessageDialog(null, "The old discount remained");
 				}
 				}else{
 					stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );

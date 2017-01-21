@@ -2,51 +2,42 @@ package com.softeng.window;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
-
-//import org.jfree.chart.ChartPanel;
-
-import com.softeng.misc.DBController;
-import com.softeng.misc.Discount;
-import com.softeng.misc.User;
-import com.toedter.calendar.JDateChooser;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 import javax.swing.JTabbedPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
-import java.awt.Component;
-import java.awt.Canvas;
-import java.awt.Panel;
-import javax.swing.ImageIcon;
-import java.awt.SystemColor;
-import javax.swing.JPasswordField;
-import javax.swing.JList;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextArea;
-import javax.swing.JSeparator;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.BoxLayout;
-import java.awt.Point;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+
+
+import com.softeng.misc.DBController;
+import com.softeng.misc.User;
+import com.toedter.calendar.JDateChooser;
+import java.awt.Frame;
+import java.awt.Dialog.ModalExclusionType;
+
 
 public class ManagerWindow {
 
@@ -83,6 +74,9 @@ public class ManagerWindow {
 	private JButton btnLogout;
 	private JComboBox cbType;
 	public JPanel pnBox;
+	private Toolkit t;
+	private Dimension s;
+	
 
 	/**
 	 * Launch the application.
@@ -116,13 +110,14 @@ public class ManagerWindow {
 	 */
 	private void initialize() {
 		frmManager = new JFrame();
+		frmManager.setLocationByPlatform(true);
 		frmManager.getContentPane().setBackground(new Color(119, 136, 153));
 		frmManager.setTitle("Manager");
 		frmManager.setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerWindow.class.getResource("/com/softeng/resources/hotel (2).png")));
 		frmManager.setBounds(100, 100, 594, 510);
-		frmManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		frmManager.getContentPane().setLayout(new CardLayout(0, 0));
-		
+		frmManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		if (MainWindow.currentUser != null)
 			frmManager.setTitle("Manager - " + MainWindow.currentUser.getUsername());
 		else
