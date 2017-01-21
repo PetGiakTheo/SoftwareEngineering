@@ -9,10 +9,12 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -33,10 +35,16 @@ import javax.swing.border.SoftBevelBorder;
 
 
 import com.softeng.misc.DBController;
+import com.softeng.misc.Discount;
 import com.softeng.misc.User;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Frame;
 import java.awt.Dialog.ModalExclusionType;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.border.TitledBorder;
 
 
 public class ManagerWindow {
@@ -47,9 +55,6 @@ public class ManagerWindow {
 	private JButton btnOk;
 	private JDateChooser strDate;
 	private JDateChooser endDate;
-	private JLabel lblek;
-	private JLabel lblek2;
-	private JLabel lblek3;
 	private JPanel pnlbls;
 	private JPanel pnManageStaff;
 	private JPanel pnDiscounts;
@@ -76,6 +81,10 @@ public class ManagerWindow {
 	public JPanel pnBox;
 	private Toolkit t;
 	private Dimension s;
+	private JScrollPane scrollPane;
+	private JList lstDiscount;
+	DefaultListModel discountlist = new DefaultListModel();
+	Discount[] disc = null;
 	
 
 	/**
@@ -114,7 +123,7 @@ public class ManagerWindow {
 		frmManager.getContentPane().setBackground(new Color(119, 136, 153));
 		frmManager.setTitle("Manager");
 		frmManager.setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerWindow.class.getResource("/com/softeng/resources/hotel (2).png")));
-		frmManager.setBounds(100, 100, 594, 510);
+		frmManager.setBounds(100, 100, 568, 519);
 
 		frmManager.getContentPane().setLayout(new CardLayout(0, 0));
 		frmManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -165,13 +174,13 @@ public class ManagerWindow {
 									
 										GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
 										gl_pnManageStaff.setHorizontalGroup(
-											gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
+											gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
 												.addGroup(gl_pnManageStaff.createSequentialGroup()
-													.addComponent(pnAdd, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-													.addComponent(pnDelete, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE))
-												.addGroup(Alignment.TRAILING, gl_pnManageStaff.createSequentialGroup()
-													.addContainerGap(474, Short.MAX_VALUE)
+													.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+													.addGap(10)
+													.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+												.addGroup(gl_pnManageStaff.createSequentialGroup()
+													.addContainerGap(472, Short.MAX_VALUE)
 													.addComponent(btnLogout)
 													.addContainerGap())
 										);
@@ -179,10 +188,10 @@ public class ManagerWindow {
 											gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_pnManageStaff.createSequentialGroup()
 													.addGap(33)
-													.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING, false)
+													.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
 														.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 														.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
-													.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+													.addGap(24)
 													.addComponent(btnLogout)
 													.addContainerGap())
 										);
@@ -244,22 +253,7 @@ public class ManagerWindow {
 				
 						pnlbls = new JPanel();
 						pnlbls.setBackground(SystemColor.inactiveCaption);
-						pnlbls.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-						pnlbls.setLayout(null);
-						
-								lblek = new JLabel("");
-								lblek.setBounds(10, 11, 325, 20);
-								pnlbls.add(lblek);
-lblek.setVerticalAlignment(SwingConstants.TOP);
-lblek.setHorizontalAlignment(SwingConstants.LEFT);
-
-lblek2 = new JLabel("");
-lblek2.setBounds(10, 42, 325, 20);
-pnlbls.add(lblek2);
-
-lblek3 = new JLabel("");
-lblek3.setBounds(10, 73, 249, 20);
-pnlbls.add(lblek3);
+						pnlbls.setBorder(new TitledBorder(null, "All discounts", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 btnOk = new JButton("ok");
 
@@ -301,62 +295,113 @@ HotelGroup.add(rh4);
 rh5 = new JRadioButton("hotel 5");
 rh5.setBackground(SystemColor.activeCaption);
 HotelGroup.add(rh5);
-SpringLayout sl_pnDiscounts = new SpringLayout();
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, txtdis, 357, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, endDate, 271, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.SOUTH, endDate, -78, SpringLayout.NORTH, label_2);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, txtdis, 184, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, txtdis, 287, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, btnOk, 247, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, btnOk, 315, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, btnOk, 373, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, label_2, 164, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, label_2, 287, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, label_2, 357, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, rh1, 118, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, rh1, 78, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, rh1, 187, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, rh3, 170, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, rh3, 78, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, rh3, 187, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, rh2, 144, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, rh2, 78, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, rh2, 187, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, endDate, 66, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, endDate, 382, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, lblEndDate, 41, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, lblEndDate, 271, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, lblEndDate, 382, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, lblStartDate, 41, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, lblStartDate, 89, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, lblStartDate, 187, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, strDate, 66, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, strDate, 89, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, strDate, 200, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, pnlbls, 296, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, pnlbls, 63, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.SOUTH, pnlbls, 397, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, pnlbls, 409, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, rh5, 222, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, rh5, 78, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, rh5, 187, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.NORTH, rh4, 196, SpringLayout.NORTH, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.WEST, rh4, 78, SpringLayout.WEST, pnDiscounts);
-sl_pnDiscounts.putConstraint(SpringLayout.EAST, rh4, 187, SpringLayout.WEST, pnDiscounts);
-pnDiscounts.setLayout(sl_pnDiscounts);
-pnDiscounts.add(rh4);
-pnDiscounts.add(rh5);
-pnDiscounts.add(pnlbls);
-pnDiscounts.add(strDate);
-pnDiscounts.add(lblStartDate);
-pnDiscounts.add(lblEndDate);
-pnDiscounts.add(endDate);
-pnDiscounts.add(rh2);
-pnDiscounts.add(rh3);
-pnDiscounts.add(rh1);
-pnDiscounts.add(label_2);
-pnDiscounts.add(btnOk);
-pnDiscounts.add(txtdis);
+scrollPane = new JScrollPane();
+lstDiscount = new JList();
+lstDiscount.setBorder(null);
+lstDiscount.setModel(discountlist);
+
+lstDiscount.setBackground(SystemColor.inactiveCaption);
+scrollPane.setViewportView(lstDiscount);
+
+
+
+
+GroupLayout gl_pnDiscounts = new GroupLayout(pnDiscounts);
+gl_pnDiscounts.setHorizontalGroup(
+	gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_pnDiscounts.createSequentialGroup()
+			.addGap(120)
+			.addComponent(rh2, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+			.addGap(139)
+			.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+		.addGroup(gl_pnDiscounts.createSequentialGroup()
+			.addGap(120)
+			.addComponent(rh3, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+			.addGap(139)
+			.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+		.addGroup(gl_pnDiscounts.createSequentialGroup()
+			.addGap(120)
+			.addComponent(rh4, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
+		.addGroup(gl_pnDiscounts.createSequentialGroup()
+			.addGap(120)
+			.addComponent(rh5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+			.addGap(151)
+			.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+		.addGroup(Alignment.TRAILING, gl_pnDiscounts.createSequentialGroup()
+			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnDiscounts.createSequentialGroup()
+						.addGap(118)
+						.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+						.addGap(111)
+						.addComponent(lblEndDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_pnDiscounts.createSequentialGroup()
+						.addGap(118)
+						.addComponent(strDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+						.addGap(98)
+						.addComponent(endDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_pnDiscounts.createSequentialGroup()
+						.addGap(120)
+						.addComponent(rh1, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
+				.addGroup(gl_pnDiscounts.createSequentialGroup()
+					.addGap(22)
+					.addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)))
+			.addGap(33))
+);
+gl_pnDiscounts.setVerticalGroup(
+	gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_pnDiscounts.createSequentialGroup()
+			.addGap(41)
+			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addComponent(lblStartDate)
+				.addComponent(lblEndDate))
+			.addGap(11)
+			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addComponent(strDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addComponent(endDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+			.addGap(39)
+			.addComponent(rh1)
+			.addGap(3)
+			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addComponent(rh2)
+				.addGroup(gl_pnDiscounts.createSequentialGroup()
+					.addGap(4)
+					.addComponent(label_2)))
+			.addGap(3)
+			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addComponent(rh3)
+				.addGroup(gl_pnDiscounts.createSequentialGroup()
+					.addGap(1)
+					.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+			.addGap(3)
+			.addComponent(rh4)
+			.addGap(3)
+			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addComponent(rh5)
+				.addGroup(gl_pnDiscounts.createSequentialGroup()
+					.addGap(18)
+					.addComponent(btnOk)))
+			.addGap(27)
+			.addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+			.addContainerGap())
+);
+GroupLayout gl_pnlbls = new GroupLayout(pnlbls);
+gl_pnlbls.setHorizontalGroup(
+	gl_pnlbls.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_pnlbls.createSequentialGroup()
+			.addGap(7)
+			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+			.addGap(7))
+);
+gl_pnlbls.setVerticalGroup(
+	gl_pnlbls.createParallelGroup(Alignment.LEADING)
+		.addGroup(gl_pnlbls.createSequentialGroup()
+			.addGap(8)
+			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+			.addGap(8))
+);
+pnlbls.setLayout(gl_pnlbls);
+pnDiscounts.setLayout(gl_pnDiscounts);
 JPanel pnStatistics = new JPanel();
 pnStatistics.setBackground(SystemColor.activeCaption);
 tabbedPane.addTab("Statistics", null, pnStatistics, null);
@@ -382,6 +427,14 @@ gl_pnStatistics.setVerticalGroup(
 			.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
 );
 pnStatistics.setLayout(gl_pnStatistics);
+
+
+disc = database.showDiscount();
+discountlist.addElement("Hotel : "+disc[0].gethotel()+" , Start Date "+ disc[0].getDate()+" , End Date "+disc[0].getendDate()+" , Percentage "+disc[0].getpercentage()+"%");
+discountlist.addElement("Hotel : "+disc[1].gethotel()+" , Start Date "+ disc[1].getDate()+" , End Date "+disc[1].getendDate()+" , Percentage "+disc[1].getpercentage()+"%");
+discountlist.addElement("Hotel : "+disc[2].gethotel()+" , Start Date "+ disc[2].getDate()+" , End Date "+disc[2].getendDate()+" , Percentage "+disc[2].getpercentage()+"%");
+discountlist.addElement("Hotel : "+disc[3].gethotel()+" , Start Date "+ disc[3].getDate()+" , End Date "+disc[3].getendDate()+" , Percentage "+disc[3].getpercentage()+"%");
+discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].getDate()+" , End Date "+disc[4].getendDate()+" , Percentage "+disc[4].getpercentage()+"%");
 
 	}
 
@@ -415,11 +468,8 @@ pnStatistics.setLayout(gl_pnStatistics);
 		});
 		
 	}
-	private void showDisc(){
-		
-		//database.showDiscount();
 
-	}
+	
 	private void btnDelete(){
 		User emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
 		if(emp==null)
@@ -480,10 +530,18 @@ pnStatistics.setLayout(gl_pnStatistics);
 				d2 = endDate.getDate();
 
 				database.addDiscount(htl, d1, d2, dis);
+				discountlist.removeAllElements();
+				
+				disc = database.showDiscount();
 
-				lblek3.setText("kai h ekptwsh einai  " + dis + "%");
-				lblek.setText("arxizei stis " + strDate.getDate());
-				lblek2.setText("teliwnei stis " + endDate.getDate());
+				discountlist.addElement("Hotel : "+disc[0].gethotel()+" , Start Date "+ disc[0].getDate()+" , End Date "+disc[0].getendDate()+" , Percentage "+disc[0].getpercentage()+"%");
+				discountlist.addElement("Hotel : "+disc[1].gethotel()+" , Start Date "+ disc[1].getDate()+" , End Date "+disc[1].getendDate()+" , Percentage "+disc[1].getpercentage()+"%");
+				discountlist.addElement("Hotel : "+disc[2].gethotel()+" , Start Date "+ disc[2].getDate()+" , End Date "+disc[2].getendDate()+" , Percentage "+disc[2].getpercentage()+"%");
+				discountlist.addElement("Hotel : "+disc[3].gethotel()+" , Start Date "+ disc[3].getDate()+" , End Date "+disc[3].getendDate()+" , Percentage "+disc[3].getpercentage()+"%");
+				discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].getDate()+" , End Date "+disc[4].getendDate()+" , Percentage "+disc[4].getpercentage()+"%");
+				
+			
+				
 			} else
 				JOptionPane.showMessageDialog(null, "Invalid credentials.Discount must be between 0 and 100", "Error", JOptionPane.ERROR_MESSAGE);
 

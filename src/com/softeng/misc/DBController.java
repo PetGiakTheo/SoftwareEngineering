@@ -196,27 +196,26 @@ public class DBController {
 		return null;
 	}
 	
-/*	public Discount[] showDiscount(){
+	
+	public Discount[] showDiscount(){
+		Discount disc = null;
+		ArrayList<Discount> discount = new ArrayList<Discount>();
 		connect();
-		ArrayList<Discount> discs = new ArrayList<Discount>();
-		
 		try {
-			rs = stmt.executeQuery("select * from discounts ;");
+			rs = stmt.executeQuery("select * from discounts ORDER BY hotel;");
 			
 			while(rs.next()) {
-				Discount disc = new Discount(rs.getInt("id"),rs.getInt("hotel"),rs.getString("strDate"),rs.getString("endDate"), rs.getInt("percentage"));
-				discs.add(disc);
+				disc = new Discount(rs.getInt("id"),rs.getInt("hotel"),rs.getString("strDate"),rs.getString("endDate"), rs.getInt("percentage"));
+				discount.add(disc);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 		disconnect();
-		return discs.toArray(new Discount[1]);
-	}   */
+		return discount.toArray(new Discount[1]);
+	}
+	
 	
 	public Room getRoomWithId(int id) {
 		Room room = null;
@@ -265,6 +264,7 @@ public class DBController {
 					stmt.executeUpdate("delete from discounts where hotel = '" + hotel + "';");
 					stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );
 					JOptionPane.showMessageDialog(null, "Discount Changed");
+					
 				}else{
 					JOptionPane.showMessageDialog(null, "The old discount remained");
 				}
@@ -311,10 +311,10 @@ public class DBController {
 		try {
 		
 			
-			String query ="select type,singleBeds from rooms1;";
+			String query ="select strDate,percentage from discounts;";
 			JDBCCategoryDataset dataset = new JDBCCategoryDataset(conn,query);
 			
-			JFreeChart chart = ChartFactory.createBarChart3D("RoomsPerType", "Rooms", "Type", dataset);
+			JFreeChart chart = ChartFactory.createBarChart3D("RoomsPerType", "Type", "Rooms", dataset);
 			
 			CategoryPlot plot = chart.getCategoryPlot();
 			plot.setRangeGridlinePaint(Color.black);
