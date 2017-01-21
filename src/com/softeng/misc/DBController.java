@@ -21,6 +21,7 @@ import org.jfree.chart.ChartFrame;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.CategoryPlot;
 
 import org.jfree.data.jdbc.JDBCCategoryDataset;
@@ -71,7 +72,7 @@ public class DBController {
 		}
 	}
 	
-	public void fillData() {
+	public void fillRoomData() {
 		// Fill db with random rooms
 		
 		
@@ -108,6 +109,61 @@ public class DBController {
 		disconnect();
 	}
 	
+	public void fillCustomerData() {
+		String cand = "1234567890";
+		connect();
+		Random r = new Random();
+		final int amount = 100;
+		
+		try {
+			for (int i = 0; i < amount;i++) {
+				if ((i+1) % 20 == 0)
+					System.out.println(i+1);
+				
+				
+				String firstName = "name_" + Integer.toString(i+1);
+				String lastName = "surname_" + Integer.toString(i+1);
+				String email = lastName + "@gmail.com";
+				String number = "";
+				for (int j = 0; j < 10; j++)
+					number += cand.charAt(r.nextInt(cand.length()));
+				
+				String paymentType = r.nextInt(2) == 0 ? Customer.CREDIT_CARD : Customer.DEBIT_CARD;
+				
+				stmt.executeUpdate("insert into customers values(" + Integer.toString(i+1) + ",'" + firstName + "', '" + lastName + "', '" + email + "', '" + number + "', '" + paymentType + "')");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+	}
+	
+	public void fillReservationData() {
+		if (true) return;
+		connect();
+		Random r = new Random();
+		final int amount = 100;
+		
+		try {
+			for (int i = 0; i < amount;i++) {
+				if ((i+1) % amount/5 == 0)
+					System.out.println(i+1);
+				
+				int month = r.nextInt(12)+1;
+				int day = r.nextInt(24)+1;
+				String dateStart = "2017-" + Integer.toString(month) + "-" + Integer.toString(day);
+				String dateEnd = "2017-" + Integer.toString(month) + "-" + Integer.toString(day + r.nextInt(4)+1);
+				
+				stmt.executeUpdate("insert into customers values(");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+	}
+	
 	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, int children, String type, boolean sale) {
 		connect();
 		ArrayList<Room> rooms = new ArrayList<Room>();
@@ -134,6 +190,12 @@ public class DBController {
 		disconnect();
 		return rooms.toArray(new Room[1]); // Convert to an array before returning.
 	}
+	
+	public Room[] findRooms2(int hotel, int singleBeds, int doubleBeds, String vip, Date availableFrom, Date availableTo) {
+		
+		return null;
+	}
+	
 /*	public Discount[] showDiscount(){
 		connect();
 		ArrayList<Discount> discs = new ArrayList<Discount>();

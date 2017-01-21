@@ -108,7 +108,6 @@ public class EmployeeWindow {
 	}
 	
 	private void btnManageRoomsClick() {
-		frmEmployee.setVisible(false);
 		RoomManagerWindow window = new RoomManagerWindow(this);
 		window.frmRoomManager.setVisible(true);
 	}
@@ -118,7 +117,8 @@ public class EmployeeWindow {
 	}
 	
 	private void btnSearchRoomsClick() {
-		
+		RoomSearchWindow window = new RoomSearchWindow(this);
+		window.frmRoomSearch.setVisible(true);
 	}
 	
 	private void btnLogoutClick() {
