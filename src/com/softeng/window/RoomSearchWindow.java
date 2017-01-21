@@ -172,6 +172,6 @@ public class RoomSearchWindow {
 	}
 	
 	private void btnSearchClick() {
-		database.fillCustomerData();
+		database.fillReservationData();
 	}
 }
