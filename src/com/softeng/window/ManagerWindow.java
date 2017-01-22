@@ -91,7 +91,6 @@ public class ManagerWindow {
 	 * Launch the application.
 	 */
 	// /* TODO Remove main.
-	 // DEN XREIAZETAI DEUTERH MAIN
 	  public static void main(String[] args) { 
 		  EventQueue.invokeLater(new Runnable() { 
 			  public void run() { 
@@ -496,7 +495,7 @@ discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].
 				txtCfPassword.setText("");
 			}
 		}else
-			JOptionPane.showMessageDialog(null, "Passwords must match", "Error", JOptionPane.ERROR_MESSAGE);	
+			JOptionPane.showMessageDialog(null, "Passwords must match.", "Error", JOptionPane.ERROR_MESSAGE);	
 	
 	}
 
@@ -541,7 +540,7 @@ discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].
 				discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].getDate()+" , End Date "+disc[4].getendDate()+" , Percentage "+disc[4].getpercentage()+"%");
 				
 			
-				
+			// TODO Invalid credentials leme mono sto login re paparopapare.
 			} else
 				JOptionPane.showMessageDialog(null, "Invalid credentials.Discount must be between 0 and 100", "Error", JOptionPane.ERROR_MESSAGE);
 

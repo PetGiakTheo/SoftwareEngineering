@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -52,9 +53,6 @@ public class DBController {
 			String pw = "test123";
 			conn = DriverManager.getConnection(connURL, user, pw);
 			stmt = conn.createStatement();
-			//stmt.executeUpdate("insert into staff values(1, 'Theofilos', 'malakas')");
-			//rs = stmt.executeUpdate("insert into staff values(1, 'Theofilos', 'malakas'");
-			//fillData();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -110,7 +108,7 @@ public class DBController {
 	}
 	
 	public void fillCustomerData() {
-		String cand = "1234567890";
+		String chars = "1234567890";
 		connect();
 		Random r = new Random();
 		final int amount = 100;
@@ -126,7 +124,7 @@ public class DBController {
 				String email = lastName + "@gmail.com";
 				String number = "";
 				for (int j = 0; j < 10; j++)
-					number += cand.charAt(r.nextInt(cand.length()));
+					number += chars.charAt(r.nextInt(chars.length()));
 				
 				String paymentType = r.nextInt(2) == 0 ? Customer.CREDIT_CARD : Customer.DEBIT_CARD;
 				
@@ -196,21 +194,60 @@ public class DBController {
 		return rooms.toArray(new Room[1]); // Convert to an array before returning.
 	}
 	
-	public Room[] findRooms2(int hotel, int singleBeds, int doubleBeds, String vip, Date availableFrom, Date availableTo) {
+	public Room[] findRooms2(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
+		// (StartA <= EndB) and (EndA >= StartB)
+		/*
+		 * select * from rooms1 left outer join reservations on rooms1.id = room_id and hotel = 1
+		 * where start is null or start > '2017-2-1' or end < '2017-1-1' order by rooms1.id
+		 */
 		connect();
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		
-		/*try {
+		String table = "rooms" + Integer.toString(hotel);
+		
+		String condSglBeds = "singleBeds=" + Integer.toString(singleBeds);
+		String condDblBeds = " and doubleBeds=" + Integer.toString(doubleBeds);
+		String condType = type == null ? "" : " and type='" + type + "'";
+		String rangeStart, rangeEnd;
+		rangeStart = rangeEnd = null;
+		if (!ignoreDate && availableFrom != null && availableTo != null) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(availableFrom);
+			rangeStart = "'" + Integer.toString(calendar.get(Calendar.YEAR)) + "-" + Integer.toString(calendar.get(Calendar.MONTH)+1) + "-" + Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) + "'";
+			calendar.setTime(availableTo);
+			rangeEnd = "'" + Integer.toString(calendar.get(Calendar.YEAR)) + "-" + Integer.toString(calendar.get(Calendar.MONTH)+1) + "-" + Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) + "'";
+		}
+		
+		// Build query.
+		String query = "select * from " + table + " left outer join reservations on " + table + ".id=room_id and hotel = " + Integer.toString(hotel) + " where ";
+		query += condSglBeds + condDblBeds + condType;
+		if (rangeStart != null && rangeEnd != null) {
+			query += " and (start is null or start > " + rangeEnd + " or end < " + rangeStart + ")";
+		}
+		query += " order by " + table + ".id";
+		System.out.println(query);
+		
+		try {
+			rs = stmt.executeQuery(query);
 			
+			int i = 0;
+			while(rs.next()) {
+				Room room = new Room(rs.getInt(table + ".id"), rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("type"));
+				
+				// Omit duplicate duplicate rooms.
+				if (i != room.getId()) {
+					i = room.getId();
+					rooms.add(room);
+				}
+			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}*/
+		}
 		
 		disconnect();
-		return null;
+		return rooms.toArray(new Room[1]); // Convert to an array before returning.
 	}
-	
 	
 	public Discount[] showDiscount(){
 		Discount disc = null;
