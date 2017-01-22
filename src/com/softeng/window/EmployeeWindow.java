@@ -15,7 +15,7 @@ import java.awt.Dialog.ModalExclusionType;
 
 public class EmployeeWindow {
 
-	public JFrame frmEmployee;
+	JFrame frmEmployee;
 	private DBController database;
 	
 	// TODO Delete main method.

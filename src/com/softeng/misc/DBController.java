@@ -167,34 +167,7 @@ public class DBController {
 		disconnect();
 	}
 	
-	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, int children, String type, boolean sale) {
-		connect();
-		ArrayList<Room> rooms = new ArrayList<Room>();
-		
-		String table = "rooms" + Integer.toString(hotel);
-		String strSingleBeds = Integer.toString(singleBeds);
-		String strDoubleBeds = Integer.toString(doubleBeds);
-		String strChildren = Integer.toString(children);
-		String strSale = sale ? "true" : "false";
-		
-		try {
-			rs = stmt.executeQuery("select * from " + table + " where singleBeds=" + strSingleBeds + " and doubleBeds=" + strDoubleBeds + " and children=" + strChildren + " and type='" + type + "' and sale=" + strSale);
-			
-			while(rs.next()) {
-				Room room = new Room(rs.getInt("id"), rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("children"));
-				rooms.add(room);
-			}
-			
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		disconnect();
-		return rooms.toArray(new Room[1]); // Convert to an array before returning.
-	}
-	
-	public Room[] findRooms2(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
+	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
 		// (StartA <= EndB) and (EndA >= StartB)
 		/*
 		 * select * from rooms1 left outer join reservations on rooms1.id = room_id and hotel = 1
@@ -234,7 +207,7 @@ public class DBController {
 			while(rs.next()) {
 				Room room = new Room(rs.getInt(table + ".id"), rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("type"));
 				
-				// Omit duplicate duplicate rooms.
+				// Omit duplicate rooms.
 				if (i != room.getId()) {
 					i = room.getId();
 					rooms.add(room);

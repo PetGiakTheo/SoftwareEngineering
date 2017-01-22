@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
@@ -68,16 +69,15 @@ public class RoomSearchWindow {
 		frmRoomSearch = new JFrame();
 		frmRoomSearch.setType(Type.POPUP);
 		frmRoomSearch.setTitle("Room search");
-		frmRoomSearch.setBounds(100, 100, 450, 350);
+		frmRoomSearch.setBounds(100, 100, 450, 420);
 		frmRoomSearch.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		springLayout.putConstraint(SpringLayout.NORTH, cbType, 19, SpringLayout.SOUTH, spnDouble);
-		springLayout.putConstraint(SpringLayout.NORTH, dtFrom, 10, SpringLayout.SOUTH, cbType);
-		springLayout.putConstraint(SpringLayout.WEST, dtFrom, 0, SpringLayout.WEST, dtTo);
+		springLayout.putConstraint(SpringLayout.NORTH, dtFrom, 11, SpringLayout.SOUTH, cbType);
+		springLayout.putConstraint(SpringLayout.WEST, dtFrom, 0, SpringLayout.WEST, cbType);
 		springLayout.putConstraint(SpringLayout.EAST, dtFrom, 0, SpringLayout.EAST, dtTo);
-		springLayout.putConstraint(SpringLayout.SOUTH, dtTo, -21, SpringLayout.NORTH, chkIgnore);
 		springLayout.putConstraint(SpringLayout.WEST, dtTo, 0, SpringLayout.WEST, spnSingle);
-		springLayout.putConstraint(SpringLayout.EAST, dtTo, -89, SpringLayout.EAST, frmRoomSearch.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, dtTo, 120, SpringLayout.WEST, spnSingle);
+		springLayout.putConstraint(SpringLayout.NORTH, cbType, 19, SpringLayout.SOUTH, spnDouble);
 		frmRoomSearch.getContentPane().setLayout(springLayout);
 		
 		JButton btnBack = new JButton("Back");
@@ -91,7 +91,7 @@ public class RoomSearchWindow {
 		frmRoomSearch.getContentPane().add(btnBack);
 		
 		JLabel lblNewLabel = new JLabel("Room filters");
-		springLayout.putConstraint(SpringLayout.WEST, chkIgnore, 0, SpringLayout.WEST, lblNewLabel);
+		springLayout.putConstraint(SpringLayout.EAST, chkIgnore, 0, SpringLayout.EAST, lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, frmRoomSearch.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 170, SpringLayout.WEST, frmRoomSearch.getContentPane());
@@ -129,27 +129,41 @@ public class RoomSearchWindow {
 		
 		JLabel lblAvailableFrom = new JLabel("Available from:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblAvailableFrom, 13, SpringLayout.SOUTH, cbType);
-		springLayout.putConstraint(SpringLayout.WEST, lblAvailableFrom, 0, SpringLayout.WEST, lblNewLabel_1);
+		springLayout.putConstraint(SpringLayout.WEST, lblAvailableFrom, -295, SpringLayout.EAST, frmRoomSearch.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblAvailableFrom, -205, SpringLayout.EAST, frmRoomSearch.getContentPane());
 		frmRoomSearch.getContentPane().add(lblAvailableFrom);
 		
 		JLabel lblTo = new JLabel("Available to:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblTo, 0, SpringLayout.NORTH, dtTo);
+		springLayout.putConstraint(SpringLayout.NORTH, chkIgnore, 18, SpringLayout.SOUTH, lblTo);
+		springLayout.putConstraint(SpringLayout.SOUTH, chkIgnore, 38, SpringLayout.SOUTH, lblTo);
+		springLayout.putConstraint(SpringLayout.NORTH, dtTo, -6, SpringLayout.NORTH, lblTo);
+		springLayout.putConstraint(SpringLayout.SOUTH, dtTo, 0, SpringLayout.SOUTH, lblTo);
+		springLayout.putConstraint(SpringLayout.NORTH, lblTo, 22, SpringLayout.SOUTH, lblAvailableFrom);
 		springLayout.putConstraint(SpringLayout.WEST, lblTo, 0, SpringLayout.WEST, lblNewLabel_1);
 		frmRoomSearch.getContentPane().add(lblTo);
 		frmRoomSearch.getContentPane().add(chkIgnore);
 		
 		JButton btnSearch = new JButton("Search");
-		springLayout.putConstraint(SpringLayout.SOUTH, chkIgnore, -6, SpringLayout.NORTH, btnSearch);
-		springLayout.putConstraint(SpringLayout.WEST, btnSearch, 0, SpringLayout.WEST, lblNewLabel);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnSearch, -39, SpringLayout.SOUTH, frmRoomSearch.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnSearch, -170, SpringLayout.EAST, frmRoomSearch.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnSearch, 6, SpringLayout.SOUTH, chkIgnore);
+		springLayout.putConstraint(SpringLayout.WEST, btnSearch, 23, SpringLayout.WEST, lblNewLabel_1);
+		springLayout.putConstraint(SpringLayout.EAST, btnSearch, 0, SpringLayout.EAST, cbType);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnSearchClick();
 			}
 		});
 		frmRoomSearch.getContentPane().add(btnSearch);
+		
+		// Set mininum and maximum selectable dates
+		Calendar min = Calendar.getInstance();
+		Calendar max = Calendar.getInstance();
+		max.add(Calendar.YEAR, 1);
+		
+		dtFrom.setMinSelectableDate(min.getTime());
+		dtFrom.setMaxSelectableDate(max.getTime());
+		dtTo.setMinSelectableDate(min.getTime());
+		dtTo.setMaxSelectableDate(max.getTime());
+		
 		dtFrom.setDateFormatString("yyyy MMM d");
 		dtFrom.setAlignmentY(1.0f);
 		dtFrom.setAlignmentX(1.0f);
@@ -167,6 +181,16 @@ public class RoomSearchWindow {
 	}
 	
 	private void btnSearchClick() {
+		Calendar c1 = Calendar.getInstance();
+		c1.setTime(dtFrom.getDate());
+		
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(dtTo.getDate());
+		if (c1.after(c2)) {
+			JOptionPane.showMessageDialog(null, "The second date must be after the first.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		int hotel = 1;
 		int singleBeds = (Integer)spnSingle.getValue();
 		int doubleBeds = (Integer)spnDouble.getValue();
@@ -177,10 +201,8 @@ public class RoomSearchWindow {
 			type = Room.TYPE_VIP;
 		boolean ignoreAvail = chkIgnore.isSelected();
 		
-		Room[] rooms = database.findRooms2(hotel, singleBeds, doubleBeds, type, dtFrom.getDate(), dtTo.getDate(), ignoreAvail);
+		Room[] rooms = database.findRooms(hotel, singleBeds, doubleBeds, type, dtFrom.getDate(), dtTo.getDate(), ignoreAvail);
 		
-		for (int i = 0; i < rooms.length; i++) {
-			System.out.println(rooms[i].getId());
-		}
+		
 	}
 }
