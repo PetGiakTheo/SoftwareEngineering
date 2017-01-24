@@ -25,7 +25,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class MainWindow {
-	public JFrame frmMain;
+	JFrame frmMain;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private final ButtonGroup rgHotels = new ButtonGroup();
@@ -36,6 +36,8 @@ public class MainWindow {
 	private JButton btnLogin;
 	private DBController database = new DBController();
 	private JButton btnCustomerLogin;
+	
+	public static final String[] hotelNames = {"Athens", "Crete", "Mykonos", "Thessaloniki", "Patra"};
 	
 	public static User currentUser = null;
 
@@ -127,35 +129,35 @@ public class MainWindow {
 		sl_panel_1.putConstraint(SpringLayout.WEST, lblNewLabel, 14, SpringLayout.WEST, pnCustomer);
 		pnCustomer.add(lblNewLabel);
 
-		JRadioButton rdbtnHotel = new JRadioButton("Hotel 1 (Athens)");
+		JRadioButton rdbtnHotel = new JRadioButton("Hotel 1 (" + hotelNames[0] + ")");
 		sl_panel_1.putConstraint(SpringLayout.NORTH, rdbtnHotel, 6, SpringLayout.SOUTH, lblNewLabel);
 		sl_panel_1.putConstraint(SpringLayout.WEST, rdbtnHotel, 10, SpringLayout.WEST, pnCustomer);
 		sl_panel_1.putConstraint(SpringLayout.EAST, rdbtnHotel, -327, SpringLayout.EAST, pnCustomer);
 		rgHotels.add(rdbtnHotel);
 		pnCustomer.add(rdbtnHotel);
 
-		JRadioButton rdbtnHotel_1 = new JRadioButton("Hotel 2 (Crete)");
+		JRadioButton rdbtnHotel_1 = new JRadioButton("Hotel 2 (" + hotelNames[1] + ")");
 		sl_panel_1.putConstraint(SpringLayout.NORTH, rdbtnHotel_1, 99, SpringLayout.NORTH, pnCustomer);
 		sl_panel_1.putConstraint(SpringLayout.WEST, rdbtnHotel_1, 10, SpringLayout.WEST, pnCustomer);
 		sl_panel_1.putConstraint(SpringLayout.EAST, rdbtnHotel_1, 0, SpringLayout.EAST, rdbtnHotel);
 		rgHotels.add(rdbtnHotel_1);
 		pnCustomer.add(rdbtnHotel_1);
 
-		JRadioButton rdbtnHotel_2 = new JRadioButton("Hotel 3 (Mykonos)");
+		JRadioButton rdbtnHotel_2 = new JRadioButton("Hotel 3 (" + hotelNames[2] + ")");
 		sl_panel_1.putConstraint(SpringLayout.NORTH, rdbtnHotel_2, 6, SpringLayout.SOUTH, rdbtnHotel_1);
 		sl_panel_1.putConstraint(SpringLayout.WEST, rdbtnHotel_2, 10, SpringLayout.WEST, pnCustomer);
 		sl_panel_1.putConstraint(SpringLayout.EAST, rdbtnHotel_2, 0, SpringLayout.EAST, rdbtnHotel);
 		rgHotels.add(rdbtnHotel_2);
 		pnCustomer.add(rdbtnHotel_2);
 
-		JRadioButton rdbtnHotel_3 = new JRadioButton("Hotel 4 (Cyprus)");
+		JRadioButton rdbtnHotel_3 = new JRadioButton("Hotel 4 (" + hotelNames[3] + ")");
 		sl_panel_1.putConstraint(SpringLayout.NORTH, rdbtnHotel_3, 6, SpringLayout.SOUTH, rdbtnHotel_2);
 		sl_panel_1.putConstraint(SpringLayout.WEST, rdbtnHotel_3, 10, SpringLayout.WEST, pnCustomer);
 		sl_panel_1.putConstraint(SpringLayout.EAST, rdbtnHotel_3, 0, SpringLayout.EAST, rdbtnHotel);
 		rgHotels.add(rdbtnHotel_3);
 		pnCustomer.add(rdbtnHotel_3);
 
-		JRadioButton rdbtnHotel_4 = new JRadioButton("Hotel 5 (Thessaloniki)");
+		JRadioButton rdbtnHotel_4 = new JRadioButton("Hotel 5 (" + hotelNames[4] + ")");
 		sl_panel_1.putConstraint(SpringLayout.NORTH, rdbtnHotel_4, 6, SpringLayout.SOUTH, rdbtnHotel_3);
 		sl_panel_1.putConstraint(SpringLayout.WEST, rdbtnHotel_4, 10, SpringLayout.WEST, pnCustomer);
 		sl_panel_1.putConstraint(SpringLayout.EAST, rdbtnHotel_4, 0, SpringLayout.EAST, rdbtnHotel);

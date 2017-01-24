@@ -175,12 +175,15 @@ public class RoomSearchWindow {
 	}
 	
 	private void btnBackClick() {
-		// TODO remove comment
+		// TODO remove the following comment.
 		//parent.frmEmployee.setVisible(true);
 		frmRoomSearch.dispose();
 	}
 	
 	private void btnSearchClick() {
+		database.fillReservationData();
+		
+		if (true) return;
 		Calendar c1 = Calendar.getInstance();
 		c1.setTime(dtFrom.getDate());
 		

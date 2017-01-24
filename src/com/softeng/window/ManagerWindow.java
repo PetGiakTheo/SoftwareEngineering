@@ -33,7 +33,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-
 import com.softeng.misc.DBController;
 import com.softeng.misc.Discount;
 import com.softeng.misc.User;
@@ -45,7 +44,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.border.TitledBorder;
-
 
 public class ManagerWindow {
 
@@ -84,26 +82,26 @@ public class ManagerWindow {
 	private JScrollPane scrollPane;
 	private JList lstDiscount;
 	DefaultListModel discountlist = new DefaultListModel();
-	Discount[] disc = null;
-	
+	Discount[] disc = new Discount[5];
 
 	/**
 	 * Launch the application.
 	 */
 	// /* TODO Remove main.
-	  public static void main(String[] args) { 
-		  EventQueue.invokeLater(new Runnable() { 
-			  public void run() { 
-				  try {
-				  ManagerWindow window = new ManagerWindow();
-				  window.frmManager.setVisible(true);
-				  } catch (Exception e) {
-					  e.printStackTrace(); 
-				  } 
-			  } 
-		  });
-	  }
-	 // */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ManagerWindow window = new ManagerWindow();
+					window.frmManager.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	// */
 
 	/**
 	 * Create the application.
@@ -130,310 +128,259 @@ public class ManagerWindow {
 			frmManager.setTitle("Manager - " + MainWindow.currentUser.getUsername());
 		else
 			frmManager.setTitle("Manager - Unknown");
-		
+
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(new Color(105, 105, 105));
 		frmManager.getContentPane().add(tabbedPane, "name_17059372492913");
-				
-				pnManageStaff = new JPanel();
-				pnManageStaff.setBackground(SystemColor.activeCaption);
-				tabbedPane.addTab("ManageStaff", null, pnManageStaff, null);
-								
-								JPanel pnAdd = new JPanel();
-								pnAdd.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-								pnAdd.setBackground(new Color(176, 196, 222));
-								pnAdd.setLayout(null);
-								
-										JLabel lblManageStaff = new JLabel("Sign up new Employee");
-										lblManageStaff.setBounds(56, 11, 182, 51);
-										pnAdd.add(lblManageStaff);
-										
-										JLabel lblUsername = new JLabel("            Username :");
-										lblUsername.setBounds(38, 73, 125, 25);
-										pnAdd.add(lblUsername);
-										
-										txtUsernameQ = new JTextField();
-										txtUsernameQ.setBounds(163, 75, 103, 20);
-										pnAdd.add(txtUsernameQ);
-										txtUsernameQ.setColumns(10);
-										
-										JLabel lblPassword = new JLabel("             Password :");
-										lblPassword.setBounds(38, 109, 125, 25);
-										pnAdd.add(lblPassword);
-										
-										JLabel lblNewLabel = new JLabel("Confirm Password :");
-										lblNewLabel.setBounds(28, 140, 125, 25);
-										pnAdd.add(lblNewLabel);
-										
-										JPanel pnDelete = new JPanel();
-										pnDelete.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-										pnDelete.setBackground(new Color(176, 196, 222));
-										
-										btnLogout = new JButton("Logout");
-									
-										GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
-										gl_pnManageStaff.setHorizontalGroup(
-											gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
-												.addGroup(gl_pnManageStaff.createSequentialGroup()
-													.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
-													.addGap(10)
-													.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-												.addGroup(gl_pnManageStaff.createSequentialGroup()
-													.addContainerGap(472, Short.MAX_VALUE)
-													.addComponent(btnLogout)
-													.addContainerGap())
-										);
-										gl_pnManageStaff.setVerticalGroup(
-											gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_pnManageStaff.createSequentialGroup()
-													.addGap(33)
-													.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
-														.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
-													.addGap(24)
-													.addComponent(btnLogout)
-													.addContainerGap())
-										);
-										pnDelete.setLayout(null);
-										
-										JLabel lblDeleteEmployee = new JLabel("Delete Employee");
-										lblDeleteEmployee.setBounds(98, 34, 104, 14);
-										pnDelete.add(lblDeleteEmployee);
-										
-										JLabel label_3 = new JLabel("            Username :");
-										label_3.setBounds(10, 85, 125, 25);
-										pnDelete.add(label_3);
-										
-										txtUsername = new JTextField();
-										txtUsername.setColumns(10);
-										txtUsername.setBounds(135, 87, 86, 20);
-										pnDelete.add(txtUsername);
-										
-										JLabel label_4 = new JLabel("             Password :");
-										label_4.setBounds(10, 119, 125, 25);
-										pnDelete.add(label_4);
-										
-										txtPassword = new JPasswordField();
-										txtPassword.setBounds(135, 121, 86, 20);
-										pnDelete.add(txtPassword);
-										
-										btnDelete = new JButton("Delete");
-										
-										btnDelete.setBounds(150, 200, 71, 23);
-										pnDelete.add(btnDelete);
-										
-										btnSignup = new JButton("Sign Up");
-										
-										btnSignup.setBounds(187, 279, 89, 23);
-										pnAdd.add(btnSignup);
-										
-										txtPasswordQ = new JPasswordField();
-										txtPasswordQ.setBounds(163, 111, 103, 20);
-										pnAdd.add(txtPasswordQ);
-										
-										txtCfPassword = new JPasswordField();
-										txtCfPassword.setBounds(163, 145, 103, 20);
-										pnAdd.add(txtCfPassword);
-										
-										JLabel lblType = new JLabel("                          Type :");
-										lblType.setBounds(28, 176, 125, 20);
-										pnAdd.add(lblType);
-										
-										cbType = new JComboBox();
-										cbType.setModel(new DefaultComboBoxModel(new String[] {"Admin", "Staff"}));
-										cbType.setBounds(163, 176, 72, 25);
-										pnAdd.add(cbType);
-										pnManageStaff.setLayout(gl_pnManageStaff);
-		
-				pnDiscounts = new JPanel();
-				pnDiscounts.setBackground(SystemColor.activeCaption);
-				tabbedPane.addTab("ManageDiscounts", null, pnDiscounts, null);
-				pnDiscounts.setBorder(null);
-				
-						pnlbls = new JPanel();
-						pnlbls.setBackground(SystemColor.inactiveCaption);
-						pnlbls.setBorder(new TitledBorder(null, "All discounts", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-btnOk = new JButton("ok");
+		pnManageStaff = new JPanel();
+		pnManageStaff.setBackground(SystemColor.activeCaption);
+		tabbedPane.addTab("ManageStaff", null, pnManageStaff, null);
 
-txtdis = new JTextField();
-txtdis.setColumns(10);
+		JPanel pnAdd = new JPanel();
+		pnAdd.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		pnAdd.setBackground(new Color(176, 196, 222));
+		pnAdd.setLayout(null);
 
-JLabel label_2 = new JLabel("Discount   %");
+		JLabel lblManageStaff = new JLabel("Sign up new Employee");
+		lblManageStaff.setBounds(56, 11, 182, 51);
+		pnAdd.add(lblManageStaff);
 
-endDate = new JDateChooser();
-endDate.setDateFormatString("yyyy MMM d");
+		JLabel lblUsername = new JLabel("            Username :");
+		lblUsername.setBounds(38, 73, 125, 25);
+		pnAdd.add(lblUsername);
 
-strDate = new JDateChooser();
-strDate.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-strDate.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		txtUsernameQ = new JTextField();
+		txtUsernameQ.setBounds(163, 75, 103, 20);
+		pnAdd.add(txtUsernameQ);
+		txtUsernameQ.setColumns(10);
 
-strDate.setDateFormatString("yyyy MMM d");
+		JLabel lblPassword = new JLabel("             Password :");
+		lblPassword.setBounds(38, 109, 125, 25);
+		pnAdd.add(lblPassword);
 
-JLabel lblStartDate = new JLabel("Start Date :");
+		JLabel lblNewLabel = new JLabel("Confirm Password :");
+		lblNewLabel.setBounds(28, 140, 125, 25);
+		pnAdd.add(lblNewLabel);
 
-JLabel lblEndDate = new JLabel("End Date :");
+		JPanel pnDelete = new JPanel();
+		pnDelete.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		pnDelete.setBackground(new Color(176, 196, 222));
 
-rh1 = new JRadioButton("hotel 1");
-rh1.setBackground(SystemColor.activeCaption);
-rh1.setSelected(true);
-HotelGroup.add(rh1);
+		btnLogout = new JButton("Logout");
 
-	rh2 = new JRadioButton("hotel 2");
-	rh2.setBackground(SystemColor.activeCaption);
-	HotelGroup.add(rh2);
-	
-	rh3 = new JRadioButton("hotel 3");
-	rh3.setBackground(SystemColor.activeCaption);
-	HotelGroup.add(rh3);
+		GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
+		gl_pnManageStaff.setHorizontalGroup(gl_pnManageStaff
+				.createParallelGroup(Alignment.TRAILING)
+				.addGroup(
+						gl_pnManageStaff.createSequentialGroup().addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE).addGap(10)
+								.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+				.addGroup(gl_pnManageStaff.createSequentialGroup().addContainerGap(472, Short.MAX_VALUE).addComponent(btnLogout).addContainerGap()));
+		gl_pnManageStaff.setVerticalGroup(gl_pnManageStaff.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_pnManageStaff
+						.createSequentialGroup()
+						.addGap(33)
+						.addGroup(
+								gl_pnManageStaff.createParallelGroup(Alignment.TRAILING).addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)).addGap(24).addComponent(btnLogout).addContainerGap()));
+		pnDelete.setLayout(null);
 
-rh4 = new JRadioButton("hotel 4");
-rh4.setBackground(SystemColor.activeCaption);
-HotelGroup.add(rh4);
+		JLabel lblDeleteEmployee = new JLabel("Delete Employee");
+		lblDeleteEmployee.setBounds(98, 34, 104, 14);
+		pnDelete.add(lblDeleteEmployee);
 
-rh5 = new JRadioButton("hotel 5");
-rh5.setBackground(SystemColor.activeCaption);
-HotelGroup.add(rh5);
-scrollPane = new JScrollPane();
-lstDiscount = new JList();
-lstDiscount.setBorder(null);
-lstDiscount.setModel(discountlist);
+		JLabel label_3 = new JLabel("            Username :");
+		label_3.setBounds(10, 85, 125, 25);
+		pnDelete.add(label_3);
 
-lstDiscount.setBackground(SystemColor.inactiveCaption);
-scrollPane.setViewportView(lstDiscount);
+		txtUsername = new JTextField();
+		txtUsername.setColumns(10);
+		txtUsername.setBounds(135, 87, 86, 20);
+		pnDelete.add(txtUsername);
 
+		JLabel label_4 = new JLabel("             Password :");
+		label_4.setBounds(10, 119, 125, 25);
+		pnDelete.add(label_4);
 
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(135, 121, 86, 20);
+		pnDelete.add(txtPassword);
 
+		btnDelete = new JButton("Delete");
 
-GroupLayout gl_pnDiscounts = new GroupLayout(pnDiscounts);
-gl_pnDiscounts.setHorizontalGroup(
-	gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-		.addGroup(gl_pnDiscounts.createSequentialGroup()
-			.addGap(120)
-			.addComponent(rh2, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-			.addGap(139)
-			.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-		.addGroup(gl_pnDiscounts.createSequentialGroup()
-			.addGap(120)
-			.addComponent(rh3, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-			.addGap(139)
-			.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-		.addGroup(gl_pnDiscounts.createSequentialGroup()
-			.addGap(120)
-			.addComponent(rh4, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
-		.addGroup(gl_pnDiscounts.createSequentialGroup()
-			.addGap(120)
-			.addComponent(rh5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-			.addGap(151)
-			.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-		.addGroup(Alignment.TRAILING, gl_pnDiscounts.createSequentialGroup()
-			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnDiscounts.createSequentialGroup()
-						.addGap(118)
-						.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-						.addGap(111)
-						.addComponent(lblEndDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_pnDiscounts.createSequentialGroup()
-						.addGap(118)
-						.addComponent(strDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-						.addGap(98)
-						.addComponent(endDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_pnDiscounts.createSequentialGroup()
-						.addGap(120)
-						.addComponent(rh1, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
-				.addGroup(gl_pnDiscounts.createSequentialGroup()
-					.addGap(22)
-					.addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)))
-			.addGap(33))
-);
-gl_pnDiscounts.setVerticalGroup(
-	gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-		.addGroup(gl_pnDiscounts.createSequentialGroup()
-			.addGap(41)
-			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addComponent(lblStartDate)
-				.addComponent(lblEndDate))
-			.addGap(11)
-			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addComponent(strDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addComponent(endDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-			.addGap(39)
-			.addComponent(rh1)
-			.addGap(3)
-			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addComponent(rh2)
-				.addGroup(gl_pnDiscounts.createSequentialGroup()
-					.addGap(4)
-					.addComponent(label_2)))
-			.addGap(3)
-			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addComponent(rh3)
-				.addGroup(gl_pnDiscounts.createSequentialGroup()
-					.addGap(1)
-					.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-			.addGap(3)
-			.addComponent(rh4)
-			.addGap(3)
-			.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addComponent(rh5)
-				.addGroup(gl_pnDiscounts.createSequentialGroup()
-					.addGap(18)
-					.addComponent(btnOk)))
-			.addGap(27)
-			.addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-			.addContainerGap())
-);
-GroupLayout gl_pnlbls = new GroupLayout(pnlbls);
-gl_pnlbls.setHorizontalGroup(
-	gl_pnlbls.createParallelGroup(Alignment.LEADING)
-		.addGroup(gl_pnlbls.createSequentialGroup()
-			.addGap(7)
-			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
-			.addGap(7))
-);
-gl_pnlbls.setVerticalGroup(
-	gl_pnlbls.createParallelGroup(Alignment.LEADING)
-		.addGroup(gl_pnlbls.createSequentialGroup()
-			.addGap(8)
-			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-			.addGap(8))
-);
-pnlbls.setLayout(gl_pnlbls);
-pnDiscounts.setLayout(gl_pnDiscounts);
-JPanel pnStatistics = new JPanel();
-pnStatistics.setBackground(SystemColor.activeCaption);
-tabbedPane.addTab("Statistics", null, pnStatistics, null);
-btnShow = new JButton("Show");
-pnBox = new JPanel();
-pnBox.setBackground(SystemColor.inactiveCaption);
-pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.X_AXIS));
-GroupLayout gl_pnStatistics = new GroupLayout(pnStatistics);
-gl_pnStatistics.setHorizontalGroup(
-	gl_pnStatistics.createParallelGroup(Alignment.LEADING)
-		.addGroup(gl_pnStatistics.createSequentialGroup()
-			.addContainerGap(223, Short.MAX_VALUE)
-			.addComponent(btnShow, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-			.addGap(261))
-		.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-);
-gl_pnStatistics.setVerticalGroup(
-	gl_pnStatistics.createParallelGroup(Alignment.LEADING)
-		.addGroup(gl_pnStatistics.createSequentialGroup()
-			.addGap(11)
-			.addComponent(btnShow)
-			.addGap(11)
-			.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
-);
-pnStatistics.setLayout(gl_pnStatistics);
+		btnDelete.setBounds(150, 200, 71, 23);
+		pnDelete.add(btnDelete);
 
+		btnSignup = new JButton("Sign Up");
 
-disc = database.showDiscount();
-discountlist.addElement("Hotel : "+disc[0].gethotel()+" , Start Date "+ disc[0].getDate()+" , End Date "+disc[0].getendDate()+" , Percentage "+disc[0].getpercentage()+"%");
-discountlist.addElement("Hotel : "+disc[1].gethotel()+" , Start Date "+ disc[1].getDate()+" , End Date "+disc[1].getendDate()+" , Percentage "+disc[1].getpercentage()+"%");
-discountlist.addElement("Hotel : "+disc[2].gethotel()+" , Start Date "+ disc[2].getDate()+" , End Date "+disc[2].getendDate()+" , Percentage "+disc[2].getpercentage()+"%");
-discountlist.addElement("Hotel : "+disc[3].gethotel()+" , Start Date "+ disc[3].getDate()+" , End Date "+disc[3].getendDate()+" , Percentage "+disc[3].getpercentage()+"%");
-discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].getDate()+" , End Date "+disc[4].getendDate()+" , Percentage "+disc[4].getpercentage()+"%");
+		btnSignup.setBounds(187, 279, 89, 23);
+		pnAdd.add(btnSignup);
+
+		txtPasswordQ = new JPasswordField();
+		txtPasswordQ.setBounds(163, 111, 103, 20);
+		pnAdd.add(txtPasswordQ);
+
+		txtCfPassword = new JPasswordField();
+		txtCfPassword.setBounds(163, 145, 103, 20);
+		pnAdd.add(txtCfPassword);
+
+		JLabel lblType = new JLabel("                          Type :");
+		lblType.setBounds(28, 176, 125, 20);
+		pnAdd.add(lblType);
+
+		cbType = new JComboBox();
+		cbType.setModel(new DefaultComboBoxModel(new String[] { "Admin", "Staff" }));
+		cbType.setBounds(163, 176, 72, 25);
+		pnAdd.add(cbType);
+		pnManageStaff.setLayout(gl_pnManageStaff);
+
+		pnDiscounts = new JPanel();
+		pnDiscounts.setBackground(SystemColor.activeCaption);
+		tabbedPane.addTab("ManageDiscounts", null, pnDiscounts, null);
+		pnDiscounts.setBorder(null);
+
+		pnlbls = new JPanel();
+		pnlbls.setBackground(SystemColor.inactiveCaption);
+		pnlbls.setBorder(new TitledBorder(null, "All discounts", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
+		btnOk = new JButton("ok");
+
+		txtdis = new JTextField();
+		txtdis.setColumns(10);
+
+		JLabel label_2 = new JLabel("Discount   %");
+
+		endDate = new JDateChooser();
+		endDate.setDateFormatString("yyyy MMM d");
+
+		strDate = new JDateChooser();
+		strDate.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		strDate.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+		strDate.setDateFormatString("yyyy MMM d");
+
+		JLabel lblStartDate = new JLabel("Start Date :");
+
+		JLabel lblEndDate = new JLabel("End Date :");
+
+		rh1 = new JRadioButton("hotel 1");
+		rh1.setBackground(SystemColor.activeCaption);
+		rh1.setSelected(true);
+		HotelGroup.add(rh1);
+
+		rh2 = new JRadioButton("hotel 2");
+		rh2.setBackground(SystemColor.activeCaption);
+		HotelGroup.add(rh2);
+
+		rh3 = new JRadioButton("hotel 3");
+		rh3.setBackground(SystemColor.activeCaption);
+		HotelGroup.add(rh3);
+
+		rh4 = new JRadioButton("hotel 4");
+		rh4.setBackground(SystemColor.activeCaption);
+		HotelGroup.add(rh4);
+
+		rh5 = new JRadioButton("hotel 5");
+		rh5.setBackground(SystemColor.activeCaption);
+		HotelGroup.add(rh5);
+		scrollPane = new JScrollPane();
+		lstDiscount = new JList();
+		lstDiscount.setBorder(null);
+		lstDiscount.setModel(discountlist);
+
+		lstDiscount.setBackground(SystemColor.inactiveCaption);
+		scrollPane.setViewportView(lstDiscount);
+
+		GroupLayout gl_pnDiscounts = new GroupLayout(pnDiscounts);
+		gl_pnDiscounts.setHorizontalGroup(gl_pnDiscounts
+				.createParallelGroup(Alignment.LEADING)
+				.addGroup(
+						gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh2, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
+								.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+				.addGroup(
+						gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh3, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
+								.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh4, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
+				.addGroup(
+						gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(151)
+								.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+				.addGroup(
+						Alignment.TRAILING,
+						gl_pnDiscounts
+								.createSequentialGroup()
+								.addGroup(
+										gl_pnDiscounts
+												.createParallelGroup(Alignment.TRAILING)
+												.addGroup(
+														Alignment.LEADING,
+														gl_pnDiscounts
+																.createParallelGroup(Alignment.LEADING)
+																.addGroup(
+																		gl_pnDiscounts.createSequentialGroup().addGap(118)
+																				.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE).addGap(111)
+																				.addComponent(lblEndDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+																.addGroup(
+																		gl_pnDiscounts.createSequentialGroup().addGap(118)
+																				.addComponent(strDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE).addGap(98)
+																				.addComponent(endDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+																.addGroup(
+																		gl_pnDiscounts.createSequentialGroup().addGap(120)
+																				.addComponent(rh1, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
+												.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(22).addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))).addGap(33)));
+		gl_pnDiscounts.setVerticalGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addGroup(
+						gl_pnDiscounts
+								.createSequentialGroup()
+								.addGap(41)
+								.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(lblStartDate).addComponent(lblEndDate))
+								.addGap(11)
+								.addGroup(
+										gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(strDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(endDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(39)
+								.addComponent(rh1)
+								.addGap(3)
+								.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh2).addGroup(gl_pnDiscounts.createSequentialGroup().addGap(4).addComponent(label_2)))
+								.addGap(3)
+								.addGroup(
+										gl_pnDiscounts
+												.createParallelGroup(Alignment.LEADING)
+												.addComponent(rh3)
+												.addGroup(
+														gl_pnDiscounts.createSequentialGroup().addGap(1)
+																.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))).addGap(3).addComponent(rh4)
+								.addGap(3)
+								.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh5).addGroup(gl_pnDiscounts.createSequentialGroup().addGap(18).addComponent(btnOk)))
+								.addGap(27).addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE).addContainerGap()));
+		GroupLayout gl_pnlbls = new GroupLayout(pnlbls);
+		gl_pnlbls.setHorizontalGroup(gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_pnlbls.createSequentialGroup().addGap(7).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE).addGap(7)));
+		gl_pnlbls.setVerticalGroup(gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_pnlbls.createSequentialGroup().addGap(8).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE).addGap(8)));
+		pnlbls.setLayout(gl_pnlbls);
+		pnDiscounts.setLayout(gl_pnDiscounts);
+		JPanel pnStatistics = new JPanel();
+		pnStatistics.setBackground(SystemColor.activeCaption);
+		tabbedPane.addTab("Statistics", null, pnStatistics, null);
+		btnShow = new JButton("Show");
+		pnBox = new JPanel();
+		pnBox.setBackground(SystemColor.inactiveCaption);
+		pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.X_AXIS));
+		GroupLayout gl_pnStatistics = new GroupLayout(pnStatistics);
+		gl_pnStatistics.setHorizontalGroup(gl_pnStatistics.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnStatistics.createSequentialGroup().addContainerGap(223, Short.MAX_VALUE).addComponent(btnShow, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE).addGap(261))
+				.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE));
+		gl_pnStatistics.setVerticalGroup(gl_pnStatistics.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_pnStatistics.createSequentialGroup().addGap(11).addComponent(btnShow).addGap(11).addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)));
+		pnStatistics.setLayout(gl_pnStatistics);
+
+		disc = database.showDiscount();
+
+		discountlist.addElement("Hotel : " + disc[0].gethotel() + " , Start Date " + disc[0].getDate() + " , End Date " + disc[0].getendDate() + " , Percentage " + disc[0].getpercentage() + "%");
+		discountlist.addElement("Hotel : " + disc[1].gethotel() + " , Start Date " + disc[1].getDate() + " , End Date " + disc[1].getendDate() + " , Percentage " + disc[1].getpercentage() + "%");
+		discountlist.addElement("Hotel : " + disc[2].gethotel() + " , Start Date " + disc[2].getDate() + " , End Date " + disc[2].getendDate() + " , Percentage " + disc[2].getpercentage() + "%");
+		discountlist.addElement("Hotel : " + disc[3].gethotel() + " , Start Date " + disc[3].getDate() + " , End Date " + disc[3].getendDate() + " , Percentage " + disc[3].getpercentage() + "%");
+		discountlist.addElement("Hotel : " + disc[4].gethotel() + " , Start Date " + disc[4].getDate() + " , End Date " + disc[4].getendDate() + " , Percentage " + disc[4].getpercentage() + "%");
 
 	}
 
@@ -465,48 +412,48 @@ discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].
 				btnsignup();
 			}
 		});
-		
+
 	}
 
-	
-	private void btnDelete(){
+	private void btnDelete() {
 		User emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
-		if(emp==null)
+		if (emp == null)
 			JOptionPane.showMessageDialog(null, "User Does Not Exist.", "Error", JOptionPane.ERROR_MESSAGE);
-		else{
+		else {
 			database.delete(txtUsername.getText());
 			txtUsername.setText("");
 			txtPassword.setText("");
 		}
 	}
-	private void btnsignup(){
-		if(txtPasswordQ.getText().equals(txtCfPassword.getText())){
-			
-			int  k = cbType.getSelectedIndex();
-			if(k == 0){
-				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),User.TYPE_ADMIN);
+
+	private void btnsignup() {
+		if (txtPasswordQ.getText().equals(txtCfPassword.getText())) {
+
+			int k = cbType.getSelectedIndex();
+			if (k == 0) {
+				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_ADMIN);
 				txtUsernameQ.setText("");
 				txtPasswordQ.setText("");
 				txtCfPassword.setText("");
-			}else{
-				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(),User.TYPE_STAFF);
+			} else {
+				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_STAFF);
 				txtUsernameQ.setText("");
 				txtPasswordQ.setText("");
 				txtCfPassword.setText("");
 			}
-		}else
-			JOptionPane.showMessageDialog(null, "Passwords must match.", "Error", JOptionPane.ERROR_MESSAGE);	
-	
+		} else
+			JOptionPane.showMessageDialog(null, "Passwords must match.", "Error", JOptionPane.ERROR_MESSAGE);
+
 	}
 
-	private void btnShowClick(){
-		
+	private void btnShowClick() {
+
 		database.showStats();
 		pnBox.removeAll();
 		pnBox.add(database.chartPanel);
 		pnBox.updateUI();
 	}
-	
+
 	private void btnOKClick() {
 		if (rh1.isSelected())
 			htl = 1;
@@ -530,17 +477,21 @@ discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].
 
 				database.addDiscount(htl, d1, d2, dis);
 				discountlist.removeAllElements();
-				
+
 				disc = database.showDiscount();
 
-				discountlist.addElement("Hotel : "+disc[0].gethotel()+" , Start Date "+ disc[0].getDate()+" , End Date "+disc[0].getendDate()+" , Percentage "+disc[0].getpercentage()+"%");
-				discountlist.addElement("Hotel : "+disc[1].gethotel()+" , Start Date "+ disc[1].getDate()+" , End Date "+disc[1].getendDate()+" , Percentage "+disc[1].getpercentage()+"%");
-				discountlist.addElement("Hotel : "+disc[2].gethotel()+" , Start Date "+ disc[2].getDate()+" , End Date "+disc[2].getendDate()+" , Percentage "+disc[2].getpercentage()+"%");
-				discountlist.addElement("Hotel : "+disc[3].gethotel()+" , Start Date "+ disc[3].getDate()+" , End Date "+disc[3].getendDate()+" , Percentage "+disc[3].getpercentage()+"%");
-				discountlist.addElement("Hotel : "+disc[4].gethotel()+" , Start Date "+ disc[4].getDate()+" , End Date "+disc[4].getendDate()+" , Percentage "+disc[4].getpercentage()+"%");
-				
-			
-			// TODO Invalid credentials leme mono sto login re paparopapare.
+				discountlist.addElement("Hotel : " + disc[0].gethotel() + " , Start Date " + disc[0].getDate() + " , End Date " + disc[0].getendDate() + " , Percentage " + disc[0].getpercentage()
+						+ "%");
+				discountlist.addElement("Hotel : " + disc[1].gethotel() + " , Start Date " + disc[1].getDate() + " , End Date " + disc[1].getendDate() + " , Percentage " + disc[1].getpercentage()
+						+ "%");
+				discountlist.addElement("Hotel : " + disc[2].gethotel() + " , Start Date " + disc[2].getDate() + " , End Date " + disc[2].getendDate() + " , Percentage " + disc[2].getpercentage()
+						+ "%");
+				discountlist.addElement("Hotel : " + disc[3].gethotel() + " , Start Date " + disc[3].getDate() + " , End Date " + disc[3].getendDate() + " , Percentage " + disc[3].getpercentage()
+						+ "%");
+				discountlist.addElement("Hotel : " + disc[4].gethotel() + " , Start Date " + disc[4].getDate() + " , End Date " + disc[4].getendDate() + " , Percentage " + disc[4].getpercentage()
+						+ "%");
+
+				// TODO Invalid credentials leme mono sto login re paparopapare.
 			} else
 				JOptionPane.showMessageDialog(null, "Invalid credentials.Discount must be between 0 and 100", "Error", JOptionPane.ERROR_MESSAGE);
 

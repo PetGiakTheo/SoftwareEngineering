@@ -57,7 +57,7 @@ CREATE TABLE `discounts` (
   `endDate` date DEFAULT NULL,
   `percentage` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,67 +66,168 @@ CREATE TABLE `discounts` (
 
 LOCK TABLES `discounts` WRITE;
 /*!40000 ALTER TABLE `discounts` DISABLE KEYS */;
-INSERT INTO `discounts` VALUES (25,1,'2017-01-06','2017-01-13',23),(26,1,'2017-01-06','2017-01-06',23),(27,1,'2017-01-05','2017-01-03',34),(28,1,'2017-01-14','2017-01-20',23),(29,1,'2017-01-14','2017-01-27',4),(30,1,'2017-01-13','2017-01-20',3);
+INSERT INTO `discounts` VALUES (31,1,'2017-01-01','2017-01-31',1);
 /*!40000 ALTER TABLE `discounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `employees1`
+-- Table structure for table `reservations1`
 --
 
-DROP TABLE IF EXISTS `employees1`;
+DROP TABLE IF EXISTS `reservations1`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `employees1` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `type` char(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `employees1`
---
-
-LOCK TABLES `employees1` WRITE;
-/*!40000 ALTER TABLE `employees1` DISABLE KEYS */;
-INSERT INTO `employees1` VALUES (1,'stelios','ntou','staff'),(2,'marios','klania','admin'),(3,'theofilos','peos','admin'),(4,'kappas','kippos','staff'),(13,'Akis','Gamatos','admin'),(23,'GiatiToIdMou','Einai23Papari','admin');
-/*!40000 ALTER TABLE `employees1` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `reservations`
---
-
-DROP TABLE IF EXISTS `reservations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `reservations` (
+CREATE TABLE `reservations1` (
   `id` int(10) unsigned NOT NULL,
   `start` date NOT NULL,
   `end` date NOT NULL,
   `cust_id` int(10) unsigned NOT NULL,
   `room_id` int(10) unsigned NOT NULL,
-  `hotel` tinyint(4) NOT NULL,
   `status` varchar(9) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cust` (`cust_id`),
   KEY `fk_room` (`room_id`),
-  CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`id`),
-  CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms1` (`id`)
+  CONSTRAINT `reservations1_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`id`),
+  CONSTRAINT `reservations1_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms1` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `reservations`
+-- Dumping data for table `reservations1`
 --
 
-LOCK TABLES `reservations` WRITE;
-/*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (1,'2017-01-02','2017-01-04',67,31,1,'active'),(2,'2017-02-03','2017-02-05',87,13,1,'active'),(3,'2017-03-03','2017-03-07',12,49,1,'active'),(4,'2017-04-02','2017-04-05',13,11,1,'cancelled'),(5,'2017-05-01','2017-05-02',70,13,1,'active'),(6,'2017-06-01','2017-06-02',29,45,1,'active'),(7,'2017-07-02','2017-07-03',31,20,1,'cancelled'),(8,'2017-08-03','2017-08-06',90,39,1,'active'),(9,'2017-09-02','2017-09-05',12,46,1,'active'),(10,'2017-10-03','2017-10-04',29,4,1,'active'),(11,'2017-11-02','2017-11-04',36,4,1,'active'),(12,'2017-12-03','2017-12-05',63,50,1,'active'),(13,'2017-01-13','2017-01-15',19,40,1,'active'),(14,'2017-02-11','2017-02-15',39,31,1,'active'),(15,'2017-03-13','2017-03-14',64,30,1,'cancelled'),(16,'2017-04-12','2017-04-13',12,23,1,'active'),(17,'2017-05-12','2017-05-14',38,50,1,'active'),(18,'2017-06-12','2017-06-16',31,21,1,'active'),(19,'2017-07-12','2017-07-16',75,33,1,'active'),(20,'2017-08-11','2017-08-15',64,26,1,'active'),(21,'2017-09-11','2017-09-13',41,18,1,'cancelled'),(22,'2017-10-12','2017-10-13',25,22,1,'active'),(23,'2017-11-13','2017-11-17',9,27,1,'active'),(24,'2017-12-12','2017-12-16',41,47,1,'active'),(25,'2017-01-23','2017-01-26',58,21,1,'active'),(26,'2017-02-23','2017-02-24',68,1,1,'active'),(27,'2017-03-21','2017-03-24',30,17,1,'cancelled'),(28,'2017-04-23','2017-04-27',19,2,1,'cancelled'),(29,'2017-05-22','2017-05-25',33,14,1,'cancelled'),(30,'2017-06-23','2017-06-26',78,21,1,'active'),(31,'2017-07-22','2017-07-25',53,35,1,'cancelled'),(32,'2017-08-22','2017-08-23',64,45,1,'active'),(33,'2017-09-23','2017-09-27',37,8,1,'active'),(34,'2017-10-23','2017-10-24',82,6,1,'active'),(35,'2017-11-22','2017-11-23',5,18,1,'cancelled'),(36,'2017-12-22','2017-12-24',95,12,1,'cancelled'),(1001,'2017-01-18','2017-01-21',10,43,1,'active'),(1002,'2017-01-17','2017-01-23',18,17,1,'active'),(1003,'2017-01-30','2017-02-02',1,2,1,'active');
-/*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
+LOCK TABLES `reservations1` WRITE;
+/*!40000 ALTER TABLE `reservations1` DISABLE KEYS */;
+INSERT INTO `reservations1` VALUES (1,'2017-01-02','2017-01-04',67,31,'active'),(2,'2017-02-03','2017-02-05',87,13,'active'),(3,'2017-03-03','2017-03-07',12,49,'active'),(4,'2017-04-02','2017-04-05',13,11,'cancelled'),(5,'2017-05-01','2017-05-02',70,13,'active'),(6,'2017-06-01','2017-06-02',29,45,'active'),(7,'2017-07-02','2017-07-03',31,20,'cancelled'),(8,'2017-08-03','2017-08-06',90,39,'active'),(9,'2017-09-02','2017-09-05',12,46,'active'),(10,'2017-10-03','2017-10-04',29,4,'active'),(11,'2017-11-02','2017-11-04',36,4,'active'),(12,'2017-12-03','2017-12-05',63,50,'active'),(13,'2017-01-13','2017-01-15',19,40,'active'),(14,'2017-02-11','2017-02-15',39,31,'active'),(15,'2017-03-13','2017-03-14',64,30,'cancelled'),(16,'2017-04-12','2017-04-13',12,23,'active'),(17,'2017-05-12','2017-05-14',38,50,'active'),(18,'2017-06-12','2017-06-16',31,21,'active'),(19,'2017-07-12','2017-07-16',75,33,'active'),(20,'2017-08-11','2017-08-15',64,26,'active'),(21,'2017-09-11','2017-09-13',41,18,'cancelled'),(22,'2017-10-12','2017-10-13',25,22,'active'),(23,'2017-11-13','2017-11-17',9,27,'active'),(24,'2017-12-12','2017-12-16',41,47,'active'),(25,'2017-01-23','2017-01-26',58,21,'active'),(26,'2017-02-23','2017-02-24',68,1,'active'),(27,'2017-03-21','2017-03-24',30,17,'cancelled'),(28,'2017-04-23','2017-04-27',19,2,'cancelled'),(29,'2017-05-22','2017-05-25',33,14,'cancelled'),(30,'2017-06-23','2017-06-26',78,21,'active'),(31,'2017-07-22','2017-07-25',53,35,'cancelled'),(32,'2017-08-22','2017-08-23',64,45,'active'),(33,'2017-09-23','2017-09-27',37,8,'active'),(34,'2017-10-23','2017-10-24',82,6,'active'),(35,'2017-11-22','2017-11-23',5,18,'cancelled'),(36,'2017-12-22','2017-12-24',95,12,'cancelled'),(1001,'2017-01-18','2017-01-21',10,43,'active'),(1002,'2017-01-17','2017-01-23',18,17,'active'),(1003,'2017-01-30','2017-02-02',1,2,'active'),(100000,'2017-02-02','2017-02-03',5,41,'active');
+/*!40000 ALTER TABLE `reservations1` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reservations2`
+--
+
+DROP TABLE IF EXISTS `reservations2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reservations2` (
+  `id` int(10) unsigned NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `cust_id` int(10) unsigned NOT NULL,
+  `room_id` int(10) unsigned NOT NULL,
+  `status` varchar(9) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cust` (`cust_id`),
+  KEY `fk_room` (`room_id`),
+  CONSTRAINT `reservations2_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`id`),
+  CONSTRAINT `reservations2_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms2` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservations2`
+--
+
+LOCK TABLES `reservations2` WRITE;
+/*!40000 ALTER TABLE `reservations2` DISABLE KEYS */;
+INSERT INTO `reservations2` VALUES (1,'2017-01-03','2017-01-07',42,4,'active'),(2,'2017-02-01','2017-02-05',4,42,'active'),(3,'2017-03-03','2017-03-06',97,4,'active'),(4,'2017-04-02','2017-04-06',33,13,'active'),(5,'2017-05-02','2017-05-04',85,16,'active'),(6,'2017-06-03','2017-06-05',27,29,'cancelled'),(7,'2017-07-01','2017-07-04',95,10,'active'),(8,'2017-08-03','2017-08-04',3,39,'active'),(9,'2017-09-01','2017-09-04',66,28,'active'),(10,'2017-10-01','2017-10-03',27,39,'active'),(11,'2017-11-02','2017-11-03',47,38,'active'),(12,'2017-12-03','2017-12-05',37,6,'active'),(13,'2017-01-11','2017-01-13',70,17,'cancelled'),(14,'2017-02-11','2017-02-15',97,14,'cancelled'),(15,'2017-03-11','2017-03-14',34,21,'active'),(16,'2017-04-11','2017-04-12',79,38,'active'),(17,'2017-05-12','2017-05-15',32,34,'active'),(18,'2017-06-13','2017-06-17',77,12,'active'),(19,'2017-07-13','2017-07-16',88,31,'active'),(20,'2017-08-11','2017-08-15',11,48,'active'),(21,'2017-09-12','2017-09-14',58,21,'active'),(22,'2017-10-12','2017-10-15',95,37,'active'),(23,'2017-11-11','2017-11-14',18,33,'active'),(24,'2017-12-11','2017-12-12',6,46,'active'),(25,'2017-01-23','2017-01-25',71,50,'active'),(26,'2017-02-23','2017-02-27',50,46,'cancelled'),(27,'2017-03-21','2017-03-22',45,19,'active'),(28,'2017-04-21','2017-04-22',19,49,'cancelled'),(29,'2017-05-23','2017-05-24',51,8,'active'),(30,'2017-06-22','2017-06-24',27,11,'cancelled'),(31,'2017-07-23','2017-07-26',54,4,'active'),(32,'2017-08-22','2017-08-23',50,9,'active'),(33,'2017-09-22','2017-09-26',77,49,'active'),(34,'2017-10-23','2017-10-25',6,38,'active'),(35,'2017-11-23','2017-11-26',40,19,'cancelled'),(36,'2017-12-23','2017-12-25',10,37,'cancelled');
+/*!40000 ALTER TABLE `reservations2` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reservations3`
+--
+
+DROP TABLE IF EXISTS `reservations3`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reservations3` (
+  `id` int(10) unsigned NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `cust_id` int(10) unsigned NOT NULL,
+  `room_id` int(10) unsigned NOT NULL,
+  `status` varchar(9) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cust` (`cust_id`),
+  KEY `fk_room` (`room_id`),
+  CONSTRAINT `reservations3_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms3` (`id`),
+  CONSTRAINT `reservations3_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservations3`
+--
+
+LOCK TABLES `reservations3` WRITE;
+/*!40000 ALTER TABLE `reservations3` DISABLE KEYS */;
+INSERT INTO `reservations3` VALUES (1,'2017-01-03','2017-01-04',8,49,'active'),(2,'2017-02-01','2017-02-04',16,36,'active'),(3,'2017-03-03','2017-03-07',62,5,'active'),(4,'2017-04-01','2017-04-03',75,3,'cancelled'),(5,'2017-05-02','2017-05-03',14,3,'active'),(6,'2017-06-03','2017-06-07',57,49,'active'),(7,'2017-07-03','2017-07-04',29,23,'active'),(8,'2017-08-01','2017-08-03',89,42,'active'),(9,'2017-09-01','2017-09-04',65,39,'active'),(10,'2017-10-02','2017-10-05',61,4,'active'),(11,'2017-11-01','2017-11-04',24,21,'cancelled'),(12,'2017-12-03','2017-12-06',98,43,'active'),(13,'2017-01-11','2017-01-14',95,13,'active'),(14,'2017-02-13','2017-02-15',52,20,'active'),(15,'2017-03-11','2017-03-15',77,45,'cancelled'),(16,'2017-04-11','2017-04-13',90,26,'active'),(17,'2017-05-12','2017-05-14',49,18,'active'),(18,'2017-06-12','2017-06-13',88,36,'cancelled'),(19,'2017-07-12','2017-07-16',79,1,'cancelled'),(20,'2017-08-13','2017-08-15',70,2,'active'),(21,'2017-09-11','2017-09-13',71,25,'active'),(22,'2017-10-12','2017-10-16',37,50,'active'),(23,'2017-11-12','2017-11-16',85,46,'active'),(24,'2017-12-12','2017-12-16',19,40,'cancelled'),(25,'2017-01-23','2017-01-26',96,8,'active'),(26,'2017-02-21','2017-02-24',7,40,'active'),(27,'2017-03-23','2017-03-25',100,37,'cancelled'),(28,'2017-04-22','2017-04-24',17,10,'cancelled'),(29,'2017-05-23','2017-05-26',40,1,'active'),(30,'2017-06-23','2017-06-26',93,49,'active'),(31,'2017-07-21','2017-07-24',34,21,'active'),(32,'2017-08-22','2017-08-26',14,15,'active'),(33,'2017-09-22','2017-09-23',11,16,'active'),(34,'2017-10-23','2017-10-25',63,18,'active'),(35,'2017-11-21','2017-11-22',87,16,'active'),(36,'2017-12-22','2017-12-24',69,4,'active');
+/*!40000 ALTER TABLE `reservations3` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reservations4`
+--
+
+DROP TABLE IF EXISTS `reservations4`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reservations4` (
+  `id` int(10) unsigned NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `cust_id` int(10) unsigned NOT NULL,
+  `room_id` int(10) unsigned NOT NULL,
+  `status` varchar(9) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cust` (`cust_id`),
+  KEY `fk_room` (`room_id`),
+  CONSTRAINT `reservations4_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms4` (`id`),
+  CONSTRAINT `reservations4_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservations4`
+--
+
+LOCK TABLES `reservations4` WRITE;
+/*!40000 ALTER TABLE `reservations4` DISABLE KEYS */;
+INSERT INTO `reservations4` VALUES (1,'2017-01-03','2017-01-04',95,42,'active'),(2,'2017-02-01','2017-02-02',64,41,'active'),(3,'2017-03-01','2017-03-02',59,26,'active'),(4,'2017-04-01','2017-04-05',71,5,'active'),(5,'2017-05-02','2017-05-06',60,6,'cancelled'),(6,'2017-06-02','2017-06-06',35,46,'active'),(7,'2017-07-03','2017-07-07',40,36,'active'),(8,'2017-08-02','2017-08-04',84,19,'active'),(9,'2017-09-03','2017-09-07',87,27,'active'),(10,'2017-10-01','2017-10-03',37,1,'cancelled'),(11,'2017-11-03','2017-11-04',83,32,'cancelled'),(12,'2017-12-03','2017-12-04',73,16,'active'),(13,'2017-01-11','2017-01-12',62,46,'active'),(14,'2017-02-12','2017-02-13',47,43,'active'),(15,'2017-03-11','2017-03-14',23,15,'active'),(16,'2017-04-12','2017-04-15',87,19,'active'),(17,'2017-05-13','2017-05-17',19,27,'active'),(18,'2017-06-13','2017-06-17',62,8,'active'),(19,'2017-07-12','2017-07-15',73,3,'active'),(20,'2017-08-11','2017-08-13',60,27,'active'),(21,'2017-09-13','2017-09-17',69,14,'cancelled'),(22,'2017-10-11','2017-10-14',75,7,'cancelled'),(23,'2017-11-13','2017-11-17',81,3,'active'),(24,'2017-12-11','2017-12-12',44,32,'cancelled'),(25,'2017-01-22','2017-01-23',64,16,'cancelled'),(26,'2017-02-21','2017-02-24',6,32,'active'),(27,'2017-03-23','2017-03-26',10,26,'active'),(28,'2017-04-23','2017-04-25',95,28,'active'),(29,'2017-05-23','2017-05-24',94,37,'active'),(30,'2017-06-21','2017-06-24',91,33,'cancelled'),(31,'2017-07-23','2017-07-26',87,24,'active'),(32,'2017-08-22','2017-08-26',34,4,'active'),(33,'2017-09-23','2017-09-27',14,20,'active'),(34,'2017-10-23','2017-10-26',74,43,'active'),(35,'2017-11-22','2017-11-26',2,38,'active'),(36,'2017-12-23','2017-12-26',54,30,'active');
+/*!40000 ALTER TABLE `reservations4` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reservations5`
+--
+
+DROP TABLE IF EXISTS `reservations5`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reservations5` (
+  `id` int(10) unsigned NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `cust_id` int(10) unsigned NOT NULL,
+  `room_id` int(10) unsigned NOT NULL,
+  `status` varchar(9) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cust` (`cust_id`),
+  KEY `fk_room` (`room_id`),
+  CONSTRAINT `reservations5_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms5` (`id`),
+  CONSTRAINT `reservations5_ibfk_2` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservations5`
+--
+
+LOCK TABLES `reservations5` WRITE;
+/*!40000 ALTER TABLE `reservations5` DISABLE KEYS */;
+INSERT INTO `reservations5` VALUES (1,'2017-01-03','2017-01-06',9,7,'active'),(2,'2017-02-03','2017-02-07',45,31,'cancelled'),(3,'2017-03-01','2017-03-03',97,10,'active'),(4,'2017-04-01','2017-04-05',7,30,'active'),(5,'2017-05-01','2017-05-05',32,22,'active'),(6,'2017-06-03','2017-06-07',4,30,'active'),(7,'2017-07-03','2017-07-04',24,21,'active'),(8,'2017-08-03','2017-08-05',42,24,'active'),(9,'2017-09-02','2017-09-04',11,49,'cancelled'),(10,'2017-10-03','2017-10-07',80,28,'cancelled'),(11,'2017-11-01','2017-11-05',77,42,'active'),(12,'2017-12-03','2017-12-06',45,15,'active'),(13,'2017-01-11','2017-01-15',92,32,'active'),(14,'2017-02-12','2017-02-14',61,5,'active'),(15,'2017-03-12','2017-03-16',21,34,'active'),(16,'2017-04-11','2017-04-14',4,14,'active'),(17,'2017-05-11','2017-05-15',69,36,'active'),(18,'2017-06-11','2017-06-15',96,31,'active'),(19,'2017-07-11','2017-07-14',96,3,'cancelled'),(20,'2017-08-11','2017-08-13',94,40,'active'),(21,'2017-09-12','2017-09-14',54,20,'active'),(22,'2017-10-11','2017-10-15',55,39,'active'),(23,'2017-11-11','2017-11-12',15,11,'active'),(24,'2017-12-11','2017-12-15',17,2,'cancelled'),(25,'2017-01-21','2017-01-24',42,15,'active'),(26,'2017-02-23','2017-02-24',21,21,'cancelled'),(27,'2017-03-23','2017-03-25',92,44,'cancelled'),(28,'2017-04-22','2017-04-26',52,33,'active'),(29,'2017-05-22','2017-05-25',2,40,'cancelled'),(30,'2017-06-23','2017-06-24',6,25,'cancelled'),(31,'2017-07-23','2017-07-24',33,20,'active'),(32,'2017-08-23','2017-08-27',74,50,'active'),(33,'2017-09-21','2017-09-23',32,19,'active'),(34,'2017-10-23','2017-10-24',4,38,'active'),(35,'2017-11-23','2017-11-24',40,32,'cancelled'),(36,'2017-12-22','2017-12-26',62,45,'active');
+/*!40000 ALTER TABLE `reservations5` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -141,8 +242,6 @@ CREATE TABLE `rooms1` (
   `singleBeds` tinyint(4) NOT NULL,
   `doubleBeds` tinyint(4) NOT NULL,
   `type` char(3) NOT NULL,
-  `sale` bit(1) NOT NULL,
-  `children` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -153,8 +252,138 @@ CREATE TABLE `rooms1` (
 
 LOCK TABLES `rooms1` WRITE;
 /*!40000 ALTER TABLE `rooms1` DISABLE KEYS */;
-INSERT INTO `rooms1` VALUES (1,2,2,'reg','',3),(2,0,1,'reg','\0',0),(3,3,0,'vip','\0',1),(4,3,1,'vip','\0',3),(5,2,3,'vip','',3),(6,2,3,'vip','\0',3),(7,2,0,'vip','',0),(8,3,3,'vip','\0',3),(9,0,2,'reg','\0',0),(10,1,2,'vip','',3),(11,0,3,'vip','',3),(12,3,0,'reg','',2),(13,0,1,'vip','\0',2),(14,1,0,'reg','\0',2),(15,3,1,'vip','\0',3),(16,3,3,'vip','\0',1),(17,3,2,'vip','\0',1),(18,2,0,'vip','',2),(19,0,2,'vip','\0',3),(20,3,2,'vip','\0',0),(21,2,3,'vip','\0',1),(22,0,3,'reg','',1),(23,0,3,'vip','\0',1),(24,3,2,'vip','\0',2),(25,0,3,'reg','\0',0),(26,1,0,'reg','',3),(27,2,1,'reg','',0),(28,3,0,'vip','',2),(29,1,0,'reg','\0',0),(30,2,3,'reg','\0',0),(31,2,2,'vip','',0),(32,3,2,'vip','\0',2),(33,1,3,'reg','\0',3),(34,1,0,'vip','\0',0),(35,0,3,'vip','',0),(36,3,0,'vip','',2),(37,1,2,'reg','\0',1),(38,1,0,'reg','\0',3),(39,3,0,'vip','\0',0),(40,0,3,'reg','\0',0),(41,1,2,'vip','',3),(42,3,2,'vip','',0),(43,3,0,'vip','',1),(44,3,3,'vip','\0',2),(45,3,2,'reg','\0',3),(46,2,1,'vip','\0',0),(47,2,0,'vip','\0',2),(48,3,0,'vip','\0',3),(49,1,0,'reg','',3),(50,3,2,'vip','\0',1);
+INSERT INTO `rooms1` VALUES (1,2,2,'reg'),(2,0,1,'reg'),(3,3,0,'vip'),(4,3,1,'vip'),(5,2,3,'vip'),(6,2,3,'vip'),(7,2,0,'vip'),(8,3,3,'vip'),(9,0,2,'reg'),(10,1,2,'vip'),(11,0,3,'vip'),(12,3,0,'reg'),(13,0,1,'vip'),(14,1,0,'reg'),(15,3,1,'vip'),(16,3,3,'vip'),(17,3,2,'vip'),(18,2,0,'vip'),(19,0,2,'vip'),(20,3,2,'vip'),(21,2,3,'vip'),(22,0,3,'reg'),(23,0,3,'vip'),(24,3,2,'vip'),(25,0,3,'reg'),(26,1,0,'reg'),(27,2,1,'reg'),(28,3,0,'vip'),(29,1,0,'reg'),(30,2,3,'reg'),(31,2,2,'vip'),(32,3,2,'vip'),(33,1,3,'reg'),(34,1,0,'vip'),(35,0,3,'vip'),(36,3,0,'vip'),(37,1,2,'reg'),(38,1,0,'reg'),(39,3,0,'vip'),(40,0,3,'reg'),(41,1,2,'vip'),(42,3,2,'vip'),(43,3,0,'vip'),(44,3,3,'vip'),(45,3,2,'reg'),(46,2,1,'vip'),(47,2,0,'vip'),(48,3,0,'vip'),(49,1,0,'reg'),(50,3,2,'vip');
 /*!40000 ALTER TABLE `rooms1` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rooms2`
+--
+
+DROP TABLE IF EXISTS `rooms2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms2` (
+  `id` int(10) unsigned NOT NULL,
+  `singleBeds` tinyint(4) NOT NULL,
+  `doubleBeds` tinyint(4) NOT NULL,
+  `type` char(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms2`
+--
+
+LOCK TABLES `rooms2` WRITE;
+/*!40000 ALTER TABLE `rooms2` DISABLE KEYS */;
+INSERT INTO `rooms2` VALUES (1,3,1,'reg'),(2,1,3,'reg'),(3,0,2,'vip'),(4,1,2,'reg'),(5,3,0,'vip'),(6,2,1,'vip'),(7,2,0,'vip'),(8,1,2,'reg'),(9,3,0,'vip'),(10,2,1,'vip'),(11,0,2,'reg'),(12,0,2,'vip'),(13,1,2,'vip'),(14,1,1,'reg'),(15,2,0,'vip'),(16,2,3,'vip'),(17,2,1,'vip'),(18,2,1,'vip'),(19,2,0,'vip'),(20,2,1,'reg'),(21,3,1,'reg'),(22,2,3,'reg'),(23,1,2,'vip'),(24,1,2,'vip'),(25,1,1,'reg'),(26,3,1,'vip'),(27,1,2,'vip'),(28,0,3,'reg'),(29,0,1,'reg'),(30,3,3,'vip'),(31,0,1,'vip'),(32,0,3,'vip'),(33,2,3,'reg'),(34,3,1,'vip'),(35,3,2,'vip'),(36,3,0,'reg'),(37,1,0,'vip'),(38,3,1,'vip'),(39,2,3,'vip'),(40,0,1,'reg'),(41,1,1,'reg'),(42,3,1,'reg'),(43,0,2,'reg'),(44,1,3,'reg'),(45,3,3,'reg'),(46,0,2,'vip'),(47,0,2,'vip'),(48,0,2,'vip'),(49,0,1,'reg'),(50,0,1,'vip');
+/*!40000 ALTER TABLE `rooms2` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rooms3`
+--
+
+DROP TABLE IF EXISTS `rooms3`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms3` (
+  `id` int(10) unsigned NOT NULL,
+  `singleBeds` tinyint(4) NOT NULL,
+  `doubleBeds` tinyint(4) NOT NULL,
+  `type` char(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms3`
+--
+
+LOCK TABLES `rooms3` WRITE;
+/*!40000 ALTER TABLE `rooms3` DISABLE KEYS */;
+INSERT INTO `rooms3` VALUES (1,3,0,'reg'),(2,1,1,'vip'),(3,1,3,'vip'),(4,1,0,'vip'),(5,3,1,'reg'),(6,0,1,'reg'),(7,3,0,'vip'),(8,1,2,'vip'),(9,1,1,'reg'),(10,1,2,'reg'),(11,3,1,'vip'),(12,0,3,'reg'),(13,0,2,'vip'),(14,0,3,'vip'),(15,2,1,'vip'),(16,3,1,'vip'),(17,1,2,'vip'),(18,2,0,'vip'),(19,0,1,'reg'),(20,2,2,'vip'),(21,2,2,'vip'),(22,1,1,'vip'),(23,3,1,'vip'),(24,3,2,'reg'),(25,1,1,'reg'),(26,1,3,'reg'),(27,3,2,'reg'),(28,3,3,'vip'),(29,1,1,'vip'),(30,1,0,'reg'),(31,2,1,'vip'),(32,3,1,'vip'),(33,1,1,'reg'),(34,1,2,'reg'),(35,1,0,'vip'),(36,0,1,'vip'),(37,0,1,'vip'),(38,0,3,'vip'),(39,2,2,'reg'),(40,0,1,'reg'),(41,2,0,'reg'),(42,0,1,'vip'),(43,1,3,'vip'),(44,1,1,'vip'),(45,0,3,'vip'),(46,3,1,'vip'),(47,3,3,'vip'),(48,2,2,'reg'),(49,2,3,'vip'),(50,1,2,'reg');
+/*!40000 ALTER TABLE `rooms3` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rooms4`
+--
+
+DROP TABLE IF EXISTS `rooms4`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms4` (
+  `id` int(10) unsigned NOT NULL,
+  `singleBeds` tinyint(4) NOT NULL,
+  `doubleBeds` tinyint(4) NOT NULL,
+  `type` char(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms4`
+--
+
+LOCK TABLES `rooms4` WRITE;
+/*!40000 ALTER TABLE `rooms4` DISABLE KEYS */;
+INSERT INTO `rooms4` VALUES (1,2,3,'reg'),(2,3,0,'vip'),(3,2,1,'vip'),(4,1,3,'reg'),(5,0,3,'reg'),(6,2,3,'reg'),(7,2,3,'reg'),(8,1,0,'reg'),(9,3,3,'reg'),(10,1,3,'vip'),(11,2,3,'reg'),(12,1,3,'vip'),(13,3,3,'vip'),(14,3,0,'reg'),(15,3,3,'reg'),(16,1,2,'vip'),(17,3,0,'vip'),(18,0,2,'vip'),(19,1,0,'reg'),(20,1,2,'vip'),(21,2,2,'reg'),(22,0,1,'vip'),(23,1,0,'vip'),(24,0,1,'vip'),(25,1,3,'reg'),(26,3,3,'vip'),(27,0,3,'reg'),(28,1,0,'reg'),(29,2,3,'vip'),(30,0,1,'reg'),(31,2,2,'vip'),(32,1,0,'reg'),(33,1,2,'reg'),(34,0,1,'vip'),(35,1,2,'reg'),(36,2,0,'vip'),(37,2,2,'reg'),(38,2,2,'vip'),(39,3,1,'vip'),(40,1,0,'vip'),(41,1,2,'vip'),(42,3,1,'vip'),(43,1,3,'reg'),(44,1,1,'vip'),(45,3,1,'vip'),(46,1,1,'reg'),(47,3,0,'vip'),(48,3,0,'reg'),(49,1,1,'reg'),(50,1,0,'reg');
+/*!40000 ALTER TABLE `rooms4` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rooms5`
+--
+
+DROP TABLE IF EXISTS `rooms5`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms5` (
+  `id` int(10) unsigned NOT NULL,
+  `singleBeds` tinyint(4) NOT NULL,
+  `doubleBeds` tinyint(4) NOT NULL,
+  `type` char(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms5`
+--
+
+LOCK TABLES `rooms5` WRITE;
+/*!40000 ALTER TABLE `rooms5` DISABLE KEYS */;
+INSERT INTO `rooms5` VALUES (1,0,3,'vip'),(2,3,2,'vip'),(3,1,0,'reg'),(4,0,2,'vip'),(5,0,1,'reg'),(6,1,2,'reg'),(7,2,1,'reg'),(8,3,2,'vip'),(9,1,1,'reg'),(10,3,1,'reg'),(11,0,1,'reg'),(12,3,0,'vip'),(13,2,3,'reg'),(14,3,0,'reg'),(15,3,0,'vip'),(16,2,0,'vip'),(17,1,3,'reg'),(18,2,2,'reg'),(19,2,1,'vip'),(20,1,0,'vip'),(21,0,1,'reg'),(22,2,2,'reg'),(23,2,3,'vip'),(24,0,1,'vip'),(25,1,0,'vip'),(26,3,3,'reg'),(27,0,1,'reg'),(28,3,1,'vip'),(29,2,2,'reg'),(30,1,1,'vip'),(31,0,1,'reg'),(32,1,0,'reg'),(33,1,0,'reg'),(34,2,2,'vip'),(35,1,1,'reg'),(36,2,1,'vip'),(37,3,0,'reg'),(38,3,0,'vip'),(39,1,3,'reg'),(40,2,2,'vip'),(41,0,3,'vip'),(42,3,3,'vip'),(43,2,3,'vip'),(44,2,1,'reg'),(45,1,2,'vip'),(46,2,2,'vip'),(47,1,2,'vip'),(48,1,1,'reg'),(49,3,1,'vip'),(50,1,0,'vip');
+/*!40000 ALTER TABLE `rooms5` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `type` char(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'stelios','ntou','staff'),(2,'marios','klania','admin'),(3,'theofilos','peos','admin'),(4,'kappas','kippos','staff'),(13,'Akis','Gamatos','admin'),(23,'GiatiToIdMou','Einai23Papari','admin');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -166,4 +395,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-21 13:06:54
+-- Dump completed on 2017-01-24 20:00:20

@@ -76,7 +76,7 @@ public class DBController {
 		
 		connect();
 		Random r = new Random();
-		final int amount = 100;
+		final int amount = 50;
 		
 		try {
 			for (int i = 0; i < amount;i++) {
@@ -152,7 +152,7 @@ public class DBController {
 				String room = Integer.toString(r.nextInt(50)+1);
 				String status = r.nextInt(4) == 0 ? Reservation.STATUS_CANCELLED : Reservation.STATUS_ACTIVE;
 				
-				String query = "insert into reservations values(" + Integer.toString(i+1) + ",'" + dateStart + "', '" + dateEnd + "'," + customer + "," + room + ",1,'" + status + "')";
+				String query = "insert into reservations5 values(" + Integer.toString(i+1) + ",'" + dateStart + "', '" + dateEnd + "'," + customer + "," + room + ",'" + status + "')";
 				stmt.executeUpdate(query);
 				
 				if (month == 12 && day >= 20) {
@@ -170,7 +170,7 @@ public class DBController {
 	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
 		// (StartA <= EndB) and (EndA >= StartB)
 		/*
-		 * select * from rooms1 left outer join reservations on rooms1.id = room_id and hotel = 1
+		 * select * from rooms1 left outer join reservations1 on rooms1.id = room_id and hotel = 1
 		 * where start is null or start > '2017-2-1' or end < '2017-1-1' order by rooms1.id
 		 */
 		connect();
@@ -192,7 +192,7 @@ public class DBController {
 		}
 		
 		// Build query.
-		String query = "select * from " + table + " left outer join reservations on " + table + ".id=room_id and hotel = " + Integer.toString(hotel) + " where ";
+		String query = "select * from " + table + " left outer join reservations" + Integer.toString(hotel) + " on " + table + ".id=room_id and hotel = " + Integer.toString(hotel) + " where ";
 		query += condSglBeds + condDblBeds + condType;
 		if (rangeStart != null && rangeEnd != null) {
 			query += " and (start is null or start > " + rangeEnd + " or end < " + rangeStart + ")";
@@ -315,12 +315,12 @@ public class DBController {
 		
 		try {
 			
-			rs = stmt.executeQuery("select * from employees1 where username='" + username + "'");
+			rs = stmt.executeQuery("select * from users where username='" + username + "'");
 			
 			if (rs.next()) {
 				JOptionPane.showMessageDialog(null, "User already exists.", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
-			stmt.executeUpdate("insert into employees1 (username,password,type) values('" + username + "','" + password + "','" + type + "');");
+			stmt.executeUpdate("insert into users (username,password,type) values('" + username + "','" + password + "','" + type + "');");
 			JOptionPane.showMessageDialog(null, "Done.");
 			}
 		} catch (SQLException e) {
@@ -360,7 +360,7 @@ public class DBController {
 		connect();
 		
 		try {
-			rs = stmt.executeQuery("select * from employees1 where username='" + username + "' and password='" + password + "'");
+			rs = stmt.executeQuery("select * from users where username='" + username + "' and password='" + password + "'");
 			
 			if (rs.next()) {
 				employee = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("type"));
@@ -376,9 +376,8 @@ public class DBController {
 	public void delete(String username) {
 		connect();
 		try {
-			stmt.executeUpdate("delete from employees1 where username = '" + username + "';");
+			stmt.executeUpdate("delete from users where username = '" + username + "';");
 			JOptionPane.showMessageDialog(null, "Done.");
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
