@@ -221,6 +221,24 @@ public class DBController {
 		disconnect();
 		return rooms.toArray(new Room[1]); // Convert to an array before returning.
 	}
+	public User[] showUsers(){
+		User Us = null;
+		ArrayList<User> Users = new ArrayList<User>();
+		connect();
+		try {
+			rs = stmt.executeQuery("select * from users ;");
+			
+			while(rs.next()) {
+				Us = new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"), rs.getString("type"));
+				Users.add(Us);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+		return Users.toArray(new User[1]);
+	}
 	
 	public Discount[] showDiscount(){
 		Discount disc = null;
@@ -380,6 +398,7 @@ public class DBController {
 			JOptionPane.showMessageDialog(null, "Done.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
 		}
 		disconnect();
 	}

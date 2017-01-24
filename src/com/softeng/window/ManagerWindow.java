@@ -9,11 +9,11 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -21,29 +21,25 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
 
 import com.softeng.misc.DBController;
 import com.softeng.misc.Discount;
 import com.softeng.misc.User;
 import com.toedter.calendar.JDateChooser;
-import java.awt.Frame;
-import java.awt.Dialog.ModalExclusionType;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.border.TitledBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 public class ManagerWindow {
 
@@ -65,10 +61,8 @@ public class ManagerWindow {
 	java.util.Date d1, d2;
 	java.sql.Date sqldt;
 	private int htl;
-	int dis;
+	private int dis;
 	private JTextField txtUsernameQ;
-	private JTextField txtUsername;
-	private JPasswordField txtPassword;
 	private JPasswordField txtPasswordQ;
 	private JPasswordField txtCfPassword;
 	private JButton btnShow;
@@ -81,8 +75,12 @@ public class ManagerWindow {
 	private Dimension s;
 	private JScrollPane scrollPane;
 	private JList lstDiscount;
-	DefaultListModel discountlist = new DefaultListModel();
+	DefaultListModel modellist = new DefaultListModel();
+	DefaultListModel modellist2 = new DefaultListModel();
 	Discount[] disc = null;
+	User[] users = null;
+	private JList lstDel;
+
 
 	/**
 	 * Launch the application.
@@ -171,62 +169,36 @@ public class ManagerWindow {
 		btnLogout = new JButton("Logout");
 
 		GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
-
-		gl_pnManageStaff.setHorizontalGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+		gl_pnManageStaff.setHorizontalGroup(
+			gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnManageStaff.createSequentialGroup()
-						.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE).addGap(10)
-						.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-				.addGroup(gl_pnManageStaff.createSequentialGroup().addContainerGap(472, Short.MAX_VALUE)
-						.addComponent(btnLogout).addContainerGap()));
-		gl_pnManageStaff.setVerticalGroup(gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnManageStaff.createSequentialGroup().addGap(33)
-						.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
-								.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
-						.addGap(24).addComponent(btnLogout).addContainerGap()));
-
-		gl_pnManageStaff.setHorizontalGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+					.addContainerGap(472, Short.MAX_VALUE)
+					.addComponent(btnLogout)
+					.addContainerGap())
 				.addGroup(gl_pnManageStaff.createSequentialGroup()
-						.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE).addGap(10)
-						.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-				.addGroup(gl_pnManageStaff.createSequentialGroup().addContainerGap(472, Short.MAX_VALUE)
-						.addComponent(btnLogout).addContainerGap()));
-		gl_pnManageStaff.setVerticalGroup(gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnManageStaff.createSequentialGroup().addGap(33)
-						.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
-								.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
-						.addGap(24).addComponent(btnLogout).addContainerGap()));
-
-		pnDelete.setLayout(null);
+					.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+					.addGap(10)
+					.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+		);
+		gl_pnManageStaff.setVerticalGroup(
+			gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnManageStaff.createSequentialGroup()
+					.addGap(33)
+					.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+						.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+					.addGap(24)
+					.addComponent(btnLogout)
+					.addContainerGap())
+		);
 
 		JLabel lblDeleteEmployee = new JLabel("Delete Employee");
-		lblDeleteEmployee.setBounds(98, 34, 104, 14);
-		pnDelete.add(lblDeleteEmployee);
-
-		JLabel label_3 = new JLabel("            Username :");
-		label_3.setBounds(10, 85, 125, 25);
-		pnDelete.add(label_3);
-
-		txtUsername = new JTextField();
-		txtUsername.setColumns(10);
-		txtUsername.setBounds(135, 87, 86, 20);
-		pnDelete.add(txtUsername);
-
-		JLabel label_4 = new JLabel("             Password :");
-		label_4.setBounds(10, 119, 125, 25);
-		pnDelete.add(label_4);
-
-		txtPassword = new JPasswordField();
-		txtPassword.setBounds(135, 121, 86, 20);
-		pnDelete.add(txtPassword);
 
 		btnDelete = new JButton("Delete");
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		
 
-		btnDelete.setBounds(150, 200, 71, 23);
-		pnDelete.add(btnDelete);
 
 		btnSignup = new JButton("Sign Up");
 
@@ -264,6 +236,8 @@ public class ManagerWindow {
 
 		txtdis = new JTextField();
 		txtdis.setColumns(10);
+		
+
 
 		JLabel label_2 = new JLabel("Discount   %");
 
@@ -279,6 +253,15 @@ public class ManagerWindow {
 		JLabel lblStartDate = new JLabel("Start Date :");
 
 		JLabel lblEndDate = new JLabel("End Date :");
+		
+		Calendar min = Calendar.getInstance();
+		Calendar max = Calendar.getInstance();
+		max.add(Calendar.YEAR, 1);
+		
+		strDate.setMinSelectableDate(min.getTime());
+		strDate.setMaxSelectableDate(max.getTime());
+		endDate.setMinSelectableDate(min.getTime());
+		endDate.setMaxSelectableDate(max.getTime());
 
 		rh1 = new JRadioButton("hotel 1");
 		rh1.setBackground(SystemColor.activeCaption);
@@ -301,12 +284,51 @@ public class ManagerWindow {
 		rh5.setBackground(SystemColor.activeCaption);
 		HotelGroup.add(rh5);
 		scrollPane = new JScrollPane();
+		
 		lstDiscount = new JList();
 		lstDiscount.setBorder(null);
-		lstDiscount.setModel(discountlist);
+		lstDiscount.setModel(modellist);
 
 		lstDiscount.setBackground(SystemColor.inactiveCaption);
 		scrollPane.setViewportView(lstDiscount);
+		
+		lstDel = new JList();
+
+		lstDel.setBorder(null);
+		lstDel.setModel(modellist2);
+		
+
+		
+
+		
+		lstDel.setBackground(SystemColor.inactiveCaption);
+		scrollPane_1.setViewportView(lstDel);
+		GroupLayout gl_pnDelete = new GroupLayout(pnDelete);
+		gl_pnDelete.setHorizontalGroup(
+			gl_pnDelete.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnDelete.createSequentialGroup()
+					.addGap(95)
+					.addComponent(lblDeleteEmployee, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnDelete.createSequentialGroup()
+					.addGap(7)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+					.addGap(7))
+				.addGroup(gl_pnDelete.createSequentialGroup()
+					.addGap(155)
+					.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+		);
+		gl_pnDelete.setVerticalGroup(
+			gl_pnDelete.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnDelete.createSequentialGroup()
+					.addGap(8)
+					.addComponent(lblDeleteEmployee)
+					.addGap(11)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+					.addGap(11)
+					.addComponent(btnDelete)
+					.addGap(8))
+		);
+		pnDelete.setLayout(gl_pnDelete);
 
 		GroupLayout gl_pnDiscounts = new GroupLayout(pnDiscounts);
 		gl_pnDiscounts.setHorizontalGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
@@ -388,12 +410,23 @@ public class ManagerWindow {
 		pnStatistics.setLayout(gl_pnStatistics);
 
 		disc = database.showDiscount();
+		users = database.showUsers();
+		
+		for(int i = 0; i< users.length; i++){
+			modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
+			
+		}
+		
+			
 
 		for (int i = 0; i < disc.length; i++)
-			discountlist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate() + " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
+			modellist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate() + " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
+	
+
 	}
 
 	public void event() {
+		
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmManager.setVisible(false);
@@ -423,32 +456,44 @@ public class ManagerWindow {
 		});
 
 	}
-
 	private void btnDelete() {
-		User emp = database.authenticate(txtUsername.getText(), txtPassword.getText());
-		if (emp == null)
-			JOptionPane.showMessageDialog(null, "User Does Not Exist.", "Error", JOptionPane.ERROR_MESSAGE);
-		else {
-			database.delete(txtUsername.getText());
-			txtUsername.setText("");
-			txtPassword.setText("");
+		for(int i = 0; i< users.length; i++){
+			if(i == lstDel.getSelectedIndex() ){	
+				database.delete(users[i].getUsername());
+			}	
 		}
+		
+		modellist2.removeAllElements();
+		users = database.showUsers();
+		for(int i = 0; i< users.length; i++){
+			modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
+			}
+		
 	}
-
 	private void btnsignup() {
 		if (txtPasswordQ.getText().equals(txtCfPassword.getText())) {
 
-			int k = cbType.getSelectedIndex();
-			if (k == 0) {
+			
+			if ( cbType.getSelectedIndex() == 0) {
 				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_ADMIN);
 				txtUsernameQ.setText("");
 				txtPasswordQ.setText("");
 				txtCfPassword.setText("");
+				modellist2.removeAllElements();
+				users = database.showUsers();
+				for(int i = 0; i< users.length; i++){
+					modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
+					}
 			} else {
 				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_STAFF);
 				txtUsernameQ.setText("");
 				txtPasswordQ.setText("");
 				txtCfPassword.setText("");
+				modellist2.removeAllElements();
+				users = database.showUsers();
+				for(int i = 0; i< users.length; i++){
+					modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
+					}
 			}
 		} else
 			JOptionPane.showMessageDialog(null, "Passwords must match.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -485,14 +530,13 @@ public class ManagerWindow {
 				d2 = endDate.getDate();
 
 				database.addDiscount(htl, d1, d2, dis);
-				discountlist.removeAllElements();
+				modellist.removeAllElements();
 
 				disc = database.showDiscount();
 
-				disc = database.showDiscount();
 
 				for (int i = 0; i < disc.length; i++)
-					discountlist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate()+ " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
+					modellist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate()+ " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
 
 			} else
 				JOptionPane.showMessageDialog(null, "Invalid input. Discount must be between 0 and 100", "Error",
