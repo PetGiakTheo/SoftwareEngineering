@@ -339,7 +339,7 @@ public class DBController {
 			String query ="select strDate,percentage from discounts;";
 			JDBCCategoryDataset dataset = new JDBCCategoryDataset(conn,query);
 			
-			JFreeChart chart = ChartFactory.createBarChart3D("RoomsPerType", "Type", "Rooms", dataset);
+			JFreeChart chart = ChartFactory.createLineChart("AKIS", "Type", "Rooms", dataset);
 			
 			CategoryPlot plot = chart.getCategoryPlot();
 			plot.setRangeGridlinePaint(Color.black);

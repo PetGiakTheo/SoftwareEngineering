@@ -82,7 +82,7 @@ public class ManagerWindow {
 	private JScrollPane scrollPane;
 	private JList lstDiscount;
 	DefaultListModel discountlist = new DefaultListModel();
-	Discount[] disc = new Discount[5];
+	Discount[] disc = null;
 
 	/**
 	 * Launch the application.
@@ -119,7 +119,8 @@ public class ManagerWindow {
 		frmManager.setLocationByPlatform(true);
 		frmManager.getContentPane().setBackground(new Color(119, 136, 153));
 		frmManager.setTitle("Manager");
-		frmManager.setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerWindow.class.getResource("/com/softeng/resources/hotel (2).png")));
+		frmManager.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(ManagerWindow.class.getResource("/com/softeng/resources/hotel (2).png")));
 		frmManager.setBounds(100, 100, 568, 519);
 
 		frmManager.getContentPane().setLayout(new CardLayout(0, 0));
@@ -170,19 +171,35 @@ public class ManagerWindow {
 		btnLogout = new JButton("Logout");
 
 		GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
-		gl_pnManageStaff.setHorizontalGroup(gl_pnManageStaff
-				.createParallelGroup(Alignment.TRAILING)
-				.addGroup(
-						gl_pnManageStaff.createSequentialGroup().addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE).addGap(10)
-								.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-				.addGroup(gl_pnManageStaff.createSequentialGroup().addContainerGap(472, Short.MAX_VALUE).addComponent(btnLogout).addContainerGap()));
-		gl_pnManageStaff.setVerticalGroup(gl_pnManageStaff.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_pnManageStaff
-						.createSequentialGroup()
-						.addGap(33)
-						.addGroup(
-								gl_pnManageStaff.createParallelGroup(Alignment.TRAILING).addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)).addGap(24).addComponent(btnLogout).addContainerGap()));
+
+		gl_pnManageStaff.setHorizontalGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_pnManageStaff.createSequentialGroup()
+						.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE).addGap(10)
+						.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+				.addGroup(gl_pnManageStaff.createSequentialGroup().addContainerGap(472, Short.MAX_VALUE)
+						.addComponent(btnLogout).addContainerGap()));
+		gl_pnManageStaff.setVerticalGroup(gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnManageStaff.createSequentialGroup().addGap(33)
+						.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+								.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
+						.addGap(24).addComponent(btnLogout).addContainerGap()));
+
+		gl_pnManageStaff.setHorizontalGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_pnManageStaff.createSequentialGroup()
+						.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE).addGap(10)
+						.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
+				.addGroup(gl_pnManageStaff.createSequentialGroup().addContainerGap(472, Short.MAX_VALUE)
+						.addComponent(btnLogout).addContainerGap()));
+		gl_pnManageStaff.setVerticalGroup(gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnManageStaff.createSequentialGroup().addGap(33)
+						.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+								.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
+						.addGap(24).addComponent(btnLogout).addContainerGap()));
+
 		pnDelete.setLayout(null);
 
 		JLabel lblDeleteEmployee = new JLabel("Delete Employee");
@@ -292,71 +309,65 @@ public class ManagerWindow {
 		scrollPane.setViewportView(lstDiscount);
 
 		GroupLayout gl_pnDiscounts = new GroupLayout(pnDiscounts);
-		gl_pnDiscounts.setHorizontalGroup(gl_pnDiscounts
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh2, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
-								.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-				.addGroup(
-						gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh3, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
-								.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh4, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
-				.addGroup(
-						gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(151)
-								.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-				.addGroup(
-						Alignment.TRAILING,
-						gl_pnDiscounts
-								.createSequentialGroup()
-								.addGroup(
-										gl_pnDiscounts
-												.createParallelGroup(Alignment.TRAILING)
-												.addGroup(
-														Alignment.LEADING,
-														gl_pnDiscounts
-																.createParallelGroup(Alignment.LEADING)
-																.addGroup(
-																		gl_pnDiscounts.createSequentialGroup().addGap(118)
-																				.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE).addGap(111)
-																				.addComponent(lblEndDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-																.addGroup(
-																		gl_pnDiscounts.createSequentialGroup().addGap(118)
-																				.addComponent(strDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE).addGap(98)
-																				.addComponent(endDate, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-																.addGroup(
-																		gl_pnDiscounts.createSequentialGroup().addGap(120)
-																				.addComponent(rh1, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
-												.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(22).addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))).addGap(33)));
+		gl_pnDiscounts.setHorizontalGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120)
+						.addComponent(rh2, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
+						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120)
+						.addComponent(rh3, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
+						.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh4,
+						GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120)
+						.addComponent(rh5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(151)
+						.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+				.addGroup(Alignment.TRAILING, gl_pnDiscounts.createSequentialGroup().addGroup(gl_pnDiscounts
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(118)
+										.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 98,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(111).addComponent(lblEndDate, GroupLayout.PREFERRED_SIZE, 111,
+												GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(118)
+										.addComponent(strDate, GroupLayout.PREFERRED_SIZE, 111,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(98).addComponent(endDate, GroupLayout.PREFERRED_SIZE, 111,
+												GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh1,
+										GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(22).addComponent(pnlbls,
+								GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)))
+						.addGap(33)));
 		gl_pnDiscounts.setVerticalGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_pnDiscounts
-								.createSequentialGroup()
-								.addGap(41)
-								.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(lblStartDate).addComponent(lblEndDate))
-								.addGap(11)
-								.addGroup(
-										gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(strDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(endDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(39)
-								.addComponent(rh1)
-								.addGap(3)
-								.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh2).addGroup(gl_pnDiscounts.createSequentialGroup().addGap(4).addComponent(label_2)))
-								.addGap(3)
-								.addGroup(
-										gl_pnDiscounts
-												.createParallelGroup(Alignment.LEADING)
-												.addComponent(rh3)
-												.addGroup(
-														gl_pnDiscounts.createSequentialGroup().addGap(1)
-																.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))).addGap(3).addComponent(rh4)
-								.addGap(3)
-								.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh5).addGroup(gl_pnDiscounts.createSequentialGroup().addGap(18).addComponent(btnOk)))
-								.addGap(27).addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE).addContainerGap()));
+				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(41)
+						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(lblStartDate)
+								.addComponent(lblEndDate))
+						.addGap(11)
+						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+								.addComponent(strDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(endDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(39).addComponent(rh1).addGap(3)
+						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh2)
+								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(4).addComponent(label_2)))
+						.addGap(3)
+						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh3)
+								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(1).addComponent(txtdis,
+										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGap(3).addComponent(rh4).addGap(3)
+						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh5)
+								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(18).addComponent(btnOk)))
+						.addGap(27).addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+						.addContainerGap()));
 		GroupLayout gl_pnlbls = new GroupLayout(pnlbls);
-		gl_pnlbls.setHorizontalGroup(gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_pnlbls.createSequentialGroup().addGap(7).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE).addGap(7)));
-		gl_pnlbls.setVerticalGroup(gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_pnlbls.createSequentialGroup().addGap(8).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE).addGap(8)));
+		gl_pnlbls.setHorizontalGroup(
+				gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlbls.createSequentialGroup().addGap(7)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE).addGap(7)));
+		gl_pnlbls.setVerticalGroup(
+				gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlbls.createSequentialGroup().addGap(8)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE).addGap(8)));
 		pnlbls.setLayout(gl_pnlbls);
 		pnDiscounts.setLayout(gl_pnDiscounts);
 		JPanel pnStatistics = new JPanel();
@@ -368,20 +379,18 @@ public class ManagerWindow {
 		pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.X_AXIS));
 		GroupLayout gl_pnStatistics = new GroupLayout(pnStatistics);
 		gl_pnStatistics.setHorizontalGroup(gl_pnStatistics.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnStatistics.createSequentialGroup().addContainerGap(223, Short.MAX_VALUE).addComponent(btnShow, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE).addGap(261))
+				.addGroup(gl_pnStatistics.createSequentialGroup().addContainerGap(223, Short.MAX_VALUE)
+						.addComponent(btnShow, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE).addGap(261))
 				.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE));
-		gl_pnStatistics.setVerticalGroup(gl_pnStatistics.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_pnStatistics.createSequentialGroup().addGap(11).addComponent(btnShow).addGap(11).addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)));
+		gl_pnStatistics.setVerticalGroup(gl_pnStatistics.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnStatistics.createSequentialGroup().addGap(11).addComponent(btnShow).addGap(11)
+						.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)));
 		pnStatistics.setLayout(gl_pnStatistics);
 
 		disc = database.showDiscount();
 
-		discountlist.addElement("Hotel : " + disc[0].gethotel() + " , Start Date " + disc[0].getDate() + " , End Date " + disc[0].getendDate() + " , Percentage " + disc[0].getpercentage() + "%");
-		discountlist.addElement("Hotel : " + disc[1].gethotel() + " , Start Date " + disc[1].getDate() + " , End Date " + disc[1].getendDate() + " , Percentage " + disc[1].getpercentage() + "%");
-		discountlist.addElement("Hotel : " + disc[2].gethotel() + " , Start Date " + disc[2].getDate() + " , End Date " + disc[2].getendDate() + " , Percentage " + disc[2].getpercentage() + "%");
-		discountlist.addElement("Hotel : " + disc[3].gethotel() + " , Start Date " + disc[3].getDate() + " , End Date " + disc[3].getendDate() + " , Percentage " + disc[3].getpercentage() + "%");
-		discountlist.addElement("Hotel : " + disc[4].gethotel() + " , Start Date " + disc[4].getDate() + " , End Date " + disc[4].getendDate() + " , Percentage " + disc[4].getpercentage() + "%");
-
+		for (int i = 0; i < disc.length; i++)
+			discountlist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate() + " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
 	}
 
 	public void event() {
@@ -480,24 +489,18 @@ public class ManagerWindow {
 
 				disc = database.showDiscount();
 
-				discountlist.addElement("Hotel : " + disc[0].gethotel() + " , Start Date " + disc[0].getDate() + " , End Date " + disc[0].getendDate() + " , Percentage " + disc[0].getpercentage()
-						+ "%");
-				discountlist.addElement("Hotel : " + disc[1].gethotel() + " , Start Date " + disc[1].getDate() + " , End Date " + disc[1].getendDate() + " , Percentage " + disc[1].getpercentage()
-						+ "%");
-				discountlist.addElement("Hotel : " + disc[2].gethotel() + " , Start Date " + disc[2].getDate() + " , End Date " + disc[2].getendDate() + " , Percentage " + disc[2].getpercentage()
-						+ "%");
-				discountlist.addElement("Hotel : " + disc[3].gethotel() + " , Start Date " + disc[3].getDate() + " , End Date " + disc[3].getendDate() + " , Percentage " + disc[3].getpercentage()
-						+ "%");
-				discountlist.addElement("Hotel : " + disc[4].gethotel() + " , Start Date " + disc[4].getDate() + " , End Date " + disc[4].getendDate() + " , Percentage " + disc[4].getpercentage()
-						+ "%");
+				disc = database.showDiscount();
 
-				// TODO Invalid credentials leme mono sto login re paparopapare.
+				for (int i = 0; i < disc.length; i++)
+					discountlist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate()+ " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
+
 			} else
-				JOptionPane.showMessageDialog(null, "Invalid credentials.Discount must be between 0 and 100", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Invalid input. Discount must be between 0 and 100", "Error",
+						JOptionPane.ERROR_MESSAGE);
 
 		} catch (Exception error) {
 
-			JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Invalid input.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
