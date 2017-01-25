@@ -213,13 +213,14 @@ public class DBController {
 					rooms.add(room);
 				}
 			}
+			//System.out.println(rooms.size());
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		disconnect();
-		return rooms.toArray(new Room[1]); // Convert to an array before returning.
+		return rooms.toArray(new Room[0]); // Convert to an array before returning.
 	}
 	public User[] showUsers(){
 		User Us = null;
@@ -237,7 +238,7 @@ public class DBController {
 			e.printStackTrace();
 		}
 		disconnect();
-		return Users.toArray(new User[1]);
+		return Users.toArray(new User[0]);
 	}
 	
 	public Discount[] showDiscount(){
@@ -256,7 +257,7 @@ public class DBController {
 			e.printStackTrace();
 		}
 		disconnect();
-		return discount.toArray(new Discount[1]);
+		return discount.toArray(new Discount[0]);
 	}
 	
 	
