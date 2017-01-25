@@ -152,7 +152,7 @@ public class DBController {
 				String room = Integer.toString(r.nextInt(50)+1);
 				String status = r.nextInt(4) == 0 ? Reservation.STATUS_CANCELLED : Reservation.STATUS_ACTIVE;
 				
-				String query = "insert into reservations5 values(" + Integer.toString(i+1) + ",'" + dateStart + "', '" + dateEnd + "'," + customer + "," + room + ",'" + status + "')";
+				String query = "insert into reservations1 values(" + Integer.toString(i+1) + ",'" + dateStart + "', '" + dateEnd + "'," + customer + "," + room + ",'" + status + "')";
 				stmt.executeUpdate(query);
 				
 				if (month == 12 && day >= 20) {
@@ -170,7 +170,7 @@ public class DBController {
 	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
 		// (StartA <= EndB) and (EndA >= StartB)
 		/*
-		 * select * from rooms1 left outer join reservations1 on rooms1.id = room_id and hotel = 1
+		 * select * from rooms1 left outer join reservations1 on rooms1.id = room_id
 		 * where start is null or start > '2017-2-1' or end < '2017-1-1' order by rooms1.id
 		 */
 		connect();
@@ -192,7 +192,7 @@ public class DBController {
 		}
 		
 		// Build query.
-		String query = "select * from " + table + " left outer join reservations" + Integer.toString(hotel) + " on " + table + ".id=room_id and hotel = " + Integer.toString(hotel) + " where ";
+		String query = "select * from " + table + " left outer join reservations" + Integer.toString(hotel) + " on " + table + ".id=room_id  where ";
 		query += condSglBeds + condDblBeds + condType;
 		if (rangeStart != null && rangeEnd != null) {
 			query += " and (start is null or start > " + rangeEnd + " or end < " + rangeStart + ")";
@@ -260,12 +260,12 @@ public class DBController {
 	}
 	
 	
-	public Room getRoomWithId(int id) {
+	public Room getRoomWithId(int hotel, int id) {
 		Room room = null;
 		connect();
 		
 		try {
-			rs = stmt.executeQuery("select * from rooms1 where id=" + Integer.toString(id));
+			rs = stmt.executeQuery("select * from rooms" + Integer.toString(hotel) + " where id=" + Integer.toString(id));
 			if (rs.next()) {
 				room = new Room(id, rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("type"));
 			}
@@ -277,11 +277,11 @@ public class DBController {
 		return room;
 	}
 	
-	public void saveRoomAtId(int id, Room room) {
+	public void saveRoomAtId(int hotel, int id, Room room) {
 		connect();
 		
 		try {
-			stmt.executeUpdate("update rooms1 set singleBeds=" + Integer.toString(room.getSingleBeds()) + ",doubleBeds=" + Integer.toString(room.getDoubleBeds()) + ",type='" + room.getType() + "' where id=" + Integer.toString(id));
+			stmt.executeUpdate("update rooms" + Integer.toString(hotel) + " set singleBeds=" + Integer.toString(room.getSingleBeds()) + ",doubleBeds=" + Integer.toString(room.getDoubleBeds()) + ",type='" + room.getType() + "' where id=" + Integer.toString(id));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

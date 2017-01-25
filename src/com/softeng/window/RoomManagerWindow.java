@@ -41,7 +41,7 @@ import java.awt.Dialog.ModalExclusionType;
 
 public class RoomManagerWindow {
 
-	public JFrame frmRoomManager;
+	JFrame frmRoomManager;
 	private EmployeeWindow parentWindow;
 	
 	private DBController database;
@@ -51,7 +51,9 @@ public class RoomManagerWindow {
 	private JSpinner spnSingleBeds = new JSpinner();
 	private JSpinner spnDoubleBeds = new JSpinner();
 	private JComboBox cbRoomType = new JComboBox();
+	private JComboBox cbHotel = new JComboBox();
 	
+	private int selectedHotel = -1;
 	private int selectedRoomId = -1;
 
 	// TODO Remove main method.
@@ -85,18 +87,23 @@ public class RoomManagerWindow {
 		JDialog d = new JDialog();
 		frmRoomManager.setType(Type.UTILITY);
 		frmRoomManager.setTitle("Room manager");
-		frmRoomManager.setBounds(100, 100, 450, 320);
+		frmRoomManager.setBounds(100, 100, 450, 380);
 		frmRoomManager.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		springLayout.putConstraint(SpringLayout.SOUTH, pnRoomInfo, -54, SpringLayout.SOUTH, frmRoomManager.getContentPane());
+		
+		springLayout.putConstraint(SpringLayout.NORTH, pnRoomInfo, 110, SpringLayout.NORTH, frmRoomManager.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, pnRoomInfo, 10, SpringLayout.WEST, frmRoomManager.getContentPane());
 		frmRoomManager.getContentPane().setLayout(springLayout);
 		
 		JLabel lblEnterRoomId = new JLabel("Enter room id:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblEnterRoomId, 14, SpringLayout.NORTH, frmRoomManager.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblEnterRoomId, -282, SpringLayout.EAST, frmRoomManager.getContentPane());
 		frmRoomManager.getContentPane().add(lblEnterRoomId);
 		
 		txtRoomId = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtRoomId, 38, SpringLayout.NORTH, frmRoomManager.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, txtRoomId, 206, SpringLayout.WEST, frmRoomManager.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, txtRoomId, -142, SpringLayout.EAST, frmRoomManager.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, lblEnterRoomId, 3, SpringLayout.NORTH, txtRoomId);
+		springLayout.putConstraint(SpringLayout.EAST, lblEnterRoomId, -31, SpringLayout.WEST, txtRoomId);
 		txtRoomId.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -104,27 +111,20 @@ public class RoomManagerWindow {
 					btnLoadRoomClick();
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, txtRoomId, 12, SpringLayout.NORTH, frmRoomManager.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, txtRoomId, 18, SpringLayout.EAST, lblEnterRoomId);
-		springLayout.putConstraint(SpringLayout.EAST, txtRoomId, -178, SpringLayout.EAST, frmRoomManager.getContentPane());
 		frmRoomManager.getContentPane().add(txtRoomId);
 		txtRoomId.setColumns(10);
 		
 		JButton btnLoadRoom = new JButton("Load room");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnLoadRoom, -5, SpringLayout.NORTH, pnRoomInfo);
+		springLayout.putConstraint(SpringLayout.NORTH, btnLoadRoom, 10, SpringLayout.SOUTH, txtRoomId);
+		springLayout.putConstraint(SpringLayout.WEST, btnLoadRoom, 144, SpringLayout.WEST, frmRoomManager.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnLoadRoom, -144, SpringLayout.EAST, frmRoomManager.getContentPane());
 		btnLoadRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnLoadRoomClick();
 			}
 		});
-		springLayout.putConstraint(SpringLayout.WEST, btnLoadRoom, 33, SpringLayout.EAST, txtRoomId);
-		springLayout.putConstraint(SpringLayout.EAST, btnLoadRoom, -34, SpringLayout.EAST, frmRoomManager.getContentPane());
 		frmRoomManager.getContentPane().add(btnLoadRoom);
-		
-		springLayout.putConstraint(SpringLayout.NORTH, pnRoomInfo, 38, SpringLayout.NORTH, frmRoomManager.getContentPane());
 		pnRoomInfo.setBackground(SystemColor.control);
-		springLayout.putConstraint(SpringLayout.WEST, pnRoomInfo, 10, SpringLayout.WEST, frmRoomManager.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, pnRoomInfo, 424, SpringLayout.WEST, frmRoomManager.getContentPane());
 		pnRoomInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnRoomInfo.setVisible(false);
 		frmRoomManager.getContentPane().add(pnRoomInfo);
@@ -161,14 +161,14 @@ public class RoomManagerWindow {
 		pnRoomInfo.add(spnDoubleBeds);
 		
 		JButton btnSaveRoom = new JButton("Save room");
+		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, btnSaveRoom, 144, SpringLayout.WEST, pnRoomInfo);
+		sl_pnRoomInfo.putConstraint(SpringLayout.EAST, btnSaveRoom, -144, SpringLayout.EAST, pnRoomInfo);
 		btnSaveRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnSaveRoomClick();
 			}
 		});
 		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, btnSaveRoom, 20, SpringLayout.SOUTH, spnDoubleBeds);
-		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, btnSaveRoom, 0, SpringLayout.WEST, lblRoomInfoTitle);
-		sl_pnRoomInfo.putConstraint(SpringLayout.EAST, btnSaveRoom, -2, SpringLayout.EAST, lblRoomInfoTitle);
 		pnRoomInfo.add(btnSaveRoom);
 		
 		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, cbRoomType, -3, SpringLayout.NORTH, lblRoomType);
@@ -177,17 +177,33 @@ public class RoomManagerWindow {
 		pnRoomInfo.add(cbRoomType);
 		
 		JButton btnBack = new JButton("Back");
+		springLayout.putConstraint(SpringLayout.SOUTH, pnRoomInfo, -6, SpringLayout.NORTH, btnBack);
+		springLayout.putConstraint(SpringLayout.EAST, pnRoomInfo, 0, SpringLayout.EAST, btnBack);
+		springLayout.putConstraint(SpringLayout.EAST, btnBack, -10, SpringLayout.EAST, frmRoomManager.getContentPane());
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnBackClick();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.SOUTH, btnBack, -10, SpringLayout.SOUTH, frmRoomManager.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnBack, 0, SpringLayout.EAST, pnRoomInfo);
 		frmRoomManager.getContentPane().add(btnBack);
+		
+		JLabel lblSelectHotel = new JLabel("Select hotel:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblSelectHotel, 10, SpringLayout.NORTH, frmRoomManager.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblSelectHotel, 0, SpringLayout.EAST, lblEnterRoomId);
+		frmRoomManager.getContentPane().add(lblSelectHotel);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, cbHotel, -3, SpringLayout.NORTH, lblSelectHotel);
+		springLayout.putConstraint(SpringLayout.EAST, cbHotel, -78, SpringLayout.EAST, frmRoomManager.getContentPane());
+		String[] cbHotelContents = new String[5];
+		for (int i = 0; i < 5; i++)
+			cbHotelContents[i] = "Hotel " + Integer.toString(i+1) + " - " + MainWindow.hotelNames[i];
+		cbHotel.setModel(new DefaultComboBoxModel(cbHotelContents));
+		frmRoomManager.getContentPane().add(cbHotel);
 	}
 	
 	private void btnLoadRoomClick() {
+		selectedHotel = cbHotel.getSelectedIndex() + 1;
 		try {
 			selectedRoomId = Integer.parseInt(txtRoomId.getText());
 		}
@@ -195,7 +211,7 @@ public class RoomManagerWindow {
 			JOptionPane.showMessageDialog(null, "Not a valid room id.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		Room room = database.getRoomWithId(selectedRoomId);
+		Room room = database.getRoomWithId(selectedHotel, selectedRoomId);
 		
 		if (room == null) {
 			JOptionPane.showMessageDialog(null, "Room not found.", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -203,19 +219,20 @@ public class RoomManagerWindow {
 		}
 		pnRoomInfo.setVisible(true);
 		
-		lblRoomInfoTitle.setText("Information for room with id " + Integer.toString(selectedRoomId));
+		lblRoomInfoTitle.setText("Information for room " + Integer.toString(selectedRoomId) + " in hotel " + MainWindow.hotelNames[selectedHotel-1]);
 		cbRoomType.setSelectedIndex(room.getType().equals(Room.TYPE_REGULAR) ? 0 : 1);
 		spnSingleBeds.setValue(room.getSingleBeds());
 		spnDoubleBeds.setValue(room.getDoubleBeds());
 	}
 	
 	private void btnSaveRoomClick() {
+		int hotel = cbHotel.getSelectedIndex() + 1;
 		String roomType = cbRoomType.getSelectedIndex() == 0 ? Room.TYPE_REGULAR : Room.TYPE_VIP;
 		int singleBeds = (Integer)spnSingleBeds.getValue();
 		int doubleBeds = (Integer)spnDoubleBeds.getValue();
 		
 		Room room = new Room(selectedRoomId, singleBeds, doubleBeds, roomType);
-		database.saveRoomAtId(selectedRoomId, room);
+		database.saveRoomAtId(hotel, selectedRoomId, room);
 	}
 	
 	private void btnBackClick() {
