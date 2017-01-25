@@ -412,13 +412,10 @@ public class ManagerWindow {
 		disc = database.showDiscount();
 		users = database.showUsers();
 		
-		for(int i = 0; i< users.length; i++){
+		for(int i = 0; i< users.length; i++)
 			modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
 			
-		}
 		
-			
-
 		for (int i = 0; i < disc.length; i++)
 			modellist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate() + " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
 	
@@ -465,9 +462,9 @@ public class ManagerWindow {
 		
 		modellist2.removeAllElements();
 		users = database.showUsers();
-		for(int i = 0; i< users.length; i++){
+		for(int i = 0; i< users.length; i++)
 			modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
-			}
+			
 		
 	}
 	private void btnsignup() {
@@ -481,9 +478,9 @@ public class ManagerWindow {
 				txtCfPassword.setText("");
 				modellist2.removeAllElements();
 				users = database.showUsers();
-				for(int i = 0; i< users.length; i++){
+				for(int i = 0; i< users.length; i++)
 					modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
-					}
+					
 			} else {
 				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_STAFF);
 				txtUsernameQ.setText("");
@@ -491,9 +488,9 @@ public class ManagerWindow {
 				txtCfPassword.setText("");
 				modellist2.removeAllElements();
 				users = database.showUsers();
-				for(int i = 0; i< users.length; i++){
+				for(int i = 0; i< users.length; i++)
 					modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
-					}
+					
 			}
 		} else
 			JOptionPane.showMessageDialog(null, "Passwords must match.", "Error", JOptionPane.ERROR_MESSAGE);
