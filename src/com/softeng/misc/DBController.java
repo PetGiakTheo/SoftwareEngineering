@@ -198,7 +198,7 @@ public class DBController {
 			query += " and (start is null or start > " + rangeEnd + " or end < " + rangeStart + ")";
 		}
 		query += " order by " + table + ".id";
-		System.out.println(query);
+		//System.out.println(query);
 		
 		try {
 			rs = stmt.executeQuery(query);
@@ -213,7 +213,6 @@ public class DBController {
 					rooms.add(room);
 				}
 			}
-			//System.out.println(rooms.size());
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -258,6 +257,41 @@ public class DBController {
 		}
 		disconnect();
 		return discount.toArray(new Discount[0]);
+	}
+	
+	public Customer signupCustomer(String firstName, String lastName, String email, String phone, String cardType) {
+		connect();
+		Customer cust = null;
+		
+		
+		try {
+			// Get the id of the last entry.
+			int lastId = 0;
+			rs = stmt.executeQuery("select id from customers order by id desc limit 1");
+			if (rs.next()) {
+				lastId = rs.getInt("id");
+				System.out.println(lastId);
+			}
+			
+			rs = stmt.executeQuery("select * from customers where firstName='" + firstName + "' and lastName = '"
+					+ lastName + "' and email='" + email + "' and phone='" + phone + "' and cardType='" + cardType + "'");
+			
+			if (rs.next()) {
+				cust = new Customer(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("phone"), rs.getString("cardType"));
+			}
+			else {
+				cust = new Customer(lastId+1, firstName, lastName, email, phone, cardType);
+				stmt.executeUpdate("insert into customers values (" + cust.getId() + ",'" + cust.getFirstName() + "', '"
+						+ cust.getLastName() + "', '" + cust.getEmail() + "', '" + cust.getPhoneNumber() + "', '" + cust.getCardType() + "')");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		disconnect();
+		return cust;
 	}
 	
 	
@@ -329,7 +363,7 @@ public class DBController {
 		disconnect();
 		
 	}
-	public void signup(String username,String password,String type){
+	public void signupUser(String username,String password,String type){
 		connect();
 		
 		try {
