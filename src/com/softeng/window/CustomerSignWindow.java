@@ -6,9 +6,11 @@ import javax.swing.JFrame;
 
 import com.softeng.misc.Customer;
 import com.softeng.misc.DBController;
+import com.softeng.misc.Reservation;
 import com.softeng.misc.Room;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SpringLayout;
 import javax.swing.JPanel;
@@ -19,7 +21,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CustomerSignWindow {
 
@@ -34,15 +40,16 @@ public class CustomerSignWindow {
 	private JTextField txtCardNum;
 	private JPasswordField txtCSV;
 	private JComboBox cbCardType = new JComboBox();
+	
+	private int selectedHotel;
+	private Date start, end;
 
-	/**
-	 * Launch the application.
-	 */
+	// TODO remove main
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CustomerSignWindow window = new CustomerSignWindow(null);
+					CustomerSignWindow window = new CustomerSignWindow(0, null, null, null);
 					window.frmCustomerSign.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,8 +61,11 @@ public class CustomerSignWindow {
 	/**
 	 * Create the application.
 	 */
-	public CustomerSignWindow(Room selectedRoom) {
+	public CustomerSignWindow(int selectedHotel, Room selectedRoom, Date start, Date end) {
+		this.selectedHotel = selectedHotel;
 		this.selectedRoom = selectedRoom;
+		this.start = start;
+		this.end = end;
 		initialize();
 	}
 
@@ -138,6 +148,13 @@ public class CustomerSignWindow {
 		panel.add(lblCsv, "cell 1 6,alignx trailing");
 		
 		txtCSV = new JPasswordField();
+		txtCSV.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnSignupClick();
+			}
+		});
 		panel.add(txtCSV, "cell 2 6,growx");
 		
 		JButton btnSignup = new JButton("Sign up and book");
@@ -155,15 +172,31 @@ public class CustomerSignWindow {
 	}
 	
 	private void btnSignupClick() {
+		MainWindow.currentUser = null;
 		String firstName = txtFirstName.getText();
 		String lastName = txtLastName.getText();
 		String email = txtEmail.getText();
 		String phone = txtPhone.getText();
 		String cardType = cbCardType.getSelectedIndex() == 0 ? Customer.CREDIT_CARD : Customer.DEBIT_CARD;
+		
 		Customer cust = database.signupCustomer(firstName, lastName, email, phone, cardType);
+		if (cust == null) {
+			JOptionPane.showMessageDialog(null, "There was an unexpected error.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		
-		cust.printData();
+		boolean success;
+		success = database.addReservation(selectedHotel, start, end, cust.getId(), selectedRoom.getId(), Reservation.STATUS_ACTIVE);
+		if (!success) {
+			JOptionPane.showMessageDialog(null, "There was an unexpected error.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		
-		
+		JOptionPane.showMessageDialog(null, "The room was booked successfully!\nWe hope you enjoy your stay.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+		if (MainWindow.currentUser == null) {
+			MainWindow window = new MainWindow();
+			window.frmMain.setVisible(true);
+		}
+		frmCustomerSign.dispose();
 	}
 }

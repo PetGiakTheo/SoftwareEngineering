@@ -69,7 +69,8 @@ public class DBController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	// TODO Delete.
 	public void fillRoomData() {
 		// Fill db with random rooms
 		
@@ -107,6 +108,7 @@ public class DBController {
 		disconnect();
 	}
 	
+	// TODO Delete.
 	public void fillCustomerData() {
 		String chars = "1234567890";
 		connect();
@@ -136,7 +138,8 @@ public class DBController {
 		}
 		disconnect();
 	}
-	
+
+	// TODO Delete.
 	public void fillReservationData() {
 		connect();
 		Random r = new Random();
@@ -260,6 +263,11 @@ public class DBController {
 	}
 	
 	public Customer signupCustomer(String firstName, String lastName, String email, String phone, String cardType) {
+		/* 
+		 * This method adds a customer to the database and returns him. If one with these details already exists
+		 * then he is returned instead and nothing is added.
+		 */
+		
 		connect();
 		Customer cust = null;
 		
@@ -270,7 +278,6 @@ public class DBController {
 			rs = stmt.executeQuery("select id from customers order by id desc limit 1");
 			if (rs.next()) {
 				lastId = rs.getInt("id");
-				System.out.println(lastId);
 			}
 			
 			rs = stmt.executeQuery("select * from customers where firstName='" + firstName + "' and lastName = '"
@@ -294,6 +301,36 @@ public class DBController {
 		return cust;
 	}
 	
+	public boolean addReservation(int hotel, Date dateStart, Date dateEnd, int custId, int roomId, String status) {
+		boolean success = false;
+		connect();
+		
+		int lastId = 0;
+		
+		try {
+			String table = "reservations" + Integer.toString(hotel);
+			rs = stmt.executeQuery("select id from " + table + " order by id desc limit 1");
+			
+			if (rs.next())
+				lastId = rs.getInt("id");
+			
+			Calendar c = Calendar.getInstance();
+			c.setTime(dateStart);
+			String start = Integer.toString(c.get(Calendar.YEAR)) + "-" + Integer.toString(c.get(Calendar.MONTH)+1) + "-" + Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+			c.setTime(dateEnd);
+			String end = Integer.toString(c.get(Calendar.YEAR)) + "-" + Integer.toString(c.get(Calendar.MONTH)+1) + "-" + Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+			
+			stmt.executeUpdate("insert into " + table + " values(" + Integer.toString(lastId+1) + ",'" + start
+					+ "', '" + end + "'," + Integer.toString(custId) + "," + Integer.toString(roomId) + ",'" + status + "')");
+			
+			success = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		disconnect();
+		return success;
+	}
 	
 	public Room getRoomWithId(int hotel, int id) {
 		Room room = null;
@@ -373,8 +410,8 @@ public class DBController {
 			if (rs.next()) {
 				JOptionPane.showMessageDialog(null, "User already exists.", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
-			stmt.executeUpdate("insert into users (username,password,type) values('" + username + "','" + password + "','" + type + "');");
-			JOptionPane.showMessageDialog(null, "Done.");
+				stmt.executeUpdate("insert into users (username,password,type) values('" + username + "','" + password + "','" + type + "');");
+				JOptionPane.showMessageDialog(null, "Done.");
 			}
 		} catch (SQLException e) {
 		
@@ -426,7 +463,7 @@ public class DBController {
 		return employee;
 	}
 
-	public void delete(String username) {
+	public void deleteUser(String username) {
 		connect();
 		try {
 			stmt.executeUpdate("delete from users where username = '" + username + "';");

@@ -456,7 +456,7 @@ public class ManagerWindow {
 	private void btnDelete() {
 		for(int i = 0; i< users.length; i++){
 			if(i == lstDel.getSelectedIndex() ){	
-				database.delete(users[i].getUsername());
+				database.deleteUser(users[i].getUsername());
 			}	
 		}
 		
