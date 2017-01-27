@@ -523,10 +523,20 @@ public class ManagerWindow {
 
 			if (dis >= 0 && dis <= 100) {
 
-				d1 = strDate.getDate();
-				d2 = endDate.getDate();
+		
+				
+				Calendar d1 = Calendar.getInstance();
+				d1.setTime(strDate.getDate());
 
-				database.addDiscount(htl, d1, d2, dis);
+				Calendar d2 = Calendar.getInstance();
+				d2.setTime(endDate.getDate());
+				if (d1.after(d2)) {
+					JOptionPane.showMessageDialog(null, "The second date must be after the first.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+					
+
+				database.addDiscount(htl, strDate.getDate(), endDate.getDate(), dis);
 				modellist.removeAllElements();
 
 				disc = database.showDiscount();
