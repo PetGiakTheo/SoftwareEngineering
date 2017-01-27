@@ -301,8 +301,8 @@ public class DBController {
 		return cust;
 	}
 	
-	public boolean addReservation(int hotel, Date dateStart, Date dateEnd, int custId, int roomId, String status) {
-		boolean success = false;
+	public Reservation addReservation(int hotel, Date dateStart, Date dateEnd, int custId, int roomId, String status) {
+		Reservation reservation = null;
 		connect();
 		
 		int lastId = 0;
@@ -323,13 +323,12 @@ public class DBController {
 			stmt.executeUpdate("insert into " + table + " values(" + Integer.toString(lastId+1) + ",'" + start
 					+ "', '" + end + "'," + Integer.toString(custId) + "," + Integer.toString(roomId) + ",'" + status + "')");
 			
-			success = true;
+			reservation = new Reservation(lastId+1, dateStart, dateEnd, custId, roomId, status);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		disconnect();
-		return success;
+		return reservation;
 	}
 	
 	public Room getRoomWithId(int hotel, int id) {

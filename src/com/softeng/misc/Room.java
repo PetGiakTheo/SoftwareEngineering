@@ -4,6 +4,8 @@ public class Room {
 	
 	public static final String TYPE_REGULAR = "reg";
 	public static final String TYPE_VIP = "vip";
+	public static final float PRICE_PER_DAY_REGULAR = 30;
+	public static final float PRICE_PER_DAY_VIP = 100;
 	
 	private String type;
 	private int id;

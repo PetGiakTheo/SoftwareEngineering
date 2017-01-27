@@ -172,7 +172,6 @@ public class CustomerSignWindow {
 	}
 	
 	private void btnSignupClick() {
-		MainWindow.currentUser = null;
 		String firstName = txtFirstName.getText();
 		String lastName = txtLastName.getText();
 		String email = txtEmail.getText();
@@ -185,18 +184,16 @@ public class CustomerSignWindow {
 			return;
 		}
 		
-		boolean success;
-		success = database.addReservation(selectedHotel, start, end, cust.getId(), selectedRoom.getId(), Reservation.STATUS_ACTIVE);
-		if (!success) {
+		Reservation res;
+		res = database.addReservation(selectedHotel, start, end, cust.getId(), selectedRoom.getId(), Reservation.STATUS_ACTIVE);
+		if (res == null) {
 			JOptionPane.showMessageDialog(null, "There was an unexpected error.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
 		JOptionPane.showMessageDialog(null, "The room was booked successfully!\nWe hope you enjoy your stay.", "Notice", JOptionPane.INFORMATION_MESSAGE);
-		if (MainWindow.currentUser == null) {
-			MainWindow window = new MainWindow();
-			window.frmMain.setVisible(true);
-		}
 		frmCustomerSign.dispose();
+		ReceiptWindow window = new ReceiptWindow(selectedHotel, selectedRoom, cust, res);
+		window.frmReceipt.setVisible(true);
 	}
 }
