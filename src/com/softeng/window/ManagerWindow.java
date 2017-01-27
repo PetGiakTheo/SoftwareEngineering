@@ -33,6 +33,12 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import com.softeng.misc.DBController;
 import com.softeng.misc.Discount;
 import com.softeng.misc.User;
@@ -79,6 +85,7 @@ public class ManagerWindow {
 	DefaultListModel modellist2 = new DefaultListModel();
 	Discount[] disc = null;
 	User[] users = null;
+	public ChartPanel chartPanel1;
 	private JList lstDel;
 
 
@@ -498,6 +505,23 @@ public class ManagerWindow {
 	}
 
 	private void btnShowClick() {
+		
+		//DefaultCategoryDataset dcd = new DefaultCategoryDataset();
+		//dcd.setValue(78.80, "$", "January");
+		//dcd.setValue(7, "$", "February");
+		//dcd.setValue(78.80, "$", "March");
+		//dcd.setValue(78.80, "$", "April");
+		//dcd.setValue(78.80, "$", "May");
+		
+		
+		//JFreeChart chart = ChartFactory.createLineChart("INCOME", "Date", "cust", dcd);
+		
+		//	CategoryPlot plot = chart.getCategoryPlot();
+		//plot.setRangeGridlinePaint(Color.black);
+		//chartPanel1 = new ChartPanel(chart);
+		//pnBox.removeAll();
+		//pnBox.add(chartPanel1);
+		//pnBox.updateUI();
 
 		database.showStats();
 		pnBox.removeAll();

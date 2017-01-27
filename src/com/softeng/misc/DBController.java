@@ -24,7 +24,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.CategoryPlot;
-
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -424,11 +424,13 @@ public class DBController {
 		connect();
 		try {
 		
-			
-			String query ="select strDate,percentage from discounts;";
+		
+		
+		String query ="select months,income from statistics;";
 			JDBCCategoryDataset dataset = new JDBCCategoryDataset(conn,query);
+			//dataset.setValue(70, "slap", "columnKey");
 			
-			JFreeChart chart = ChartFactory.createLineChart("AKIS", "Type", "Rooms", dataset);
+			JFreeChart chart = ChartFactory.createLineChart("INCOME", "Months", "Euros", dataset);
 			
 			CategoryPlot plot = chart.getCategoryPlot();
 			plot.setRangeGridlinePaint(Color.black);
@@ -436,7 +438,7 @@ public class DBController {
 	//	rs = stmt.executeQuery(query);
 			
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		disconnect();
