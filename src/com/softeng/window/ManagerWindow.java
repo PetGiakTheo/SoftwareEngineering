@@ -456,7 +456,7 @@ public class ManagerWindow {
 	private void btnDelete() {
 		for(int i = 0; i< users.length; i++){
 			if(i == lstDel.getSelectedIndex() ){	
-				database.delete(users[i].getUsername());
+				database.deleteUser(users[i].getUsername());
 			}	
 		}
 		
@@ -472,7 +472,7 @@ public class ManagerWindow {
 
 			
 			if ( cbType.getSelectedIndex() == 0) {
-				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_ADMIN);
+				database.signupUser(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_ADMIN);
 				txtUsernameQ.setText("");
 				txtPasswordQ.setText("");
 				txtCfPassword.setText("");
@@ -482,7 +482,7 @@ public class ManagerWindow {
 					modellist2.addElement("Username : " + users[i].getUsername() + "  |   Type : " + users[i].getType());
 					
 			} else {
-				database.signup(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_STAFF);
+				database.signupUser(txtUsernameQ.getText(), txtPasswordQ.getText(), User.TYPE_STAFF);
 				txtUsernameQ.setText("");
 				txtPasswordQ.setText("");
 				txtCfPassword.setText("");

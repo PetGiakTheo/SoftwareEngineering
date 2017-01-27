@@ -60,16 +60,18 @@ public class RoomSearchWindow {
 	private JPanel pnFilters = new JPanel();
 	private JComboBox cbHotel = new JComboBox();
 	private JList lstRooms = new JList();
+	private JButton btnBookRoom = new JButton("Book room");
 	private Room[] availRooms;
-
-	// private JPanel pnFilters = new JPanel();
+	
+	private Date start, end;
+	private int selectedHotel;
 
 	// TODO remove main
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RoomSearchWindow window = new RoomSearchWindow(null);
+					RoomSearchWindow window = new RoomSearchWindow();
 					window.frmRoomSearch.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -81,8 +83,7 @@ public class RoomSearchWindow {
 	/**
 	 * Create the application.
 	 */
-	public RoomSearchWindow(EmployeeWindow parent) {
-		this.parent = parent;
+	public RoomSearchWindow() {
 		initialize();
 	}
 
@@ -96,10 +97,9 @@ public class RoomSearchWindow {
 		frmRoomSearch.setBounds(100, 100, 500, 420);
 		frmRoomSearch.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		/*
-		 * springLayout.putConstraint(SpringLayout.NORTH, pnFilters, 110, SpringLayout.NORTH, frmRoomSearch.getContentPane()); springLayout.putConstraint(SpringLayout.WEST, pnFilters, 10,
-		 * SpringLayout.WEST, frmRoomSearch.getContentPane());
-		 */
+		// The checkbox is only visible to the employees.
+		if (MainWindow.currentUser == null)
+			chkIgnore.setVisible(false);
 
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -210,7 +210,6 @@ public class RoomSearchWindow {
 		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, 0, SpringLayout.SOUTH, lblNewLabel);
 		frmRoomSearch.getContentPane().add(lblNewLabel_2);
 		
-		JButton btnBookRoom = new JButton("Book room");
 		btnBookRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnBookClick();
@@ -241,7 +240,7 @@ public class RoomSearchWindow {
 				JOptionPane.showMessageDialog(null, "Invalid date.", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-
+			
 			Calendar c1 = Calendar.getInstance();
 			c1.setTime(dtFrom.getDate());
 
@@ -251,9 +250,15 @@ public class RoomSearchWindow {
 				JOptionPane.showMessageDialog(null, "The second date must be after the first.", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			btnBookRoom.setEnabled(true);
+			start = dtFrom.getDate();
+			end = dtTo.getDate();
 		}
+		else
+			btnBookRoom.setEnabled(false);
+		
 
-		int hotel = cbHotel.getSelectedIndex() + 1;
+		selectedHotel = cbHotel.getSelectedIndex() + 1;
 		int singleBeds = (Integer) spnSingle.getValue();
 		int doubleBeds = (Integer) spnDouble.getValue();
 		String type = null;
@@ -263,7 +268,11 @@ public class RoomSearchWindow {
 			type = Room.TYPE_VIP;
 		boolean ignoreAvail = chkIgnore.isSelected();
 
-		availRooms = database.findRooms(hotel, singleBeds, doubleBeds, type, dtFrom.getDate(), dtTo.getDate(), ignoreAvail);
+		availRooms = database.findRooms(selectedHotel, singleBeds, doubleBeds, type, dtFrom.getDate(), dtTo.getDate(), ignoreAvail);
+		if (availRooms == null) {
+			JOptionPane.showMessageDialog(null, "There was an unexpected error.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		
 		if (availRooms.length == 0)
 			JOptionPane.showMessageDialog(null, "No rooms meet your search criteria.", "Notice", JOptionPane.INFORMATION_MESSAGE);
@@ -278,7 +287,7 @@ public class RoomSearchWindow {
 		int index = lstRooms.getSelectedIndex();
 		if (index != -1) {
 			frmRoomSearch.setVisible(false);
-			CustomerSignWindow window = new CustomerSignWindow(availRooms[index]);
+			CustomerSignWindow window = new CustomerSignWindow(selectedHotel, availRooms[index], start, end);
 			window.frmCustomerSign.setVisible(true);
 		}
 		else

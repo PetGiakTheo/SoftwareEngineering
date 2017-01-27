@@ -69,7 +69,8 @@ public class DBController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	// TODO Delete.
 	public void fillRoomData() {
 		// Fill db with random rooms
 		
@@ -107,6 +108,7 @@ public class DBController {
 		disconnect();
 	}
 	
+	// TODO Delete.
 	public void fillCustomerData() {
 		String chars = "1234567890";
 		connect();
@@ -136,7 +138,8 @@ public class DBController {
 		}
 		disconnect();
 	}
-	
+
+	// TODO Delete.
 	public void fillReservationData() {
 		connect();
 		Random r = new Random();
@@ -198,7 +201,7 @@ public class DBController {
 			query += " and (start is null or start > " + rangeEnd + " or end < " + rangeStart + ")";
 		}
 		query += " order by " + table + ".id";
-		System.out.println(query);
+		//System.out.println(query);
 		
 		try {
 			rs = stmt.executeQuery(query);
@@ -213,7 +216,6 @@ public class DBController {
 					rooms.add(room);
 				}
 			}
-			//System.out.println(rooms.size());
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -260,6 +262,74 @@ public class DBController {
 		return discount.toArray(new Discount[0]);
 	}
 	
+	public Customer signupCustomer(String firstName, String lastName, String email, String phone, String cardType) {
+		/* 
+		 * This method adds a customer to the database and returns him. If one with these details already exists
+		 * then he is returned instead and nothing is added.
+		 */
+		
+		connect();
+		Customer cust = null;
+		
+		
+		try {
+			// Get the id of the last entry.
+			int lastId = 0;
+			rs = stmt.executeQuery("select id from customers order by id desc limit 1");
+			if (rs.next()) {
+				lastId = rs.getInt("id");
+			}
+			
+			rs = stmt.executeQuery("select * from customers where firstName='" + firstName + "' and lastName = '"
+					+ lastName + "' and email='" + email + "' and phone='" + phone + "' and cardType='" + cardType + "'");
+			
+			if (rs.next()) {
+				cust = new Customer(rs.getInt("id"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("phone"), rs.getString("cardType"));
+			}
+			else {
+				cust = new Customer(lastId+1, firstName, lastName, email, phone, cardType);
+				stmt.executeUpdate("insert into customers values (" + cust.getId() + ",'" + cust.getFirstName() + "', '"
+						+ cust.getLastName() + "', '" + cust.getEmail() + "', '" + cust.getPhoneNumber() + "', '" + cust.getCardType() + "')");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		disconnect();
+		return cust;
+	}
+	
+	public Reservation addReservation(int hotel, Date dateStart, Date dateEnd, int custId, int roomId, String status) {
+		Reservation reservation = null;
+		connect();
+		
+		int lastId = 0;
+		
+		try {
+			String table = "reservations" + Integer.toString(hotel);
+			rs = stmt.executeQuery("select id from " + table + " order by id desc limit 1");
+			
+			if (rs.next())
+				lastId = rs.getInt("id");
+			
+			Calendar c = Calendar.getInstance();
+			c.setTime(dateStart);
+			String start = Integer.toString(c.get(Calendar.YEAR)) + "-" + Integer.toString(c.get(Calendar.MONTH)+1) + "-" + Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+			c.setTime(dateEnd);
+			String end = Integer.toString(c.get(Calendar.YEAR)) + "-" + Integer.toString(c.get(Calendar.MONTH)+1) + "-" + Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+			
+			stmt.executeUpdate("insert into " + table + " values(" + Integer.toString(lastId+1) + ",'" + start
+					+ "', '" + end + "'," + Integer.toString(custId) + "," + Integer.toString(roomId) + ",'" + status + "')");
+			
+			reservation = new Reservation(lastId+1, dateStart, dateEnd, custId, roomId, status);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+		return reservation;
+	}
 	
 	public Room getRoomWithId(int hotel, int id) {
 		Room room = null;
@@ -329,7 +399,7 @@ public class DBController {
 		disconnect();
 		
 	}
-	public void signup(String username,String password,String type){
+	public void signupUser(String username,String password,String type){
 		connect();
 		
 		try {
@@ -339,8 +409,8 @@ public class DBController {
 			if (rs.next()) {
 				JOptionPane.showMessageDialog(null, "User already exists.", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
-			stmt.executeUpdate("insert into users (username,password,type) values('" + username + "','" + password + "','" + type + "');");
-			JOptionPane.showMessageDialog(null, "Done.");
+				stmt.executeUpdate("insert into users (username,password,type) values('" + username + "','" + password + "','" + type + "');");
+				JOptionPane.showMessageDialog(null, "Done.");
 			}
 		} catch (SQLException e) {
 		
@@ -392,7 +462,7 @@ public class DBController {
 		return employee;
 	}
 
-	public void delete(String username) {
+	public void deleteUser(String username) {
 		connect();
 		try {
 			stmt.executeUpdate("delete from users where username = '" + username + "';");

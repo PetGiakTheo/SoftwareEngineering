@@ -117,7 +117,7 @@ public class EmployeeWindow {
 	}
 	
 	private void btnSearchRoomsClick() {
-		RoomSearchWindow window = new RoomSearchWindow(this);
+		RoomSearchWindow window = new RoomSearchWindow();
 		window.frmRoomSearch.setVisible(true);
 	}
 	

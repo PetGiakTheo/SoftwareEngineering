@@ -28,7 +28,7 @@ CREATE TABLE `customers` (
   `lastName` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  `paymentType` varchar(6) NOT NULL,
+  `cardType` varchar(6) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -330,7 +330,7 @@ CREATE TABLE `rooms4` (
 
 LOCK TABLES `rooms4` WRITE;
 /*!40000 ALTER TABLE `rooms4` DISABLE KEYS */;
-INSERT INTO `rooms4` VALUES (1,2,3,'reg'),(2,3,0,'vip'),(3,2,1,'vip'),(4,1,3,'reg'),(5,0,3,'reg'),(6,2,3,'reg'),(7,2,3,'reg'),(8,1,0,'reg'),(9,3,3,'reg'),(10,1,3,'vip'),(11,2,3,'reg'),(12,1,3,'vip'),(13,3,3,'vip'),(14,3,0,'reg'),(15,3,3,'reg'),(16,1,2,'vip'),(17,3,0,'vip'),(18,0,2,'vip'),(19,1,0,'reg'),(20,1,2,'vip'),(21,2,2,'reg'),(22,0,1,'vip'),(23,1,0,'vip'),(24,0,1,'vip'),(25,1,3,'reg'),(26,3,3,'vip'),(27,0,3,'reg'),(28,1,0,'reg'),(29,2,3,'vip'),(30,0,1,'reg'),(31,2,2,'vip'),(32,1,0,'reg'),(33,1,2,'reg'),(34,0,1,'vip'),(35,1,2,'reg'),(36,2,0,'vip'),(37,2,2,'reg'),(38,2,2,'vip'),(39,3,1,'vip'),(40,1,0,'vip'),(41,1,2,'vip'),(42,3,1,'vip'),(43,1,3,'reg'),(44,1,1,'vip'),(45,3,1,'vip'),(46,1,1,'reg'),(47,3,0,'vip'),(48,3,0,'reg'),(49,1,1,'reg'),(50,1,0,'reg');
+INSERT INTO `rooms4` VALUES (1,2,3,'reg'),(2,3,0,'vip'),(3,2,1,'vip'),(4,1,3,'reg'),(5,0,1,'vip'),(6,2,3,'reg'),(7,2,3,'reg'),(8,1,0,'reg'),(9,3,3,'reg'),(10,1,3,'vip'),(11,2,3,'reg'),(12,1,3,'vip'),(13,3,3,'vip'),(14,3,0,'reg'),(15,3,3,'reg'),(16,1,2,'vip'),(17,3,0,'vip'),(18,0,2,'vip'),(19,1,0,'reg'),(20,1,2,'vip'),(21,2,2,'reg'),(22,0,1,'vip'),(23,1,0,'vip'),(24,0,1,'vip'),(25,1,3,'reg'),(26,3,3,'vip'),(27,0,3,'reg'),(28,1,0,'reg'),(29,2,3,'vip'),(30,0,1,'reg'),(31,2,2,'vip'),(32,1,0,'reg'),(33,1,2,'reg'),(34,0,1,'vip'),(35,1,2,'reg'),(36,2,0,'vip'),(37,2,2,'reg'),(38,2,2,'vip'),(39,3,1,'vip'),(40,1,0,'vip'),(41,1,2,'vip'),(42,3,1,'vip'),(43,1,3,'reg'),(44,1,1,'vip'),(45,3,1,'vip'),(46,1,1,'reg'),(47,3,0,'vip'),(48,3,0,'reg'),(49,1,1,'reg'),(50,1,0,'reg');
 /*!40000 ALTER TABLE `rooms4` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,7 +356,7 @@ CREATE TABLE `rooms5` (
 
 LOCK TABLES `rooms5` WRITE;
 /*!40000 ALTER TABLE `rooms5` DISABLE KEYS */;
-INSERT INTO `rooms5` VALUES (1,0,3,'vip'),(2,3,2,'vip'),(3,1,0,'reg'),(4,0,2,'vip'),(5,0,1,'reg'),(6,1,2,'reg'),(7,2,1,'reg'),(8,3,2,'vip'),(9,1,1,'reg'),(10,3,1,'reg'),(11,0,1,'reg'),(12,3,0,'vip'),(13,2,3,'reg'),(14,3,0,'reg'),(15,3,0,'vip'),(16,2,0,'vip'),(17,1,3,'reg'),(18,2,2,'reg'),(19,2,1,'vip'),(20,1,0,'vip'),(21,0,1,'reg'),(22,2,2,'reg'),(23,2,3,'vip'),(24,0,1,'vip'),(25,1,0,'vip'),(26,3,3,'reg'),(27,0,1,'reg'),(28,3,1,'vip'),(29,2,2,'reg'),(30,1,1,'vip'),(31,0,1,'reg'),(32,1,0,'reg'),(33,1,0,'reg'),(34,2,2,'vip'),(35,1,1,'reg'),(36,2,1,'vip'),(37,3,0,'reg'),(38,3,0,'vip'),(39,1,3,'reg'),(40,2,2,'vip'),(41,0,3,'vip'),(42,3,3,'vip'),(43,2,3,'vip'),(44,2,1,'reg'),(45,1,2,'vip'),(46,2,2,'vip'),(47,1,2,'vip'),(48,1,1,'reg'),(49,3,1,'vip'),(50,1,0,'vip');
+INSERT INTO `rooms5` VALUES (1,0,3,'vip'),(2,3,2,'vip'),(3,1,0,'reg'),(4,0,2,'vip'),(5,2,1,'reg'),(6,1,2,'reg'),(7,2,1,'reg'),(8,3,2,'vip'),(9,1,1,'reg'),(10,3,1,'reg'),(11,0,1,'reg'),(12,3,0,'vip'),(13,2,3,'reg'),(14,3,0,'reg'),(15,3,0,'vip'),(16,2,0,'vip'),(17,1,3,'reg'),(18,2,2,'reg'),(19,2,1,'vip'),(20,1,0,'vip'),(21,0,1,'reg'),(22,2,2,'reg'),(23,2,3,'vip'),(24,0,1,'vip'),(25,1,0,'vip'),(26,3,3,'reg'),(27,0,1,'reg'),(28,3,1,'vip'),(29,2,2,'reg'),(30,1,1,'vip'),(31,0,1,'reg'),(32,1,0,'reg'),(33,1,0,'reg'),(34,2,2,'vip'),(35,1,1,'reg'),(36,2,1,'vip'),(37,3,0,'reg'),(38,3,0,'vip'),(39,1,3,'reg'),(40,2,2,'vip'),(41,0,3,'vip'),(42,3,3,'vip'),(43,2,3,'vip'),(44,2,1,'reg'),(45,1,2,'vip'),(46,2,2,'vip'),(47,1,2,'vip'),(48,1,1,'reg'),(49,3,1,'vip'),(50,1,0,'vip');
 /*!40000 ALTER TABLE `rooms5` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -395,4 +395,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-24 20:00:20
+-- Dump completed on 2017-01-26 12:42:51
