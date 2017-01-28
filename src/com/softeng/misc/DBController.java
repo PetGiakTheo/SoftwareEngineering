@@ -201,7 +201,7 @@ public class DBController {
 			query += " and (start is null or start > " + rangeEnd + " or end < " + rangeStart + ")";
 		}
 		query += " order by " + table + ".id";
-		//System.out.println(query);
+		System.out.println(query);
 		
 		try {
 			rs = stmt.executeQuery(query);
@@ -386,6 +386,35 @@ public class DBController {
 		disconnect();
 	}
 	
+	public boolean findActiveReservation(int hotel, int resId, int roomId, int custId) {
+		// Extra arguments used for verification.
+		boolean found = false;
+		connect();
+		
+		try {
+			String table = "reservations" + Integer.toString(hotel);
+			rs = stmt.executeQuery("select * from " + table + " where id=" + Integer.toString(resId) + " and cust_id=" + Integer.toString(custId) + " and room_id=" + Integer.toString(roomId) + " and status='" + Reservation.STATUS_ACTIVE + "'");
+			if (rs.next())
+				found = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		disconnect();
+		return found;
+	}
+	
+	public void cancelReservation(int hotel, int id) {
+		connect();
+		try {
+			String table = "reservations" + Integer.toString(hotel);
+			stmt.executeUpdate("update " + table + " set status='" + Reservation.STATUS_CANCELLED +"' where id=" + Integer.toString(id));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+	}
+	
 	public void addDiscount(int hotel, Date d1, Date d2, int dis){
 		
 		connect();
@@ -399,7 +428,7 @@ public class DBController {
 				rs = stmt.executeQuery("select * from discounts where hotel='" + hotel + "'");
 				
 				if (rs.next()) {
-				int r =	JOptionPane.showConfirmDialog(null, "The Hotel "+hotel+" has already a discount, do you want to remove this and add this one?");
+				int r =	JOptionPane.showConfirmDialog(null, "The Hotel "+hotel+" already has a discount. Do you want to remove this and add this one?");
 				if (r==JOptionPane.YES_OPTION){
 					stmt.executeUpdate("delete from discounts where hotel = '" + hotel + "';");
 					stmt.executeUpdate("insert into discounts (hotel,strDate,endDate,percentage) values(" + Integer.toString(hotel) + ", '" + sqldate1 + "' , '" + sqldate2 + "' , " + Integer.toString(dis) + ")" );

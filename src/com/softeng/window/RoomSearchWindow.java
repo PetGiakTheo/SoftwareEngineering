@@ -160,7 +160,7 @@ public class RoomSearchWindow {
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 80, SpringLayout.WEST, pnFilters);
 		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, -80, SpringLayout.EAST, pnFilters);
 
-		JLabel lblAvailableFrom = new JLabel("Available from:");
+		JLabel lblAvailableFrom = new JLabel("Check-in:");
 		lblAvailableFrom.setHorizontalAlignment(SwingConstants.RIGHT);
 		pnFilters.add(lblAvailableFrom, "cell 4 5,alignx right,aligny center");
 		pnFilters.add(dtFrom, "cell 6 5 2 1,growx,aligny center");
@@ -172,7 +172,7 @@ public class RoomSearchWindow {
 		dtFrom.setAlignmentY(1.0f);
 		dtFrom.setAlignmentX(1.0f);
 
-		JLabel lblTo = new JLabel("Available to:");
+		JLabel lblTo = new JLabel("Check-out:");
 		lblTo.setHorizontalAlignment(SwingConstants.RIGHT);
 		pnFilters.add(lblTo, "cell 4 6,alignx right,aligny center");
 		pnFilters.add(dtTo, "cell 6 6 2 1,growx,aligny center");

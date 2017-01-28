@@ -435,6 +435,7 @@ public class ManagerWindow {
 		
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MainWindow.currentUser = null;
 				frmManager.setVisible(false);
 				MainWindow window1 = new MainWindow();
 				window1.frmMain.setVisible(true);
