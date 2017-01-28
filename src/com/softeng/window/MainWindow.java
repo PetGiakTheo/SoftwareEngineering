@@ -5,41 +5,35 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+
+import net.miginfocom.swing.MigLayout;
 
 import com.softeng.misc.DBController;
+import com.softeng.misc.GlobalItems;
 import com.softeng.misc.User;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.SwingConstants;
-import net.miginfocom.swing.MigLayout;
 
 public class MainWindow {
 	JFrame frmMain;
+	private DBController database = new DBController();
 	private final JPanel pnLogin = new JPanel();
 	private final JPanel pnCustomer = new JPanel();
 	private JButton btnMakeRes;
 	private JButton btnEmployeeLogin;
 	private JButton btnLogin;
-	private DBController database = new DBController();
 	private JButton btnCustomerLogin;
 	private JButton btnCancelRes = new JButton("Cancel a reservation");
-
-	public static final String[] hotelNames = { "Athens", "Crete", "Mykonos", "Thessaloniki", "Patra" };
-
-	public static User currentUser = null;
 	private JPasswordField txtPassword = new JPasswordField();
 	private JLabel label;
 	private JTextField txtUsername = new JTextField();;
@@ -202,7 +196,7 @@ public class MainWindow {
 			JOptionPane.showMessageDialog(null, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
 		else if (emp.getType().equals(User.TYPE_ADMIN)) {
 			try {
-				currentUser = emp;
+				GlobalItems.currentUser = emp;
 				frmMain.setVisible(false);
 				ManagerWindow window1 = new ManagerWindow();
 				window1.frmManager.setVisible(true);
@@ -213,7 +207,7 @@ public class MainWindow {
 
 		} else if (emp.getType().equals(User.TYPE_STAFF)) {
 			try {
-				currentUser = emp;
+				GlobalItems.currentUser = emp;
 				frmMain.setVisible(false);
 				EmployeeWindow window1 = new EmployeeWindow();
 				window1.frmEmployee.setVisible(true);

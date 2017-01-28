@@ -1,50 +1,35 @@
 package com.softeng.window;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.SpringLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JSpinner;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.SpinnerDateModel;
-import java.util.Date;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
+import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+
+import net.miginfocom.swing.MigLayout;
 
 import com.softeng.misc.DBController;
+import com.softeng.misc.GlobalItems;
 import com.softeng.misc.Room;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.border.BevelBorder;
-import javax.swing.JTextArea;
-import javax.swing.JList;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class RoomSearchWindow {
 
@@ -98,7 +83,7 @@ public class RoomSearchWindow {
 		frmRoomSearch.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// The checkbox is only visible to the employees.
-		if (MainWindow.currentUser == null)
+		if (GlobalItems.currentUser == null)
 			chkIgnore.setVisible(false);
 
 		JButton btnBack = new JButton("Back");
@@ -124,7 +109,7 @@ public class RoomSearchWindow {
 
 		String[] cbHotelContents = new String[5];
 		for (int i = 0; i < 5; i++)
-			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + MainWindow.hotelNames[i];
+			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + GlobalItems.hotelNames[i];
 		cbHotel.setModel(new DefaultComboBoxModel(cbHotelContents));
 		pnFilters.add(cbHotel, "cell 6 0 4 1,growx");
 
@@ -227,7 +212,7 @@ public class RoomSearchWindow {
 	}
 
 	private void btnBackClick() {
-		if (MainWindow.currentUser == null) {
+		if (GlobalItems.currentUser == null) {
 			MainWindow window = new MainWindow();
 			window.frmMain.setVisible(true);
 		}

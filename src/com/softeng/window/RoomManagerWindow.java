@@ -1,43 +1,30 @@
 package com.softeng.window;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import com.softeng.misc.DBController;
-import com.softeng.misc.Room;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.SpringLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
-import javax.swing.JFormattedTextField;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.JSplitPane;
-import javax.swing.JPanel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JToggleButton;
-import javax.swing.border.BevelBorder;
-import javax.swing.JScrollBar;
-import java.awt.Color;
 import java.awt.SystemColor;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import java.awt.event.ActionListener;
+import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SpringLayout;
+import javax.swing.border.BevelBorder;
+
+import com.softeng.misc.DBController;
+import com.softeng.misc.GlobalItems;
+import com.softeng.misc.Room;
 
 public class RoomManagerWindow {
 
@@ -197,7 +184,7 @@ public class RoomManagerWindow {
 		springLayout.putConstraint(SpringLayout.EAST, cbHotel, -78, SpringLayout.EAST, frmRoomManager.getContentPane());
 		String[] cbHotelContents = new String[5];
 		for (int i = 0; i < 5; i++)
-			cbHotelContents[i] = "Hotel " + Integer.toString(i+1) + " - " + MainWindow.hotelNames[i];
+			cbHotelContents[i] = "Hotel " + Integer.toString(i+1) + " - " + GlobalItems.hotelNames[i];
 		cbHotel.setModel(new DefaultComboBoxModel(cbHotelContents));
 		frmRoomManager.getContentPane().add(cbHotel);
 	}
@@ -219,7 +206,7 @@ public class RoomManagerWindow {
 		}
 		pnRoomInfo.setVisible(true);
 		
-		lblRoomInfoTitle.setText("Information for room " + Integer.toString(selectedRoomId) + " in hotel " + MainWindow.hotelNames[selectedHotel-1]);
+		lblRoomInfoTitle.setText("Information for room " + Integer.toString(selectedRoomId) + " in hotel " + GlobalItems.hotelNames[selectedHotel-1]);
 		cbRoomType.setSelectedIndex(room.getType().equals(Room.TYPE_REGULAR) ? 0 : 1);
 		spnSingleBeds.setValue(room.getSingleBeds());
 		spnDoubleBeds.setValue(room.getDoubleBeds());

@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 
 import com.softeng.misc.DBController;
+import com.softeng.misc.GlobalItems;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -46,8 +48,8 @@ public class EmployeeWindow {
 		database = new DBController();
 		frmEmployee = new JFrame();
 		frmEmployee.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		if (MainWindow.currentUser != null)
-			frmEmployee.setTitle("Employee - " + MainWindow.currentUser.getUsername());
+		if (GlobalItems.currentUser != null)
+			frmEmployee.setTitle("Employee - " + GlobalItems.currentUser.getUsername());
 		else
 			frmEmployee.setTitle("Employee - Unknown");
 		frmEmployee.setBounds(100, 100, 450, 300);
@@ -123,7 +125,7 @@ public class EmployeeWindow {
 	}
 	
 	private void btnLogoutClick() {
-		MainWindow.currentUser = null;
+		GlobalItems.currentUser = null;
 		frmEmployee.setVisible(false);
 		MainWindow window = new MainWindow();
 		window.frmMain.setVisible(true);

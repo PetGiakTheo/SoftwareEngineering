@@ -37,8 +37,8 @@ public class DBController {
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
-	java.util.Date d12,d22;
-	java.sql.Date sqldate1,sqldate2;
+	private java.util.Date d12,d22;
+	private java.sql.Date sqldate1,sqldate2;
 	public ChartPanel chartPanel;
 	private java.sql.Date sqlSdate;
 
@@ -69,6 +69,31 @@ public class DBController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private ArrayList<Room> exclude(ArrayList<Room> list1, ArrayList<Room> list2) {
+		// This method removes any element found in list2 from list1.
+		
+		ArrayList<Room> ret = new ArrayList<Room>();
+		
+		for (int i = 0; i < list1.size(); i++) {
+			Room room = list1.get(i);
+			boolean toBeRemoved = false; // True if this element is to be removed.
+			
+			for (int j = 0; j < list2.size(); j++) {
+				Room room2 = list2.get(j);
+				
+				if (room.getId() == room2.getId()) {
+					toBeRemoved = true;
+					break;
+				}
+			}
+			
+			if (!toBeRemoved)
+				ret.add(room);
+			
+		}
+		return ret;
 	}
 
 	// TODO Delete.
@@ -171,7 +196,12 @@ public class DBController {
 		disconnect();
 	}
 	
+	// TODO fix for ignore.
 	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
+		/*
+		 * This method returns all rooms that match the criteria in the arguments and
+		 * are available at the date range in the arguments
+		 */
 		// (StartA <= EndB) and (EndA >= StartB)
 		/*
 		 * select * from rooms1 left outer join reservations1 on rooms1.id = room_id
@@ -199,7 +229,7 @@ public class DBController {
 		String query = "select * from " + table + " left outer join reservations" + Integer.toString(hotel) + " on " + table + ".id=room_id  where ";
 		query += condSglBeds + condDblBeds + condType;
 		if (rangeStart != null && rangeEnd != null) {
-			query += " and (start is null or start > " + rangeEnd + " or end < " + rangeStart + ")";
+			query += " and (start is null or status = '" + Reservation.STATUS_CANCELLED + "' or start > " + rangeEnd + " or end < " + rangeStart + ")";
 		}
 		query += " order by " + table + ".id";
 		System.out.println(query);
@@ -222,7 +252,38 @@ public class DBController {
 			e.printStackTrace();
 		}
 		
+		// The final result is the entries of the first query minus the entries of the following query
+		ArrayList<Room> rooms2 = new ArrayList<Room>();
+		String query2 = "select * from " + table + " inner join reservations" + Integer.toString(hotel) + " on " + table + ".id=room_id  where ";
+		query2 += condSglBeds + condDblBeds + condType;
+		if (rangeStart != null && rangeEnd != null) {
+			query2 += " and (status='" + Reservation.STATUS_ACTIVE + "' and (start <= " + rangeEnd + " and end >= " + rangeStart + "))";
+		}
+		query2 += " order by " + table + ".id";
+		System.out.println(query2);
+		
+		try {
+			rs = stmt.executeQuery(query2);
+			
+			int i = 0;
+			while(rs.next()) {
+				Room room = new Room(rs.getInt(table + ".id"), rs.getInt("singleBeds"), rs.getInt("doubleBeds"), rs.getString("type"));
+				
+				// Omit duplicate rooms.
+				if (i != room.getId()) {
+					i = room.getId();
+					rooms2.add(room);
+				}
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		disconnect();
+		
+		rooms = exclude(rooms, rooms2); // Remove the contents of rooms2 from rooms.
+		
 		return rooms.toArray(new Room[0]); // Convert to an array before returning.
 	}
 	
