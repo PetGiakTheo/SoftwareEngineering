@@ -40,7 +40,7 @@ public class DBController {
 	java.util.Date d12,d22;
 	java.sql.Date sqldate1,sqldate2;
 	public ChartPanel chartPanel;
-	private java.sql.Date sqlSdate;
+
 
 	public DBController() {
 		
@@ -232,7 +232,7 @@ public class DBController {
 		connect();
 		
 		try {
-			rs = stmt.executeQuery("select * from reservations1");
+			rs = stmt.executeQuery("select * from reservati ons1");
 			
 			while(rs.next()) {
 				res = new Reservation(rs.getInt("id"),rs.getDate("start"),rs.getDate("end"), rs.getInt("cust_id"),rs.getInt("room_id"),rs.getString("status"));
@@ -320,7 +320,9 @@ public class DBController {
 		}
 		
 		disconnect();
+		System.out.println(cust);
 		return cust;
+		
 	}
 	
 	public Reservation addReservation(int hotel, Date dateStart, Date dateEnd, int custId, int roomId, String status) {
@@ -334,7 +336,7 @@ public class DBController {
 			rs = stmt.executeQuery("select id from " + table + " order by id desc limit 1");
 			
 			if (rs.next())
-				lastId = rs.getInt("id");
+				lastId = rs.getInt("id"); 
 			
 			Calendar c = Calendar.getInstance();
 			c.setTime(dateStart);

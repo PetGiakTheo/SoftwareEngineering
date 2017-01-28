@@ -31,11 +31,11 @@ public class MainWindow {
 	private final JPanel pnLogin = new JPanel();
 	private final JPanel pnCustomer = new JPanel();
 	private JButton btnMakeRes;
-	private JButton btnEmployeeLogin;
+	private JButton btnEmployeeLogin; 
 	private JButton btnLogin;
 	private DBController database = new DBController();
 	private JButton btnCustomerLogin;
-	private JButton btnCancelRes = new JButton("Cancel a reservation");
+	private JButton btnCancelRes = new JButton("Cancel a reservation"); 
 
 	public static final String[] hotelNames = { "Athens", "Crete", "Mykonos", "Thessaloniki", "Patra" };
 
@@ -152,7 +152,7 @@ public class MainWindow {
 
 	}
 
-	private void Events() {
+	public void Events() {
 
 		btnCustomerLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

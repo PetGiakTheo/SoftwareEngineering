@@ -37,7 +37,7 @@ public class CustomerSignWindow {
 	private JTextField txtLastName;
 	private JTextField txtEmail;
 	private JTextField txtPhone;
-	private JTextField txtCardNum;
+	private JTextField txtCardNum; 
 	private JPasswordField txtCSV;
 	private JComboBox cbCardType = new JComboBox();
 	
@@ -45,7 +45,7 @@ public class CustomerSignWindow {
 	private Date start, end;
 
 	// TODO remove main
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

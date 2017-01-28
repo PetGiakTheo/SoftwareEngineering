@@ -47,7 +47,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class RoomSearchWindow {
-
+ 
 	public JFrame frmRoomSearch;
 	private DBController database = new DBController();
 	private EmployeeWindow parent;

@@ -54,7 +54,7 @@ public class ManagerWindow {
 	private DBController database = new DBController();
 	public JFrame frmManager;
 	private JTextField txtdis;
-	private JButton btnOk;
+	private JButton btnOk;  
 	private JDateChooser strDate;
 	private JDateChooser endDate;
 	private JPanel pnlbls;
@@ -93,7 +93,7 @@ public class ManagerWindow {
 
 
 	/**
-	 * Launch the application.
+	 * Launch the application. 
 	 */
 	// /* TODO Remove main.
 	public static void main(String[] args) {
@@ -478,7 +478,7 @@ public class ManagerWindow {
 			
 		
 	}
-	private void btnsignup() {
+	private void btnsignup() { 
 		if (txtPasswordQ.getText().equals(txtCfPassword.getText())) {
 
 			
