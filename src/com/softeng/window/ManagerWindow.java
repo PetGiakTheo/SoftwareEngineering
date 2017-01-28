@@ -42,6 +42,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import com.softeng.misc.DBController;
 import com.softeng.misc.Discount;
 import com.softeng.misc.Reservation;
+import com.softeng.misc.Room;
 import com.softeng.misc.User;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.MouseAdapter;
@@ -509,35 +510,85 @@ public class ManagerWindow {
 
 	private void btnShowClick() {
 		
-		Calendar c1 = null;
-		Calendar c2 = null;
+		String d ;
 		int D = 0;
-		
-		
+		int E = 0;
+		int p = 0;
 	
 		resDate = database.getDate();
 		
 		for(int i = 0; i< resDate.length; i++){
 			D = resDate[i].getDateStart().getMonth() + 1;
+			E = resDate[i].getDateEnd().getMonth() + 1;
+			
 			switch (D){
-			case 1:
+			case 1: 
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "January";
+				database.addDate(d, p);
+				break;
 			case 2:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "February";
+				database.addDate(d, p);
+				break;
 			case 3:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "March";
+				database.addDate(d, p);
+				break;
 			case 4:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "April";
+				database.addDate(d, p);
+				break;
 			case 5:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "May";
+				database.addDate(d, p);
+				break;
 			case 6:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "June";
+				database.addDate(d, p);
+				break;
 			case 7:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "July";
+				database.addDate(d, p);
+				break;
 			case 8:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "August";
+				database.addDate(d, p);
+				break;
 			case 9:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "September";
+				database.addDate(d, p);
+				break;
 			case 10:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "October";
+				database.addDate(d, p);
+				break;
 			case 11:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "November";
+				database.addDate(d, p);
+				break;
 			case 12:
+				p = (int) (ReceiptWindow.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				d = "December";
+				database.addDate(d, p);
+				break;
 				
 			
 			}
 			
 			
 		}
+		
 			
 		//DefaultCategoryDataset dcd = new DefaultCategoryDataset();
 		//dcd.setValue(78.80, "$", "January");
@@ -559,6 +610,8 @@ public class ManagerWindow {
 		pnBox.removeAll();
 		pnBox.add(database.chartPanel);
 		pnBox.updateUI();
+		
+		database.deleteStat();
 	}
 
 	private void btnOKClick() {

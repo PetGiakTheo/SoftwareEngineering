@@ -125,7 +125,7 @@ public class ReceiptWindow {
 		frmReceipt.dispose();
 	}
 	
-	private int diffInDays(Date d1, Date d2) {
+	public static int diffInDays(Date d1, Date d2) {
 		
 		// This method returns the difference in days between 2 date objects.
 		

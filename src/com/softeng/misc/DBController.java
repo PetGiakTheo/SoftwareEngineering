@@ -40,6 +40,7 @@ public class DBController {
 	java.util.Date d12,d22;
 	java.sql.Date sqldate1,sqldate2;
 	public ChartPanel chartPanel;
+	private java.sql.Date sqlSdate;
 
 	public DBController() {
 		
@@ -231,7 +232,7 @@ public class DBController {
 		connect();
 		
 		try {
-			rs = stmt.executeQuery("select * from reservations ;");
+			rs = stmt.executeQuery("select * from reservations1");
 			
 			while(rs.next()) {
 				res = new Reservation(rs.getInt("id"),rs.getDate("start"),rs.getDate("end"), rs.getInt("cust_id"),rs.getInt("room_id"),rs.getString("status"));
@@ -244,6 +245,7 @@ public class DBController {
 		disconnect();
 		return reserv.toArray(new Reservation[0]);
 	}
+	
 	public User[] showUsers(){
 		User Us = null;
 		ArrayList<User> Users = new ArrayList<User>();
@@ -367,6 +369,18 @@ public class DBController {
 		disconnect();
 		return room;
 	}
+	public void deleteStat(){
+		connect();
+		
+		try {
+			stmt.executeUpdate("delete from statistics;");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+		disconnect();
+	}
 	
 	public void saveRoomAtId(int hotel, int id, Room room) {
 		connect();
@@ -379,10 +393,16 @@ public class DBController {
 		
 		disconnect();
 	}
-	public void addDate(Date d, int p){
+	public void addDate(String d, int p){
 		connect();
 		
 		
+		
+		try {
+			stmt.executeUpdate("insert into statistics values('" + d + "'," + p + ");");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		disconnect();
 	}
 	
