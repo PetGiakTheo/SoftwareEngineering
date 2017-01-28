@@ -233,6 +233,7 @@ public class RoomManagerWindow {
 		
 		Room room = new Room(selectedRoomId, singleBeds, doubleBeds, roomType);
 		database.saveRoomAtId(hotel, selectedRoomId, room);
+		JOptionPane.showMessageDialog(null, "Room was changed successfully.", "Notice", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void btnBackClick() {

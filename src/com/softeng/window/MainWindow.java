@@ -233,6 +233,8 @@ public class MainWindow {
 	}
 
 	private void btnCancelReservationClick() {
-		JOptionPane.showMessageDialog(null, "Not ready", "Error", JOptionPane.ERROR_MESSAGE);
+		frmMain.setVisible(false);
+		CancelReservationWindow window = new CancelReservationWindow();
+		window.frmCancelReservation.setVisible(true);
 	}
 }

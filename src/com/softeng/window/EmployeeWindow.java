@@ -63,16 +63,16 @@ public class EmployeeWindow {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		frmEmployee.getContentPane().add(lblNewLabel);
 		
-		JButton btnMngReservations = new JButton("Manage reservations");
-		btnMngReservations.addActionListener(new ActionListener() {
+		JButton btnCancelReservation = new JButton("Cancel a reservation");
+		btnCancelReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnManageReservationsClick();
+				btnCancelReservationsClick();
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnMngReservations, 20, SpringLayout.SOUTH, lblNewLabel);
-		springLayout.putConstraint(SpringLayout.WEST, btnMngReservations, 120, SpringLayout.WEST, frmEmployee.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnMngReservations, -120, SpringLayout.EAST, frmEmployee.getContentPane());
-		frmEmployee.getContentPane().add(btnMngReservations);
+		springLayout.putConstraint(SpringLayout.NORTH, btnCancelReservation, 20, SpringLayout.SOUTH, lblNewLabel);
+		springLayout.putConstraint(SpringLayout.WEST, btnCancelReservation, 120, SpringLayout.WEST, frmEmployee.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnCancelReservation, -120, SpringLayout.EAST, frmEmployee.getContentPane());
+		frmEmployee.getContentPane().add(btnCancelReservation);
 		
 		JButton btnMngRooms = new JButton("Manage rooms");
 		btnMngRooms.addActionListener(new ActionListener() {
@@ -80,8 +80,8 @@ public class EmployeeWindow {
 				btnManageRoomsClick();
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnMngRooms, 20, SpringLayout.SOUTH, btnMngReservations);
-		springLayout.putConstraint(SpringLayout.WEST, btnMngRooms, 0, SpringLayout.WEST, btnMngReservations);
+		springLayout.putConstraint(SpringLayout.NORTH, btnMngRooms, 20, SpringLayout.SOUTH, btnCancelReservation);
+		springLayout.putConstraint(SpringLayout.WEST, btnMngRooms, 0, SpringLayout.WEST, btnCancelReservation);
 		springLayout.putConstraint(SpringLayout.EAST, btnMngRooms, 0, SpringLayout.EAST, lblNewLabel);
 		frmEmployee.getContentPane().add(btnMngRooms);
 		
@@ -92,7 +92,7 @@ public class EmployeeWindow {
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnSearchRooms, 20, SpringLayout.SOUTH, btnMngRooms);
-		springLayout.putConstraint(SpringLayout.WEST, btnSearchRooms, 0, SpringLayout.WEST, btnMngReservations);
+		springLayout.putConstraint(SpringLayout.WEST, btnSearchRooms, 0, SpringLayout.WEST, btnCancelReservation);
 		springLayout.putConstraint(SpringLayout.EAST, btnSearchRooms, 0, SpringLayout.EAST, lblNewLabel);
 		frmEmployee.getContentPane().add(btnSearchRooms);
 		
@@ -112,8 +112,9 @@ public class EmployeeWindow {
 		window.frmRoomManager.setVisible(true);
 	}
 	
-	private void btnManageReservationsClick() {
-		
+	private void btnCancelReservationsClick() {
+		CancelReservationWindow window = new CancelReservationWindow();
+		window.frmCancelReservation.setVisible(true);
 	}
 	
 	private void btnSearchRoomsClick() {

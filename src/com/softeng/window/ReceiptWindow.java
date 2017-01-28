@@ -100,13 +100,14 @@ public class ReceiptWindow {
 		String endDate = Integer.toString(c.get(Calendar.DAY_OF_MONTH)) + "/" + Integer.toString(c.get(Calendar.MONTH)+1) + "/" + Integer.toString(c.get(Calendar.YEAR));
 		
 		int dayDiff = diffInDays(reservation.getDateStart(), reservation.getDateEnd());
-		String price = String.format("%.2f", dayDiff * (room.getType() == Room.TYPE_REGULAR ? Room.PRICE_PER_DAY_REGULAR : Room.PRICE_PER_DAY_VIP) );
+		String price = String.format("%.2f", dayDiff * (room.getType().equals(Room.TYPE_REGULAR) ? Room.PRICE_PER_DAY_REGULAR : Room.PRICE_PER_DAY_VIP) );
 		
 		String text = "";
 		text += "PetGiakTheo hotels legal receipt begin\n";
 		text += MainWindow.hotelNames[hotel-1] + " hotel\n\n";
-		text += "Customer id " + Integer.toString(customer.getId()) + ", " + customer.getLastName() + " " + customer.getFirstName() + "\n" ;
+		text += "Customer id: " + Integer.toString(customer.getId()) + ", " + customer.getLastName() + " " + customer.getFirstName() + "\n" ;
 		text += "Booked room id: " + Integer.toString(reservation.getRoomId()) + "\n";
+		text += "Reservation id: " + Integer.toString(reservation.getId()) + "\n";
 		text += "From:\t" + startDate + "\n";
 		text += "To:\t" + endDate + "\n";
 		text += "Days staying:\t" + Integer.toString(dayDiff) + "\n";
@@ -126,16 +127,18 @@ public class ReceiptWindow {
 	
 	private int diffInDays(Date d1, Date d2) {
 		
+		// This method returns the difference in days between 2 date objects.
+		
 		Calendar c1 = Calendar.getInstance();
 		c1.setTime(d1);
 		Calendar c2 = Calendar.getInstance();
 		c2.setTime(d2);
 
 	    if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR))
-	        return Math.abs(c1.get(Calendar.DAY_OF_YEAR) - c2.get(Calendar.DAY_OF_YEAR));
+	        return Math.abs(c1.get(Calendar.DAY_OF_YEAR) - c2.get(Calendar.DAY_OF_YEAR)) + 1;
 	    else {
 	        if (c2.get(Calendar.YEAR) > c1.get(Calendar.YEAR)) {
-	            //swap them
+	            // Swap
 	            Calendar temp = c1;
 	            c1 = c2;
 	            c2 = temp;
@@ -146,11 +149,11 @@ public class ReceiptWindow {
 
 	        while (c1.get(Calendar.YEAR) > c2.get(Calendar.YEAR)) {
 	            c1.add(Calendar.YEAR, -1);
-	            // getActualMaximum() important for leap years
+	            // getActualMaximum() important for leap years.
 	            extraDays += c1.getActualMaximum(Calendar.DAY_OF_YEAR);
 	        }
 
-	        return extraDays - c2.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays;
+	        return extraDays - c2.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays + 1;
 	    }
 	}
 }
