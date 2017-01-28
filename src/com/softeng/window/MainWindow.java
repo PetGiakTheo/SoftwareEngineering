@@ -24,7 +24,7 @@ import com.softeng.misc.DBController;
 import com.softeng.misc.GlobalItems;
 import com.softeng.misc.User;
 
-public class MainWindow {
+public class MainWindow { 
 	JFrame frmMain;
 	private DBController database = new DBController();
 	private final JPanel pnLogin = new JPanel();

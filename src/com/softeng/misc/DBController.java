@@ -52,7 +52,7 @@ public class DBController {
 			String connURL = "jdbc:mysql://localhost:3306/hotel";
 			String user = "root";
 			String pw = "test123";
-			conn = DriverManager.getConnection(connURL, user, pw);
+			conn = DriverManager.getConnection(connURL, user, pw); 
 			stmt = conn.createStatement();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -293,7 +293,7 @@ public class DBController {
 		connect();
 		
 		try {
-			rs = stmt.executeQuery("select * from reservati ons1");
+			rs = stmt.executeQuery("select * from reservations1");
 			
 			while(rs.next()) {
 				res = new Reservation(rs.getInt("id"),rs.getDate("start"),rs.getDate("end"), rs.getInt("cust_id"),rs.getInt("room_id"),rs.getString("status"));
