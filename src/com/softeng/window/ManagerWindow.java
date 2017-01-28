@@ -41,6 +41,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.softeng.misc.DBController;
 import com.softeng.misc.Discount;
+import com.softeng.misc.Reservation;
 import com.softeng.misc.User;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.MouseAdapter;
@@ -85,6 +86,7 @@ public class ManagerWindow {
 	DefaultListModel modellist2 = new DefaultListModel();
 	Discount[] disc = null;
 	User[] users = null;
+	Reservation[] resDate = null;
 	public ChartPanel chartPanel1;
 	private JList lstDel;
 
@@ -506,6 +508,36 @@ public class ManagerWindow {
 
 	private void btnShowClick() {
 		
+		Calendar c1 = null;
+		Calendar c2 = null;
+		int D = 0;
+		
+		
+	
+		resDate = database.getDate();
+		
+		for(int i = 0; i< resDate.length; i++){
+			D = resDate[i].getDateStart().getMonth() + 1;
+			switch (D){
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+			case 10:
+			case 11:
+			case 12:
+				
+			
+			}
+			
+			
+		}
+			
 		//DefaultCategoryDataset dcd = new DefaultCategoryDataset();
 		//dcd.setValue(78.80, "$", "January");
 		//dcd.setValue(7, "$", "February");
@@ -516,12 +548,11 @@ public class ManagerWindow {
 		
 		//JFreeChart chart = ChartFactory.createLineChart("INCOME", "Date", "cust", dcd);
 		
-		//	CategoryPlot plot = chart.getCategoryPlot();
+		//CategoryPlot plot = chart.getCategoryPlot();
 		//plot.setRangeGridlinePaint(Color.black);
 		//chartPanel1 = new ChartPanel(chart);
-		//pnBox.removeAll();
 		//pnBox.add(chartPanel1);
-		//pnBox.updateUI();
+
 
 		database.showStats();
 		pnBox.removeAll();

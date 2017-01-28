@@ -224,6 +224,26 @@ public class DBController {
 		disconnect();
 		return rooms.toArray(new Room[0]); // Convert to an array before returning.
 	}
+	
+	public Reservation[] getDate(){
+		Reservation res = null;
+		ArrayList<Reservation> reserv = new ArrayList<Reservation>();
+		connect();
+		
+		try {
+			rs = stmt.executeQuery("select * from reservations ;");
+			
+			while(rs.next()) {
+				res = new Reservation(rs.getInt("id"),rs.getDate("start"),rs.getDate("end"), rs.getInt("cust_id"),rs.getInt("room_id"),rs.getString("status"));
+				reserv.add(res);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		disconnect();
+		return reserv.toArray(new Reservation[0]);
+	}
 	public User[] showUsers(){
 		User Us = null;
 		ArrayList<User> Users = new ArrayList<User>();
@@ -356,6 +376,12 @@ public class DBController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		disconnect();
+	}
+	public void addDate(Date d, int p){
+		connect();
+		
 		
 		disconnect();
 	}
