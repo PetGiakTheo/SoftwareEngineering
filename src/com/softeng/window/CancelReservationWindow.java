@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 import com.softeng.misc.DBController;
+import com.softeng.misc.GlobalItems;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -103,7 +104,7 @@ public class CancelReservationWindow {
 		
 		String[] cbHotelContents = new String[5];
 		for (int i = 0; i < 5; i++)
-			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + MainWindow.hotelNames[i];
+			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + GlobalItems.hotelNames[i];
 		cbHotel.setModel(new DefaultComboBoxModel(cbHotelContents));
 		panel.add(cbHotel, "cell 3 0,growx");
 		
@@ -174,7 +175,7 @@ public class CancelReservationWindow {
 	}
 	
 	private void btnBackClick() {
-		if (MainWindow.currentUser == null) {
+		if (GlobalItems.currentUser == null) {
 			MainWindow window = new MainWindow();
 			window.frmMain.setVisible(true);
 		}

@@ -12,8 +12,6 @@ public class Room {
 	private int singleBeds;
 	private int doubleBeds;
 	
-	private double price;
-	
 	public Room (int id, int singleBeds, int doubleBeds,  String type) {
 		this.id = id;
 		this.singleBeds = singleBeds;
@@ -35,10 +33,6 @@ public class Room {
 
 	public int getDoubleBeds() {
 		return doubleBeds;
-	}
-
-	public double getPrice() {
-		return price;
 	}
 	
 	public void printData() {
