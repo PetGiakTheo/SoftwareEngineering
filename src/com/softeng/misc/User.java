@@ -32,14 +32,4 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	
-	public void printData() {
-		// Debug function
-		
-		System.out.println("Id =\t\t" + Integer.toString(id));
-		System.out.println("Type =\t\t" + type);
-		System.out.println("Username =\t" + username);
-		System.out.println("Password =\t" + password);
-	}
-	
 }

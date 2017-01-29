@@ -1,6 +1,6 @@
 package com.softeng.window;
 
-import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -16,7 +16,6 @@ import javax.swing.border.BevelBorder;
 
 import com.softeng.misc.DBController;
 import com.softeng.misc.GlobalItems;
-import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -32,21 +31,6 @@ public class CancelReservationWindow {
 	private DBController database;
 	private JTextField txtResId;
 
-	
-	// TODO remove main
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CancelReservationWindow window = new CancelReservationWindow();
-					window.frmCancelReservation.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
@@ -60,6 +44,7 @@ public class CancelReservationWindow {
 	private void initialize() {
 		database = new DBController();
 		frmCancelReservation = new JFrame();
+		frmCancelReservation.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmCancelReservation.setTitle("Reservation cancel");
 		frmCancelReservation.setBounds(100, 100, 450, 343);
 		frmCancelReservation.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

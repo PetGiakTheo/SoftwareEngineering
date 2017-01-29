@@ -4,7 +4,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,7 +12,6 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -33,11 +31,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.softeng.misc.DBController;
 import com.softeng.misc.Discount;
@@ -67,8 +61,8 @@ public class ManagerWindow {
 	private JRadioButton rh3;
 	private JRadioButton rh4;
 	private JRadioButton rh5;
-	java.util.Date d1, d2;
-	java.sql.Date sqldt;
+	private java.util.Date d1, d2;
+	private java.sql.Date sqldt;
 	private int htl;
 	private int dis;
 	private JTextField txtUsernameQ;
@@ -84,11 +78,11 @@ public class ManagerWindow {
 	private Dimension s;
 	private JScrollPane scrollPane;
 	private JList lstDiscount;
-	DefaultListModel modellist = new DefaultListModel();
-	DefaultListModel modellist2 = new DefaultListModel();
-	Discount[] disc = null;
-	User[] users = null;
-	Reservation[] resDate = null;
+	private DefaultListModel modellist = new DefaultListModel();
+	private DefaultListModel modellist2 = new DefaultListModel();
+	private Discount[] disc = null;
+	private User[] users = null;
+	private Reservation[] resDate = null;
 	public ChartPanel chartPanel1;
 	private JList lstDel;
 
@@ -97,7 +91,6 @@ public class ManagerWindow {
 	 */
 	public ManagerWindow() {
 		initialize();
-		
 	}
 
 	/**
@@ -106,6 +99,7 @@ public class ManagerWindow {
 	private void initialize() { 
 		
 		frmManager = new JFrame();
+		frmManager.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmManager.setLocationByPlatform(true);
 		frmManager.getContentPane().setBackground(new Color(119, 136, 153));
 		frmManager.setTitle("Manager");

@@ -34,13 +34,4 @@ public class Room {
 	public int getDoubleBeds() {
 		return doubleBeds;
 	}
-	
-	public void printData() {
-		// Debug method.
-		
-		System.out.println("Id =\t\t" + Integer.toString(id));
-		System.out.println("Type =\t\t" + type);
-		System.out.println("Single beds =\t" + Integer.toString(singleBeds));
-		System.out.println("Double beds =\t" + Integer.toString(doubleBeds));
-	}
 }

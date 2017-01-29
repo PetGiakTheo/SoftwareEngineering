@@ -1,6 +1,7 @@
 package com.softeng.window;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -44,20 +45,6 @@ public class CustomerSignWindow {
 	private int selectedHotel;
 	private Date start, end;
 
-	// TODO remove main
-	public static void main(String[] args) { 
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CustomerSignWindow window = new CustomerSignWindow(0, null, null, null);
-					window.frmCustomerSign.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
@@ -75,6 +62,7 @@ public class CustomerSignWindow {
 	private void initialize() {
 		database = new DBController();
 		frmCustomerSign = new JFrame();
+		frmCustomerSign.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmCustomerSign.setTitle("Customer signup");
 		frmCustomerSign.setBounds(100, 100, 450, 340);
 		frmCustomerSign.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

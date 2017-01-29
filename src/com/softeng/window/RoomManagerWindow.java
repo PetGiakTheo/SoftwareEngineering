@@ -1,7 +1,7 @@
 package com.softeng.window;
 
-import java.awt.EventQueue;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,20 +43,6 @@ public class RoomManagerWindow {
 	private int selectedHotel = -1;
 	private int selectedRoomId = -1;
 
-	// TODO Remove main method.
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RoomManagerWindow window = new RoomManagerWindow(null);
-					window.frmRoomManager.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
@@ -71,8 +57,7 @@ public class RoomManagerWindow {
 	private void initialize() {
 		database = new DBController();
 		frmRoomManager = new JFrame();
-		JDialog d = new JDialog();
-		frmRoomManager.setType(Type.UTILITY);
+		frmRoomManager.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmRoomManager.setTitle("Room manager");
 		frmRoomManager.setBounds(100, 100, 450, 380);
 		frmRoomManager.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

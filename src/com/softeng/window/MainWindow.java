@@ -72,7 +72,7 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frmMain = new JFrame();
-		frmMain.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/hotel (2).png")));
+		frmMain.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmMain.setTitle("Hotel Manager");
 		frmMain.setBounds(100, 100, 430, 300);
 		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -216,7 +216,6 @@ public class MainWindow {
 				e.printStackTrace();
 			}
 		} else {
-			emp.printData();
 			JOptionPane.showMessageDialog(null, "Invalid user type.\nThis should never happen.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}

@@ -44,13 +44,4 @@ public class Customer {
 	public String getCardType() {
 		return cardType;
 	}
-	
-	public void printData() {
-		System.out.println("Id:\t\t" + Integer.toString(id));
-		System.out.println("FirstName:\t" + firstName);
-		System.out.println("LastName:\t" + lastName);
-		System.out.println("Email:\t\t" + email);
-		System.out.println("Phone number:\t" + phoneNumber);
-		System.out.println("Card type:\t" + cardType);
-	}
 }

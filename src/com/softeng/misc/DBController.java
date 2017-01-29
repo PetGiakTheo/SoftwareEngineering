@@ -9,25 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
-
 
 import org.jfree.chart.ChartFactory;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.jdbc.JDBCCategoryDataset;
-
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 
@@ -95,17 +84,14 @@ public class DBController {
 		}
 		return ret;
 	}
-	// TODO fix for ignore.
+
 	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
 		/*
 		 * This method returns all rooms that match the criteria in the arguments and
 		 * are available at the date range in the arguments
 		 */
-		// (StartA <= EndB) and (EndA >= StartB)
-		/*
-		 * select * from rooms1 left outer join reservations1 on rooms1.id = room_id
-		 * where start is null or start > '2017-2-1' or end < '2017-1-1' order by rooms1.id
-		 */
+
+		boolean considerAvailability = !ignoreDate && availableFrom != null && availableTo != null;
 		connect();
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		
@@ -116,7 +102,7 @@ public class DBController {
 		String condType = type == null ? "" : " and type='" + type + "'";
 		String rangeStart, rangeEnd;
 		rangeStart = rangeEnd = null;
-		if (!ignoreDate && availableFrom != null && availableTo != null) {
+		if (considerAvailability) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(availableFrom);
 			rangeStart = "'" + Integer.toString(calendar.get(Calendar.YEAR)) + "-" + Integer.toString(calendar.get(Calendar.MONTH)+1) + "-" + Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) + "'";
@@ -127,7 +113,7 @@ public class DBController {
 		// Build query.
 		String query = "select * from " + table + " left outer join reservations" + Integer.toString(hotel) + " on " + table + ".id=room_id  where ";
 		query += condSglBeds + condDblBeds + condType;
-		if (rangeStart != null && rangeEnd != null) {
+		if (considerAvailability) {
 			query += " and (start is null or status = '" + Reservation.STATUS_CANCELLED + "' or start > " + rangeEnd + " or end < " + rangeStart + ")";
 		}
 		query += " order by " + table + ".id";
@@ -151,13 +137,17 @@ public class DBController {
 			e.printStackTrace();
 		}
 		
+		// No need for the second query if room availability is not a concern
+		if (!considerAvailability) {
+			disconnect();
+			return rooms.toArray(new Room[0]); // Convert to an array before returning.
+		}
+		
 		// The final result is the entries of the first query minus the entries of the following query
 		ArrayList<Room> rooms2 = new ArrayList<Room>();
 		String query2 = "select * from " + table + " inner join reservations" + Integer.toString(hotel) + " on " + table + ".id=room_id  where ";
 		query2 += condSglBeds + condDblBeds + condType;
-		if (rangeStart != null && rangeEnd != null) {
-			query2 += " and (status='" + Reservation.STATUS_ACTIVE + "' and (start <= " + rangeEnd + " and end >= " + rangeStart + "))";
-		}
+		query2 += " and (status='" + Reservation.STATUS_ACTIVE + "' and (start <= " + rangeEnd + " and end >= " + rangeStart + "))";
 		query2 += " order by " + table + ".id";
 		
 		
@@ -233,7 +223,7 @@ public class DBController {
 			rs = stmt.executeQuery("select * from discounts ORDER BY hotel;");
 			
 			while(rs.next()) {
-				disc = new Discount(rs.getInt("id"),rs.getInt("hotel"),rs.getString("strDate"),rs.getString("endDate"), rs.getInt("percentage"));
+				disc = new Discount(rs.getInt("hotel"),rs.getString("strDate"),rs.getString("endDate"), rs.getInt("percentage"));
 				discount.add(disc);
 			}
 			

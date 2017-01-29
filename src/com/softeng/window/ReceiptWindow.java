@@ -1,6 +1,6 @@
 package com.softeng.window;
 
-import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -26,19 +26,6 @@ public class ReceiptWindow {
 	private Reservation reservation;
 	private Room room;
 	private final JLabel lblNewLabel = new JLabel("The receipt was sent to your email address");
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ReceiptWindow window = new ReceiptWindow(4, null, null, null);
-					window.frmReceipt.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -56,6 +43,7 @@ public class ReceiptWindow {
 	 */
 	private void initialize() {
 		frmReceipt = new JFrame();
+		frmReceipt.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmReceipt.setResizable(false);
 		frmReceipt.setTitle("Receipt");
 		frmReceipt.setBounds(100, 100, 300, 358);

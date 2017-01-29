@@ -2,6 +2,7 @@ package com.softeng.window;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,7 +78,7 @@ public class RoomSearchWindow {
 	 */
 	private void initialize() {
 		frmRoomSearch = new JFrame();
-		frmRoomSearch.setType(Type.POPUP);
+		frmRoomSearch.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmRoomSearch.setTitle("Room search");
 		frmRoomSearch.setBounds(100, 100, 500, 420);
 		frmRoomSearch.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -271,9 +272,13 @@ public class RoomSearchWindow {
 	private void btnBookClick() {
 		int index = lstRooms.getSelectedIndex();
 		if (index != -1) {
-			frmRoomSearch.setVisible(false);
-			CustomerSignWindow window = new CustomerSignWindow(selectedHotel, availRooms[index], start, end);
-			window.frmCustomerSign.setVisible(true);
+			float price = GlobalItems.diffInDays(start, end) * (availRooms[index].getType().equals(Room.TYPE_REGULAR) ? Room.PRICE_PER_DAY_REGULAR : Room.PRICE_PER_DAY_VIP);
+			int ans = JOptionPane.showConfirmDialog(null, "The price for your reservation is " + String.format("%.2f",  price) + "Euros.\nNote that even if you cancel your reservation, you will still have to pay half this price.\nDo you want to continue?", "Confirm", JOptionPane.YES_NO_OPTION);
+			if (ans == JOptionPane.YES_OPTION) {
+				frmRoomSearch.setVisible(false);
+				CustomerSignWindow window = new CustomerSignWindow(selectedHotel, availRooms[index], start, end);
+				window.frmCustomerSign.setVisible(true);
+			}
 		}
 		else
 			JOptionPane.showMessageDialog(null, "Please select a room.", "Notice", JOptionPane.INFORMATION_MESSAGE);
