@@ -99,12 +99,10 @@ public class ManagerWindow {
 	private void initialize() { 
 		
 		frmManager = new JFrame();
-		frmManager.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmManager.setLocationByPlatform(true);
 		frmManager.getContentPane().setBackground(new Color(119, 136, 153));
 		frmManager.setTitle("Manager");
-		frmManager.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(ManagerWindow.class.getResource("/com/softeng/resources/hotel (2).png")));
+		frmManager.setIconImage(Toolkit.getDefaultToolkit().getImage(ManagerWindow.class.getResource("/com/softeng/resources/icon.png")));
 		frmManager.setBounds(100, 100, 568, 519);
 
 		frmManager.getContentPane().setLayout(new CardLayout(0, 0));
@@ -222,8 +220,6 @@ public class ManagerWindow {
 
 		txtdis = new JTextField();
 		txtdis.setColumns(10);
-		
-
 
 		JLabel label2 = new JLabel("Discount   %");
 
@@ -282,11 +278,7 @@ public class ManagerWindow {
 
 		lstDel.setBorder(null);
 		lstDel.setModel(modellist2);
-		
 
-		
-
-		
 		lstDel.setBackground(SystemColor.inactiveCaption);
 		scrollPane1.setViewportView(lstDel);
 		GroupLayout glpnDelete = new GroupLayout(pnDelete);
@@ -486,102 +478,58 @@ public class ManagerWindow {
 
 	private void btnShowClick() {
 		
-		String month ;
+		String month = null;
 		int startD = 0;
-		int endD = 0;
 		int income = 0;
 	
 		resDate = database.getReservations();
 		
 		for(int i = 0; i< resDate.length; i++){
 			startD = resDate[i].getDateStart().getMonth() + 1;
-			endD = resDate[i].getDateEnd().getMonth() + 1;
 			
 			switch (startD){
 			case 1: 
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "January";
-				database.addDate(month, income);
 				break;
 			case 2:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "February";
-				database.addDate(month, income);
 				break;
 			case 3:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "March";
-				database.addDate(month, income);
 				break;
 			case 4:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "April";
-				database.addDate(month, income);
 				break;
 			case 5:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "May";
-				database.addDate(month, income);
 				break;
 			case 6:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "June";
-				database.addDate(month, income);
 				break;
 			case 7:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "July";
-				database.addDate(month, income);
 				break;
 			case 8:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "August";
-				database.addDate(month, income);
 				break;
 			case 9:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "September";
-				database.addDate(month, income);
 				break;
 			case 10:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "October";
-				database.addDate(month, income);
 				break;
 			case 11:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "November";
-				database.addDate(month, income);
 				break;
 			case 12:
-				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
 				month = "December";
-				database.addDate(month, income);
 				break;
-				
-			
 			}
-			
+			income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+			database.addDate(month, income);
 			
 		}
 		
-			
-		//DefaultCategoryDataset dcd = new DefaultCategoryDataset();
-		//dcd.setValue(78.80, "$", "January");
-		//dcd.setValue(7, "$", "February");
-		//dcd.setValue(78.80, "$", "March");
-		//dcd.setValue(78.80, "$", "April");
-		//dcd.setValue(78.80, "$", "May");
-		
-		
-		//JFreeChart chart = ChartFactory.createLineChart("INCOME", "Date", "cust", dcd);
-		
-		//CategoryPlot plot = chart.getCategoryPlot();
-		//plot.setRangeGridlinePaint(Color.black);
-		//chartPanel1 = new ChartPanel(chart);
-		//pnBox.add(chartPanel1);
-
-
 		database.showStats();
 		pnBox.removeAll();
 		pnBox.add(database.chartPanel);

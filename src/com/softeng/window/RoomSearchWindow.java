@@ -52,20 +52,6 @@ public class RoomSearchWindow {
 	private Date start, end;
 	private int selectedHotel;
 
-	// TODO remove main
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RoomSearchWindow window = new RoomSearchWindow();
-					window.frmRoomSearch.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
