@@ -92,38 +92,19 @@ public class ManagerWindow {
 	public ChartPanel chartPanel1;
 	private JList lstDel;
 
-
-	/**
-	 * Launch the application. 
-	 */
-	// /* TODO Remove main.
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ManagerWindow window = new ManagerWindow();
-					window.frmManager.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	// */
-
 	/**
 	 * Create the application.
 	 */
 	public ManagerWindow() {
 		initialize();
-		event();
+		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() { 
+		
 		frmManager = new JFrame();
 		frmManager.setLocationByPlatform(true);
 		frmManager.getContentPane().setBackground(new Color(119, 136, 153));
@@ -179,23 +160,23 @@ public class ManagerWindow {
 
 		btnLogout = new JButton("Logout");
 
-		GroupLayout gl_pnManageStaff = new GroupLayout(pnManageStaff);
-		gl_pnManageStaff.setHorizontalGroup(
-			gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnManageStaff.createSequentialGroup()
+		GroupLayout glPnManageStaff = new GroupLayout(pnManageStaff);
+		glPnManageStaff.setHorizontalGroup(
+			glPnManageStaff.createParallelGroup(Alignment.LEADING)
+				.addGroup(glPnManageStaff.createSequentialGroup()
 					.addContainerGap(472, Short.MAX_VALUE)
 					.addComponent(btnLogout)
 					.addContainerGap())
-				.addGroup(gl_pnManageStaff.createSequentialGroup()
+				.addGroup(glPnManageStaff.createSequentialGroup()
 					.addComponent(pnAdd, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
 					.addGap(10)
 					.addComponent(pnDelete, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
 		);
-		gl_pnManageStaff.setVerticalGroup(
-			gl_pnManageStaff.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnManageStaff.createSequentialGroup()
+		glPnManageStaff.setVerticalGroup(
+			glPnManageStaff.createParallelGroup(Alignment.LEADING)
+				.addGroup(glPnManageStaff.createSequentialGroup()
 					.addGap(33)
-					.addGroup(gl_pnManageStaff.createParallelGroup(Alignment.TRAILING)
+					.addGroup(glPnManageStaff.createParallelGroup(Alignment.TRAILING)
 						.addComponent(pnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(pnAdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
 					.addGap(24)
@@ -207,7 +188,7 @@ public class ManagerWindow {
 
 		btnDelete = new JButton("Delete");
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
+		JScrollPane scrollPane1 = new JScrollPane();
 		
 
 
@@ -232,7 +213,7 @@ public class ManagerWindow {
 		cbType.setModel(new DefaultComboBoxModel(new String[] { "Admin", "Staff" }));
 		cbType.setBounds(163, 176, 72, 25);
 		pnAdd.add(cbType);
-		pnManageStaff.setLayout(gl_pnManageStaff);
+		pnManageStaff.setLayout(glPnManageStaff);
 
 		pnDiscounts = new JPanel();
 		pnDiscounts.setBackground(SystemColor.activeCaption);
@@ -250,7 +231,7 @@ public class ManagerWindow {
 		
 
 
-		JLabel label_2 = new JLabel("Discount   %");
+		JLabel label2 = new JLabel("Discount   %");
 
 		endDate = new JDateChooser();
 		endDate.setDateFormatString("yyyy MMM d");
@@ -313,96 +294,96 @@ public class ManagerWindow {
 
 		
 		lstDel.setBackground(SystemColor.inactiveCaption);
-		scrollPane_1.setViewportView(lstDel);
-		GroupLayout gl_pnDelete = new GroupLayout(pnDelete);
-		gl_pnDelete.setHorizontalGroup(
-			gl_pnDelete.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnDelete.createSequentialGroup()
+		scrollPane1.setViewportView(lstDel);
+		GroupLayout glpnDelete = new GroupLayout(pnDelete);
+		glpnDelete.setHorizontalGroup(
+			glpnDelete.createParallelGroup(Alignment.LEADING)
+				.addGroup(glpnDelete.createSequentialGroup()
 					.addGap(95)
 					.addComponent(lblDeleteEmployee, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_pnDelete.createSequentialGroup()
+				.addGroup(glpnDelete.createSequentialGroup()
 					.addGap(7)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+					.addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
 					.addGap(7))
-				.addGroup(gl_pnDelete.createSequentialGroup()
+				.addGroup(glpnDelete.createSequentialGroup()
 					.addGap(155)
 					.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
 		);
-		gl_pnDelete.setVerticalGroup(
-			gl_pnDelete.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnDelete.createSequentialGroup()
+		glpnDelete.setVerticalGroup(
+			glpnDelete.createParallelGroup(Alignment.LEADING)
+				.addGroup(glpnDelete.createSequentialGroup()
 					.addGap(8)
 					.addComponent(lblDeleteEmployee)
 					.addGap(11)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+					.addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
 					.addGap(11)
 					.addComponent(btnDelete)
 					.addGap(8))
 		);
-		pnDelete.setLayout(gl_pnDelete);
+		pnDelete.setLayout(glpnDelete);
 
-		GroupLayout gl_pnDiscounts = new GroupLayout(pnDiscounts);
-		gl_pnDiscounts.setHorizontalGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120)
+		GroupLayout glPnDiscounts = new GroupLayout(pnDiscounts);
+		glPnDiscounts.setHorizontalGroup(glPnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addGroup(glPnDiscounts.createSequentialGroup().addGap(120)
 						.addComponent(rh2, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
-						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120)
+						.addComponent(label2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+				.addGroup(glPnDiscounts.createSequentialGroup().addGap(120)
 						.addComponent(rh3, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(139)
 						.addComponent(txtdis, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh4,
+				.addGroup(glPnDiscounts.createSequentialGroup().addGap(120).addComponent(rh4,
 						GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120)
+				.addGroup(glPnDiscounts.createSequentialGroup().addGap(120)
 						.addComponent(rh5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE).addGap(151)
 						.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-				.addGroup(Alignment.TRAILING, gl_pnDiscounts.createSequentialGroup().addGroup(gl_pnDiscounts
+				.addGroup(Alignment.TRAILING, glPnDiscounts.createSequentialGroup().addGroup(glPnDiscounts
 						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(118)
+						.addGroup(Alignment.LEADING, glPnDiscounts.createParallelGroup(Alignment.LEADING)
+								.addGroup(glPnDiscounts.createSequentialGroup().addGap(118)
 										.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 98,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(111).addComponent(lblEndDate, GroupLayout.PREFERRED_SIZE, 111,
 												GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(118)
+								.addGroup(glPnDiscounts.createSequentialGroup().addGap(118)
 										.addComponent(strDate, GroupLayout.PREFERRED_SIZE, 111,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(98).addComponent(endDate, GroupLayout.PREFERRED_SIZE, 111,
 												GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(120).addComponent(rh1,
+								.addGroup(glPnDiscounts.createSequentialGroup().addGap(120).addComponent(rh1,
 										GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(22).addComponent(pnlbls,
+						.addGroup(glPnDiscounts.createSequentialGroup().addGap(22).addComponent(pnlbls,
 								GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)))
 						.addGap(33)));
-		gl_pnDiscounts.setVerticalGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(41)
-						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(lblStartDate)
+		glPnDiscounts.setVerticalGroup(glPnDiscounts.createParallelGroup(Alignment.LEADING)
+				.addGroup(glPnDiscounts.createSequentialGroup().addGap(41)
+						.addGroup(glPnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(lblStartDate)
 								.addComponent(lblEndDate))
 						.addGap(11)
-						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING)
+						.addGroup(glPnDiscounts.createParallelGroup(Alignment.LEADING)
 								.addComponent(strDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(endDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(39).addComponent(rh1).addGap(3)
-						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh2)
-								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(4).addComponent(label_2)))
+						.addGroup(glPnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh2)
+								.addGroup(glPnDiscounts.createSequentialGroup().addGap(4).addComponent(label2)))
 						.addGap(3)
-						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh3)
-								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(1).addComponent(txtdis,
+						.addGroup(glPnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh3)
+								.addGroup(glPnDiscounts.createSequentialGroup().addGap(1).addComponent(txtdis,
 										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGap(3).addComponent(rh4).addGap(3)
-						.addGroup(gl_pnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh5)
-								.addGroup(gl_pnDiscounts.createSequentialGroup().addGap(18).addComponent(btnOk)))
+						.addGroup(glPnDiscounts.createParallelGroup(Alignment.LEADING).addComponent(rh5)
+								.addGroup(glPnDiscounts.createSequentialGroup().addGap(18).addComponent(btnOk)))
 						.addGap(27).addComponent(pnlbls, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
 						.addContainerGap()));
-		GroupLayout gl_pnlbls = new GroupLayout(pnlbls);
-		gl_pnlbls.setHorizontalGroup(
-				gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlbls.createSequentialGroup().addGap(7)
+		GroupLayout glPnlbls = new GroupLayout(pnlbls);
+		glPnlbls.setHorizontalGroup(
+				glPnlbls.createParallelGroup(Alignment.LEADING).addGroup(glPnlbls.createSequentialGroup().addGap(7)
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE).addGap(7)));
-		gl_pnlbls.setVerticalGroup(
-				gl_pnlbls.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlbls.createSequentialGroup().addGap(8)
+		glPnlbls.setVerticalGroup(
+				glPnlbls.createParallelGroup(Alignment.LEADING).addGroup(glPnlbls.createSequentialGroup().addGap(8)
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE).addGap(8)));
-		pnlbls.setLayout(gl_pnlbls);
-		pnDiscounts.setLayout(gl_pnDiscounts);
+		pnlbls.setLayout(glPnlbls);
+		pnDiscounts.setLayout(glPnDiscounts);
 		JPanel pnStatistics = new JPanel();
 		pnStatistics.setBackground(SystemColor.activeCaption);
 		tabbedPane.addTab("Statistics", null, pnStatistics, null);
@@ -410,15 +391,15 @@ public class ManagerWindow {
 		pnBox = new JPanel();
 		pnBox.setBackground(SystemColor.inactiveCaption);
 		pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.X_AXIS));
-		GroupLayout gl_pnStatistics = new GroupLayout(pnStatistics);
-		gl_pnStatistics.setHorizontalGroup(gl_pnStatistics.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnStatistics.createSequentialGroup().addContainerGap(223, Short.MAX_VALUE)
+		GroupLayout glPnStatistics = new GroupLayout(pnStatistics);
+		glPnStatistics.setHorizontalGroup(glPnStatistics.createParallelGroup(Alignment.LEADING)
+				.addGroup(glPnStatistics.createSequentialGroup().addContainerGap(223, Short.MAX_VALUE)
 						.addComponent(btnShow, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE).addGap(261))
 				.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE));
-		gl_pnStatistics.setVerticalGroup(gl_pnStatistics.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnStatistics.createSequentialGroup().addGap(11).addComponent(btnShow).addGap(11)
+		glPnStatistics.setVerticalGroup(glPnStatistics.createParallelGroup(Alignment.LEADING)
+				.addGroup(glPnStatistics.createSequentialGroup().addGap(11).addComponent(btnShow).addGap(11)
 						.addComponent(pnBox, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)));
-		pnStatistics.setLayout(gl_pnStatistics);
+		pnStatistics.setLayout(glPnStatistics);
 
 		disc = database.showDiscount();
 		users = database.showUsers();
@@ -430,7 +411,7 @@ public class ManagerWindow {
 		for (int i = 0; i < disc.length; i++)
 			modellist.addElement("Hotel : " + disc[i].gethotel() + " , Start Date " + disc[i].getDate() + " , End Date " + disc[i].getendDate() + " , Percentage " + disc[i].getpercentage() + "%");
 	
-
+		event();
 	}
 
 	public void event() {
@@ -511,77 +492,77 @@ public class ManagerWindow {
 
 	private void btnShowClick() {
 		
-		String d ;
-		int D = 0;
-		int E = 0;
-		int p = 0;
+		String month ;
+		int startD = 0;
+		int endD = 0;
+		int income = 0;
 	
-		resDate = database.getDate();
+		resDate = database.getReservations();
 		
 		for(int i = 0; i< resDate.length; i++){
-			D = resDate[i].getDateStart().getMonth() + 1;
-			E = resDate[i].getDateEnd().getMonth() + 1;
+			startD = resDate[i].getDateStart().getMonth() + 1;
+			endD = resDate[i].getDateEnd().getMonth() + 1;
 			
-			switch (D){
+			switch (startD){
 			case 1: 
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "January";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "January";
+				database.addDate(month, income);
 				break;
 			case 2:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "February";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "February";
+				database.addDate(month, income);
 				break;
 			case 3:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "March";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "March";
+				database.addDate(month, income);
 				break;
 			case 4:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "April";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "April";
+				database.addDate(month, income);
 				break;
 			case 5:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "May";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "May";
+				database.addDate(month, income);
 				break;
 			case 6:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "June";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "June";
+				database.addDate(month, income);
 				break;
 			case 7:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "July";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "July";
+				database.addDate(month, income);
 				break;
 			case 8:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "August";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "August";
+				database.addDate(month, income);
 				break;
 			case 9:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "September";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "September";
+				database.addDate(month, income);
 				break;
 			case 10:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "October";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "October";
+				database.addDate(month, income);
 				break;
 			case 11:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "November";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "November";
+				database.addDate(month, income);
 				break;
 			case 12:
-				p = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
-				d = "December";
-				database.addDate(d, p);
+				income = (int) (GlobalItems.diffInDays(resDate[i].getDateStart(), resDate[i].getDateEnd()) * (database.getRoomWithId(1, resDate[i].getRoomId()).getType().equals(Room.TYPE_REGULAR)? Room.PRICE_PER_DAY_REGULAR:Room.PRICE_PER_DAY_VIP));
+				month = "December";
+				database.addDate(month, income);
 				break;
 				
 			

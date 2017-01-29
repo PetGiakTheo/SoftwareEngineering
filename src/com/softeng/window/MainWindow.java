@@ -35,15 +35,10 @@ public class MainWindow {
 	private JButton btnCustomerLogin;
 
 	private JButton btnCancelRes = new JButton("Cancel a reservation"); 
-
-	public static final String[] hotelNames = { "Athens", "Crete", "Mykonos", "Thessaloniki", "Patra" };
-
-	public static User currentUser = null;
-
 	private JPasswordField txtPassword = new JPasswordField();
 	private JLabel label;
 	private JTextField txtUsername = new JTextField();;
-	private JLabel label_1;
+	private JLabel label1;
 	private JLabel lblEmployeeLogin;
 
 	/**
@@ -69,7 +64,7 @@ public class MainWindow {
 	 */
 	public MainWindow() {
 		initialize();
-		Events();
+		events();
 	}
 
 	/**
@@ -86,36 +81,36 @@ public class MainWindow {
 		frmMain.getContentPane().add(pnLogin, "name_17134849150110");
 
 		frmMain.getContentPane().add(pnCustomer, "name_17134869989315");
-		SpringLayout sl_panel_1 = new SpringLayout();
-		sl_panel_1.putConstraint(SpringLayout.WEST, btnCancelRes, 120, SpringLayout.WEST, pnCustomer);
-		sl_panel_1.putConstraint(SpringLayout.EAST, btnCancelRes, -120, SpringLayout.EAST, pnCustomer);
-		pnCustomer.setLayout(sl_panel_1);
+		SpringLayout slPanel1 = new SpringLayout();
+		slPanel1.putConstraint(SpringLayout.WEST, btnCancelRes, 120, SpringLayout.WEST, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.EAST, btnCancelRes, -120, SpringLayout.EAST, pnCustomer);
+		pnCustomer.setLayout(slPanel1);
 
 		JLabel lblCustomerPanel = new JLabel("Customer panel");
-		sl_panel_1.putConstraint(SpringLayout.NORTH, lblCustomerPanel, 50, SpringLayout.NORTH, pnCustomer);
-		sl_panel_1.putConstraint(SpringLayout.WEST, lblCustomerPanel, 150, SpringLayout.WEST, pnCustomer);
-		sl_panel_1.putConstraint(SpringLayout.EAST, lblCustomerPanel, -150, SpringLayout.EAST, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.NORTH, lblCustomerPanel, 50, SpringLayout.NORTH, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.WEST, lblCustomerPanel, 150, SpringLayout.WEST, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.EAST, lblCustomerPanel, -150, SpringLayout.EAST, pnCustomer);
 		lblCustomerPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		pnCustomer.add(lblCustomerPanel);
 
 		btnEmployeeLogin = new JButton("Employee login");
-		sl_panel_1.putConstraint(SpringLayout.NORTH, btnEmployeeLogin, 10, SpringLayout.NORTH, pnCustomer);
-		sl_panel_1.putConstraint(SpringLayout.EAST, btnEmployeeLogin, -10, SpringLayout.EAST, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.NORTH, btnEmployeeLogin, 10, SpringLayout.NORTH, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.EAST, btnEmployeeLogin, -10, SpringLayout.EAST, pnCustomer);
 		pnCustomer.add(btnEmployeeLogin);
 
 		btnMakeRes = new JButton("Make a reservation");
-		sl_panel_1.putConstraint(SpringLayout.NORTH, btnMakeRes, 20, SpringLayout.SOUTH, lblCustomerPanel);
-		sl_panel_1.putConstraint(SpringLayout.WEST, btnMakeRes, 120, SpringLayout.WEST, pnCustomer);
-		sl_panel_1.putConstraint(SpringLayout.EAST, btnMakeRes, -120, SpringLayout.EAST, pnCustomer);
-		sl_panel_1.putConstraint(SpringLayout.NORTH, btnCancelRes, 15, SpringLayout.SOUTH, btnMakeRes);
+		slPanel1.putConstraint(SpringLayout.NORTH, btnMakeRes, 20, SpringLayout.SOUTH, lblCustomerPanel);
+		slPanel1.putConstraint(SpringLayout.WEST, btnMakeRes, 120, SpringLayout.WEST, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.EAST, btnMakeRes, -120, SpringLayout.EAST, pnCustomer);
+		slPanel1.putConstraint(SpringLayout.NORTH, btnCancelRes, 15, SpringLayout.SOUTH, btnMakeRes);
 		pnCustomer.add(btnMakeRes);
 		pnLogin.setLayout(new MigLayout("", "[8px][21px][21px][8px][99.00px][121.00,center][][][]", "[17px][23px][23px][23px][][][]"));
 				
 				lblEmployeeLogin = new JLabel("Employee login");
 				pnLogin.add(lblEmployeeLogin, "cell 4 1 2 1,alignx center");
 		
-				label_1 = new JLabel("Username:");
-				pnLogin.add(label_1, "cell 4 2,alignx right,aligny center");
+				label1 = new JLabel("Username:");
+				pnLogin.add(label1, "cell 4 2,alignx right,aligny center");
 				txtUsername.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyPressed(KeyEvent e) {
@@ -152,7 +147,7 @@ public class MainWindow {
 
 	}
 
-	public void Events() {
+	public void events() {
 
 		btnCustomerLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

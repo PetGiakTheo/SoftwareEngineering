@@ -104,7 +104,7 @@ public class CancelReservationWindow {
 		
 		String[] cbHotelContents = new String[5];
 		for (int i = 0; i < 5; i++)
-			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + GlobalItems.hotelNames[i];
+			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + GlobalItems.HOTEL_NAMES[i];
 		cbHotel.setModel(new DefaultComboBoxModel(cbHotelContents));
 		panel.add(cbHotel, "cell 3 0,growx");
 		

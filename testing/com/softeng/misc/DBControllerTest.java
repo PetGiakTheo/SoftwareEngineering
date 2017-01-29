@@ -16,7 +16,7 @@ public class DBControllerTest {
 		@BeforeClass
 		public static void testSetup(){
 			System.out.println("Starting...");
-		}
+		} 
 		
 		
 		@AfterClass 
@@ -34,7 +34,7 @@ public class DBControllerTest {
 		@Test
 		public void testaddReservation() {
 			DBController test = new DBController();
-			Reservation[] resDate = test.getDate();
+			Reservation[] resDate = test.getReservations();
 			 
 				
 			
@@ -44,12 +44,9 @@ public class DBControllerTest {
 		
 		
 	@Test 
-	public void testSignupCustomer() {
+	public void testAuthenticate() {
 		DBController test = new DBController();
-		
-		String staff = test.authenticate("stelios", "ntou").getUsername();
-		
-		assertEquals("Result",staff,test.authenticate("stelios", "ntou").getUsername());
+		assertEquals("Result",null,test.authenticate("steliosda", "ntou"));
 	}
 
 }

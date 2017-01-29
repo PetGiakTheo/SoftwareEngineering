@@ -102,7 +102,7 @@ public class ReceiptWindow {
 		
 		String text = "";
 		text += "PetGiakTheo hotels legal receipt begin\n";
-		text += GlobalItems.hotelNames[hotel-1] + " hotel\n\n";
+		text += GlobalItems.HOTEL_NAMES[hotel-1] + " hotel\n\n";
 		text += "Customer id: " + Integer.toString(customer.getId()) + ", " + customer.getLastName() + " " + customer.getFirstName() + "\n" ;
 		text += "Booked room id: " + Integer.toString(reservation.getRoomId()) + "\n";
 		text += "Reservation id: " + Integer.toString(reservation.getId()) + "\n";

@@ -115,51 +115,51 @@ public class RoomManagerWindow {
 		pnRoomInfo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnRoomInfo.setVisible(false);
 		frmRoomManager.getContentPane().add(pnRoomInfo);
-		SpringLayout sl_pnRoomInfo = new SpringLayout();
-		pnRoomInfo.setLayout(sl_pnRoomInfo);
+		SpringLayout slPnRoomInfo = new SpringLayout();
+		pnRoomInfo.setLayout(slPnRoomInfo);
 		
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, lblRoomInfoTitle, 10, SpringLayout.NORTH, pnRoomInfo);
-		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, lblRoomInfoTitle, 130, SpringLayout.WEST, pnRoomInfo);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, lblRoomInfoTitle, 10, SpringLayout.NORTH, pnRoomInfo);
+		slPnRoomInfo.putConstraint(SpringLayout.WEST, lblRoomInfoTitle, 130, SpringLayout.WEST, pnRoomInfo);
 		pnRoomInfo.add(lblRoomInfoTitle);
 		
 		JLabel lblRoomType = new JLabel("Room type:");
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, lblRoomType, 18, SpringLayout.SOUTH, lblRoomInfoTitle);
-		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, lblRoomType, 137, SpringLayout.WEST, pnRoomInfo);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, lblRoomType, 18, SpringLayout.SOUTH, lblRoomInfoTitle);
+		slPnRoomInfo.putConstraint(SpringLayout.WEST, lblRoomType, 137, SpringLayout.WEST, pnRoomInfo);
 		pnRoomInfo.add(lblRoomType);
 		
 		JLabel lblSingleBeds = new JLabel("Single beds:");
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, lblSingleBeds, 21, SpringLayout.SOUTH, lblRoomType);
-		sl_pnRoomInfo.putConstraint(SpringLayout.EAST, lblSingleBeds, 0, SpringLayout.EAST, lblRoomType);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, lblSingleBeds, 21, SpringLayout.SOUTH, lblRoomType);
+		slPnRoomInfo.putConstraint(SpringLayout.EAST, lblSingleBeds, 0, SpringLayout.EAST, lblRoomType);
 		pnRoomInfo.add(lblSingleBeds);
 		
-		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, spnSingleBeds, 6, SpringLayout.EAST, lblSingleBeds);
+		slPnRoomInfo.putConstraint(SpringLayout.WEST, spnSingleBeds, 6, SpringLayout.EAST, lblSingleBeds);
 		spnSingleBeds.setModel(new SpinnerNumberModel(0, 0, 3, 1));
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, spnSingleBeds, -3, SpringLayout.NORTH, lblSingleBeds);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, spnSingleBeds, -3, SpringLayout.NORTH, lblSingleBeds);
 		pnRoomInfo.add(spnSingleBeds);
 		
 		JLabel lblDoubleBeds = new JLabel("Double beds:");
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, lblDoubleBeds, 23, SpringLayout.SOUTH, lblSingleBeds);
-		sl_pnRoomInfo.putConstraint(SpringLayout.EAST, lblDoubleBeds, 0, SpringLayout.EAST, lblRoomType);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, lblDoubleBeds, 23, SpringLayout.SOUTH, lblSingleBeds);
+		slPnRoomInfo.putConstraint(SpringLayout.EAST, lblDoubleBeds, 0, SpringLayout.EAST, lblRoomType);
 		pnRoomInfo.add(lblDoubleBeds);
 		
-		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, spnDoubleBeds, 6, SpringLayout.EAST, lblDoubleBeds);
+		slPnRoomInfo.putConstraint(SpringLayout.WEST, spnDoubleBeds, 6, SpringLayout.EAST, lblDoubleBeds);
 		spnDoubleBeds.setModel(new SpinnerNumberModel(0, 0, 3, 1));
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, spnDoubleBeds, -3, SpringLayout.NORTH, lblDoubleBeds);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, spnDoubleBeds, -3, SpringLayout.NORTH, lblDoubleBeds);
 		pnRoomInfo.add(spnDoubleBeds);
 		
 		JButton btnSaveRoom = new JButton("Save room");
-		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, btnSaveRoom, 144, SpringLayout.WEST, pnRoomInfo);
-		sl_pnRoomInfo.putConstraint(SpringLayout.EAST, btnSaveRoom, -144, SpringLayout.EAST, pnRoomInfo);
+		slPnRoomInfo.putConstraint(SpringLayout.WEST, btnSaveRoom, 144, SpringLayout.WEST, pnRoomInfo);
+		slPnRoomInfo.putConstraint(SpringLayout.EAST, btnSaveRoom, -144, SpringLayout.EAST, pnRoomInfo);
 		btnSaveRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnSaveRoomClick();
 			}
 		});
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, btnSaveRoom, 20, SpringLayout.SOUTH, spnDoubleBeds);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, btnSaveRoom, 20, SpringLayout.SOUTH, spnDoubleBeds);
 		pnRoomInfo.add(btnSaveRoom);
 		
-		sl_pnRoomInfo.putConstraint(SpringLayout.NORTH, cbRoomType, -3, SpringLayout.NORTH, lblRoomType);
-		sl_pnRoomInfo.putConstraint(SpringLayout.WEST, cbRoomType, 6, SpringLayout.EAST, lblRoomType);
+		slPnRoomInfo.putConstraint(SpringLayout.NORTH, cbRoomType, -3, SpringLayout.NORTH, lblRoomType);
+		slPnRoomInfo.putConstraint(SpringLayout.WEST, cbRoomType, 6, SpringLayout.EAST, lblRoomType);
 		cbRoomType.setModel(new DefaultComboBoxModel(new String[] {"Regular", "VIP"}));
 		pnRoomInfo.add(cbRoomType);
 		
@@ -184,7 +184,7 @@ public class RoomManagerWindow {
 		springLayout.putConstraint(SpringLayout.EAST, cbHotel, -78, SpringLayout.EAST, frmRoomManager.getContentPane());
 		String[] cbHotelContents = new String[5];
 		for (int i = 0; i < 5; i++)
-			cbHotelContents[i] = "Hotel " + Integer.toString(i+1) + " - " + GlobalItems.hotelNames[i];
+			cbHotelContents[i] = "Hotel " + Integer.toString(i+1) + " - " + GlobalItems.HOTEL_NAMES[i];
 		cbHotel.setModel(new DefaultComboBoxModel(cbHotelContents));
 		frmRoomManager.getContentPane().add(cbHotel);
 	}
@@ -206,7 +206,7 @@ public class RoomManagerWindow {
 		}
 		pnRoomInfo.setVisible(true);
 		
-		lblRoomInfoTitle.setText("Information for room " + Integer.toString(selectedRoomId) + " in hotel " + GlobalItems.hotelNames[selectedHotel-1]);
+		lblRoomInfoTitle.setText("Information for room " + Integer.toString(selectedRoomId) + " in hotel " + GlobalItems.HOTEL_NAMES[selectedHotel-1]);
 		cbRoomType.setSelectedIndex(room.getType().equals(Room.TYPE_REGULAR) ? 0 : 1);
 		spnSingleBeds.setValue(room.getSingleBeds());
 		spnDoubleBeds.setValue(room.getDoubleBeds());

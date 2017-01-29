@@ -19,9 +19,9 @@ public class WindowTest {
 	@Test
 	public void testMainWindow() {
 		MainWindow window = new MainWindow();
-		window.Events(); 
+		window.events(); 
 	}
 
-
+  
 
 }

@@ -95,107 +95,6 @@ public class DBController {
 		}
 		return ret;
 	}
-
-	// TODO Delete.
-	public void fillRoomData() {
-		// Fill db with random rooms
-		
-		
-		connect();
-		Random r = new Random();
-		final int amount = 50;
-		
-		try {
-			for (int i = 0; i < amount;i++) {
-				if ((i+1) % (amount/5) == 0)
-					System.out.println(Integer.toString(i+1));
-				
-				int singleBeds = r.nextInt(4);
-				int doubleBeds = r.nextInt(4);
-				
-				if (Math.max(singleBeds, doubleBeds) == 0) {
-					if (r.nextInt(2) == 0)
-						singleBeds++;
-					else
-						doubleBeds++;
-				}
-				
-				int children = r.nextInt(4);
-				boolean sale = r.nextInt(3) == 2;
-				String type = r.nextInt(2) == 0 ? "'vip'" : "'reg'";
-				
-				
-				stmt.executeUpdate("insert into rooms1 values(" + Integer.toString(i+1) + ", " + Integer.toString(singleBeds) + ", " + Integer.toString(doubleBeds) + ", " + type + ", " + Boolean.toString(sale) + ", " + Integer.toString(children) + ")");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		disconnect();
-	}
-	
-	// TODO Delete.
-	public void fillCustomerData() {
-		String chars = "1234567890";
-		connect();
-		Random r = new Random();
-		final int amount = 100;
-		
-		try {
-			for (int i = 0; i < amount;i++) {
-				if ((i+1) % 20 == 0)
-					System.out.println(i+1);
-				
-				
-				String firstName = "name_" + Integer.toString(i+1);
-				String lastName = "surname_" + Integer.toString(i+1);
-				String email = lastName + "@gmail.com";
-				String number = "";
-				for (int j = 0; j < 10; j++)
-					number += chars.charAt(r.nextInt(chars.length()));
-				
-				String paymentType = r.nextInt(2) == 0 ? Customer.CREDIT_CARD : Customer.DEBIT_CARD;
-				
-				stmt.executeUpdate("insert into customers values(" + Integer.toString(i+1) + ",'" + firstName + "', '" + lastName + "', '" + email + "', '" + number + "', '" + paymentType + "')");
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		disconnect();
-	}
-
-	// TODO Delete.
-	public void fillReservationData() {
-		connect();
-		Random r = new Random();
-		
-		try {
-			for (int i = 0 ;; i++) {
-				
-				int month = (i%12)+1;
-				int day = (i/12) * 10 + r.nextInt(3) + 1;
-				String dateStart = "2017-" + Integer.toString(month) + "-" + Integer.toString(day);
-				String dateEnd = "2017-" + Integer.toString(month) + "-" + Integer.toString(day + r.nextInt(4)+1);
-				String customer = Integer.toString(r.nextInt(100)+1);
-				String room = Integer.toString(r.nextInt(50)+1);
-				String status = r.nextInt(4) == 0 ? Reservation.STATUS_CANCELLED : Reservation.STATUS_ACTIVE;
-				
-				String query = "insert into reservations1 values(" + Integer.toString(i+1) + ",'" + dateStart + "', '" + dateEnd + "'," + customer + "," + room + ",'" + status + "')";
-				stmt.executeUpdate(query);
-				
-				if (month == 12 && day >= 20) {
-					System.out.println("Finishing at i = " + Integer.toString(i));
-					break;
-				}
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		disconnect();
-	}
-	
 	// TODO fix for ignore.
 	public Room[] findRooms(int hotel, int singleBeds, int doubleBeds, String type, Date availableFrom, Date availableTo, boolean ignoreDate) {
 		/*
@@ -232,7 +131,7 @@ public class DBController {
 			query += " and (start is null or status = '" + Reservation.STATUS_CANCELLED + "' or start > " + rangeEnd + " or end < " + rangeStart + ")";
 		}
 		query += " order by " + table + ".id";
-		System.out.println(query);
+	
 		
 		try {
 			rs = stmt.executeQuery(query);
@@ -260,7 +159,7 @@ public class DBController {
 			query2 += " and (status='" + Reservation.STATUS_ACTIVE + "' and (start <= " + rangeEnd + " and end >= " + rangeStart + "))";
 		}
 		query2 += " order by " + table + ".id";
-		System.out.println(query2);
+		
 		
 		try {
 			rs = stmt.executeQuery(query2);
@@ -287,7 +186,7 @@ public class DBController {
 		return rooms.toArray(new Room[0]); // Convert to an array before returning.
 	}
 	
-	public Reservation[] getDate(){
+	public Reservation[] getReservations(){
 		Reservation res = null;
 		ArrayList<Reservation> reserv = new ArrayList<Reservation>();
 		connect();
@@ -308,22 +207,22 @@ public class DBController {
 	}
 	
 	public User[] showUsers(){
-		User Us = null;
-		ArrayList<User> Users = new ArrayList<User>();
+		User us = null;
+		ArrayList<User> users = new ArrayList<User>(); 
 		connect();
 		try {
 			rs = stmt.executeQuery("select * from users ;");
 			
 			while(rs.next()) {
-				Us = new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"), rs.getString("type"));
-				Users.add(Us);
+				us = new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"), rs.getString("type"));
+				users.add(us);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		disconnect();
-		return Users.toArray(new User[0]);
+		return users.toArray(new User[0]);
 	}
 	
 	public Discount[] showDiscount(){
@@ -381,7 +280,7 @@ public class DBController {
 		}
 		
 		disconnect();
-		System.out.println(cust);
+		
 		return cust;
 		
 	}
@@ -566,16 +465,14 @@ public class DBController {
 		
 		String query ="select months,income from statistics;";
 			JDBCCategoryDataset dataset = new JDBCCategoryDataset(conn,query);
-			//dataset.setValue(70, "slap", "columnKey");
+		
 			
 			JFreeChart chart = ChartFactory.createLineChart("INCOME", "Months", "Euros", dataset);
 			
 			CategoryPlot plot = chart.getCategoryPlot();
 			plot.setRangeGridlinePaint(Color.black);
 			chartPanel = new ChartPanel(chart);
-	//	rs = stmt.executeQuery(query);
-			
-			
+	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

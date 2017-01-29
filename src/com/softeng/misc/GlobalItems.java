@@ -3,11 +3,11 @@ package com.softeng.misc;
 import java.util.Calendar;
 import java.util.Date;
 
-public class GlobalItems {
+public final class GlobalItems {
 	// This class holds all generic 'public static' methods and variables.
 
 	public static User currentUser;
-	public static final String[] hotelNames = { "Athens", "Crete", "Mykonos", "Thessaloniki", "Patra" };
+	public static final String[] HOTEL_NAMES = { "Athens", "Crete", "Mykonos", "Thessaloniki", "Patra" };
 
 	private GlobalItems() {} // Cannot be instantiated.
 

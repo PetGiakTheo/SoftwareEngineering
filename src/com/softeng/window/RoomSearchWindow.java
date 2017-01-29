@@ -109,7 +109,7 @@ public class RoomSearchWindow {
 
 		String[] cbHotelContents = new String[5];
 		for (int i = 0; i < 5; i++)
-			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + GlobalItems.hotelNames[i];
+			cbHotelContents[i] = "Hotel " + Integer.toString(i + 1) + " - " + GlobalItems.HOTEL_NAMES[i];
 		cbHotel.setModel(new DefaultComboBoxModel(cbHotelContents));
 		pnFilters.add(cbHotel, "cell 6 0 4 1,growx");
 
@@ -129,9 +129,9 @@ public class RoomSearchWindow {
 		pnFilters.add(spnDouble, "cell 6 3,alignx left,aligny center");
 		spnDouble.setModel(new SpinnerNumberModel(0, 0, 3, 1));
 
-		JLabel lblNewLabel_1 = new JLabel("Single beds:");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		pnFilters.add(lblNewLabel_1, "cell 4 2,alignx right,aligny center");
+		JLabel lblNewLabel1 = new JLabel("Single beds:");
+		lblNewLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+		pnFilters.add(lblNewLabel1, "cell 4 2,alignx right,aligny center");
 
 		// Set mininum and maximum selectable dates
 		Calendar min = Calendar.getInstance();
@@ -188,12 +188,12 @@ public class RoomSearchWindow {
 
 		pnRooms.add(lstRooms, "cell 0 0,grow");
 		
-		JLabel lblNewLabel_2 = new JLabel("Rooms");
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 60, SpringLayout.WEST, pnRooms);
-		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_2, -60, SpringLayout.EAST, pnRooms);
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, 0, SpringLayout.SOUTH, lblNewLabel);
-		frmRoomSearch.getContentPane().add(lblNewLabel_2);
+		JLabel lblNewLabel2 = new JLabel("Rooms");
+		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel2, 60, SpringLayout.WEST, pnRooms);
+		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel2, -60, SpringLayout.EAST, pnRooms);
+		lblNewLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel2, 0, SpringLayout.SOUTH, lblNewLabel);
+		frmRoomSearch.getContentPane().add(lblNewLabel2);
 		
 		btnBookRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
