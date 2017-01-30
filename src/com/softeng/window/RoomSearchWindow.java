@@ -191,6 +191,13 @@ public class RoomSearchWindow {
 		springLayout.putConstraint(SpringLayout.SOUTH, btnBookRoom, 0, SpringLayout.SOUTH, btnSearch);
 		springLayout.putConstraint(SpringLayout.EAST, btnBookRoom, -20, SpringLayout.EAST, pnRooms);
 		frmRoomSearch.getContentPane().add(btnBookRoom);
+		
+		JLabel lblPrice = new JLabel(String.format("Regular rooms: %.2f Euros/day   VIP rooms: %.2f Euros/day.", Room.PRICE_PER_DAY_REGULAR, Room.PRICE_PER_DAY_VIP));
+		springLayout.putConstraint(SpringLayout.WEST, lblPrice, 10, SpringLayout.WEST, frmRoomSearch.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblPrice, -10, SpringLayout.EAST, frmRoomSearch.getContentPane());
+		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblPrice, -40, SpringLayout.SOUTH, frmRoomSearch.getContentPane());
+		frmRoomSearch.getContentPane().add(lblPrice);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnSearchClick();
