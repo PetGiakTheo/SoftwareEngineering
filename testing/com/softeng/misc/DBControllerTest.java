@@ -46,7 +46,8 @@ public class DBControllerTest {
 	@Test 
 	public void testAuthenticate() {
 		DBController test = new DBController();
-		assertEquals("Result",null,test.authenticate("steliosda", "ntou"));
+		String staff = test.authenticate("stelios", "ntou").getUsername();
+		assertEquals("Result",staff,test.authenticate("stelios", "ntou").getUsername());
 	}
 
 }
