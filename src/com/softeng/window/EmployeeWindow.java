@@ -1,12 +1,10 @@
 package com.softeng.window;
 
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 
-import com.softeng.misc.DBController;
 import com.softeng.misc.GlobalItems;
 
 import javax.swing.JLabel;
@@ -15,12 +13,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Dialog.ModalExclusionType;
 
 public class EmployeeWindow {
 
 	JFrame frmEmployee;
-	private DBController database;
 
 	/**
 	 * Create the application.
@@ -34,7 +30,6 @@ public class EmployeeWindow {
 	 */
 	private void initialize() {
 		JOptionPane.showMessageDialog(null, "Welcome " + GlobalItems.currentUser.getUsername() + "!", "Notice", JOptionPane.INFORMATION_MESSAGE);
-		database = new DBController();
 		frmEmployee = new JFrame();
 		frmEmployee.setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/com/softeng/resources/icon.png")));
 		if (GlobalItems.currentUser != null)
